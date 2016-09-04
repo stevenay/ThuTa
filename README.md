@@ -10,6 +10,6 @@ Two Developers
 
 ![result continued](https://cloud.githubusercontent.com/assets/6089226/18230131/040e97b6-72b8-11e6-8ba9-a38bb6e1054f.png)
 
-![result continued](https://i.ytimg.com/vi/R-3nQX8EE8o/maxresdefault.jpg)
+
 
 

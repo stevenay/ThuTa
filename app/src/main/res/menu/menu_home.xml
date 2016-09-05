@@ -2,9 +2,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activities.HomeActivity">
+
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:id="@+id/action_search"
         android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_search_white_30dp"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_profile"
+        android:title="@string/action_settings"
+        android:icon="@drawable/ic_circled_user_male_96"
+        app:showAsAction="always" />
+
 </menu>

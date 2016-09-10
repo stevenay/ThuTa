@@ -1,4 +1,8 @@
 <resources>
+    <plurals name="likes_count">
+        <item quantity="one">%d like</item>
+        <item quantity="other">%d likes</item>
+    </plurals>
     <string name="app_name">PADC-FP-InteractiveTraining</string>
     <string name="action_settings">Settings</string>
 

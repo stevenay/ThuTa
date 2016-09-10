@@ -12,17 +12,17 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 
-import net.naylinaung.appdesign.R;
-import net.naylinaung.appdesign.adapters.MyCourseAdapter;
-import net.naylinaung.appdesign.utils.ScreenUtils;
-import net.naylinaung.appdesign.views.holders.MyCourseViewHolder;
+import com.padc.interactive_training.R;
+import com.padc.interactive_training.adapters.MyCourseAdapter;
+import com.padc.interactive_training.utils.ScreenUtils;
+import com.padc.interactive_training.views.holders.MyCourseViewHolder;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Dell on 9/2/2016.
+ * Created by NayLinAung on 9/2/2016.
  */
 public class RecyclerItemAnimator extends DefaultItemAnimator {
     private static final DecelerateInterpolator DECCELERATE_INTERPOLATOR = new DecelerateInterpolator();

@@ -7,11 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import net.naylinaung.appdesign.AppDesignApp;
-import net.naylinaung.appdesign.R;
-import net.naylinaung.appdesign.data.vos.CourseVO;
-import net.naylinaung.appdesign.views.holders.MyCourseViewHolder;
-import net.naylinaung.appdesign.views.items.LoadingCourseItemView;
+import com.padc.interactive_training.InteractiveTrainingApp;
+import com.padc.interactive_training.R;
+import com.padc.interactive_training.data.vos.CourseVO;
+import com.padc.interactive_training.views.holders.MyCourseViewHolder;
+import com.padc.interactive_training.views.items.LoadingCourseItemView;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class MyCourseAdapter extends RecyclerView.Adapter<MyCourseViewHolder> {
     private boolean showLoadingView = false;
 
     public MyCourseAdapter(List<CourseVO> courseList, MyCourseViewHolder.ControllerCourseItem controllerCourseItem) {
-        this.context = AppDesignApp.getContext();
+        this.context = InteractiveTrainingApp.getContext();
         this.mCourseList = courseList;
         this.controllerCourseItem = controllerCourseItem;
     }

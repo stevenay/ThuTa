@@ -1,27 +1,43 @@
 package com.padc.interactive_training.activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.transition.Fade;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 
 import com.padc.interactive_training.R;
+import com.padc.interactive_training.adapters.MyCourseAdapter;
+import com.padc.interactive_training.animators.RecyclerItemAnimator;
+import com.padc.interactive_training.data.vos.CourseVO;
 import com.padc.interactive_training.utils.ScreenUtils;
+import com.padc.interactive_training.views.holders.MyCourseViewHolder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity
+        implements MyCourseViewHolder.ControllerCourseItem {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -53,6 +69,8 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        ButterKnife.bind(this, this);
+        setupWindowAnimations();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -64,14 +82,14 @@ public class HomeActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        setupMyCourse();
+
+        if (savedInstanceState == null) {
+            pendingIntroAnimation = true;
+            prepareIntroAnimation();
+        } else {
+            myCourseAdapter.updateItems(false, new ArrayList<CourseVO>());
+        }
     }
 
     private void setupMyCourse() {
@@ -90,9 +108,78 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (ACTION_SHOW_LOADING_ITEM.equals(intent.getAction())) {
+            showFeedLoadingItemDelayed();
+        }
+    }
+
+    private void prepareIntroAnimation() {
+        fabSearch.setTranslationY(2 * getResources().getDimensionPixelOffset(R.dimen.btn_fab_size));
+        toolbar.setTranslationY(-ACTION_BAR_SIZE);
+        tvScreenTitle.setTranslationY(-ACTION_BAR_SIZE);
+    }
+
+    private void showFeedLoadingItemDelayed() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                rvMyCourse.smoothScrollToPosition(0);
+                myCourseAdapter.showLoadingView();
+            }
+        }, 500);
+    }
+
+    private void startIntroAnimation() {
+
+        inboxMenuItem.getActionView().setTranslationY(-ACTION_BAR_SIZE);
+
+        toolbar.animate()
+                .translationY(0)
+                .setDuration(ANIM_DURATION_TOOLBAR)
+                .setStartDelay(300);
+        tvScreenTitle.animate()
+                .translationY(0)
+                .setDuration(ANIM_DURATION_TOOLBAR)
+                .setStartDelay(400);
+        inboxMenuItem.getActionView().animate()
+                .translationY(0)
+                .setDuration(ANIM_DURATION_TOOLBAR)
+                .setStartDelay(500)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        startContentAnimation();
+                    }
+                })
+                .start();
+    }
+
+    private void startContentAnimation() {
+        fabSearch.animate()
+                .translationY(0)
+                .setInterpolator(new OvershootInterpolator(1.f))
+                .setStartDelay(300)
+                .setDuration(ANIM_DURATION_FAB)
+                .start();
+
+        myCourseAdapter.updateItems(true, prepareSampleCourseList());
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_home, menu);
+
+        inboxMenuItem = menu.findItem(R.id.action_profile);
+        inboxMenuItem.setActionView(R.layout.menu_item_view);
+
+        if (pendingIntroAnimation) {
+            pendingIntroAnimation = false;
+            startIntroAnimation();
+        }
+
         return true;
     }
 
@@ -110,4 +197,72 @@ public class HomeActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void setupWindowAnimations() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Fade explode = new Fade();
+            explode.setDuration(800);
+            getWindow().setExitTransition(explode);
+        }
+    }
+
+    public List<CourseVO> prepareSampleCourseList() {
+        List<CourseVO> courseList = new ArrayList<>();
+
+        CourseVO courseOne = new CourseVO();
+        courseOne.setTitle("UV ေရာင္ျခည္ကို ဘယ္လိုကာကြယ္မလဲ");
+        courseOne.setCategoryName("LifeStyle");
+        courseOne.setDurationInMinute(15);
+        courseOne.setAuthorName("Admin Team");
+        courseOne.setColorCode("#aed582");
+        courseOne.setImageUrl("co_terrace.png");
+        courseList.add(courseOne);
+
+        CourseVO courseTwo = new CourseVO();
+        courseTwo.setTitle("အားကစားကို နည္းမွန္လမ္းမွန္ ျပဳလုပ္နည္းမ်ား");
+        courseTwo.setCategoryName("Sports and Fitness");
+        courseTwo.setDurationInMinute(15);
+        courseTwo.setAuthorName("Admin Team");
+        courseTwo.setColorCode("#81c683");
+        courseOne.setImageUrl("co_runner.png");
+        courseList.add(courseTwo);
+
+        CourseVO courseThree = new CourseVO();
+        courseThree.setTitle("C# အသံုးျပဳ Console Application တစ္ခု ဘယ္လိုတည္ေဆာက္မလဲ");
+        courseThree.setCategoryName("Programming");
+        courseThree.setDurationInMinute(10);
+        courseThree.setAuthorName("Admin Team");
+        courseThree.setColorCode("#25c6da");
+        courseOne.setImageUrl("co_terrace.png");
+        courseList.add(courseThree);
+
+        return courseList;
+    }
+
+    //region ControllerCourseItem Implementation
+    @Override
+    public void onTapCourse(CourseVO course) {
+
+    }
+
+    @Override
+    public void onCommentsClick(View v, int position) {
+
+    }
+
+    @Override
+    public void onMoreClick(View v, int position) {
+
+    }
+
+    @Override
+    public void onProfileClick(View v) {
+
+    }
+
+    @Override
+    public void onCoverImageClick() {
+
+    }
+    //endregion
 }

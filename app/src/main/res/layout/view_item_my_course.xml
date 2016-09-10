@@ -62,7 +62,7 @@
             android:textColor="@color/primary_text"
             />
 
-        <net.naylinaung.appdesign.components.MMTextView
+        <com.padc.interactive_training.components.MMTextView
             android:id="@+id/tv_course_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

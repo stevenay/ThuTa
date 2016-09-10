@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -56,15 +58,18 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <fragment android:id="@+id/fragment"
-        android:name="com.padc.interactive_training.fragments.HomeFragment"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvMyCourse"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:layout="@layout/fragment_home" />
+        android:layout_below="@id/toolbar"
+        android:paddingBottom="@dimen/margin_medium"
+        android:background="@color/menuPrimary"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

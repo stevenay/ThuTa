@@ -17,7 +17,7 @@
         android:paddingTop="16dp"
         android:src="@drawable/co_terrace" />
 
-    <net.naylinaung.appdesign.components.MMTextView
+    <com.padc.interactive_training.components.MMTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_course_cover_image"

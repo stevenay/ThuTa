@@ -9,6 +9,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".activities.HomeActivity"
             android:label="@string/app_name"
@@ -46,6 +47,11 @@
                 android:value="com.padc.interactive_training.activities.HomeActivity" />
         </activity>
         <activity android:name=".activities.RegisteredCourseDetailActivity"></activity>
+
+        <activity
+            android:name=".activities.RegisteredCourseDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

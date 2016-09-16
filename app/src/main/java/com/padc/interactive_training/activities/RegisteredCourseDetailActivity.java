@@ -21,6 +21,7 @@ import com.padc.interactive_training.adapters.CourseHeaderPagerAdapter;
 import com.padc.interactive_training.adapters.CoursePagerAdapter;
 import com.padc.interactive_training.components.PageIndicatorView;
 import com.padc.interactive_training.data.vos.CourseVO;
+import com.padc.interactive_training.fragments.ChapterListFragment;
 import com.padc.interactive_training.fragments.CourseInfoHeaderFragment;
 import com.padc.interactive_training.fragments.CourseProgressHeaderFragment;
 import com.padc.interactive_training.utils.MMFontUtils;

@@ -13,6 +13,7 @@
     <dimen name="margin_medium_3">18dp</dimen>
     <dimen name="margin_large">24dp</dimen>
     <dimen name="margin_xlarge">32dp</dimen>
+    <dimen name="margin_xxlarge">48dp</dimen>
 
     <dimen name="text_small">12sp</dimen>
     <dimen name="text_regular">14sp</dimen>
@@ -24,8 +25,12 @@
     <dimen name="text_big_2x">60sp</dimen>
     <dimen name="text_big_3x">80sp</dimen>
 
+    <!-- Default Button Size -->
+    <dimen name="btn_big">64dp</dimen>
+
+    <!-- Specific Declaration -->
     <dimen name="padding_bottom_for_fab">80dp</dimen>
-    <dimen name="detail_backdrop_height">256dp</dimen>
+    <dimen name="detail_backdrop_height">235dp</dimen>
     <dimen name="left_menu_width">280dp</dimen>
     <dimen name="user_profile_image_size">64dp</dimen>
     <dimen name="user_profile_image_size_large">90dp</dimen>
@@ -52,4 +57,9 @@
     <dimen name="btn_fab_size">56dp</dimen>
     <dimen name="btn_fab_margins">16dp</dimen>
     <dimen name="default_elevation">8dp</dimen>
+    <dimen name="tab_height">48dp</dimen>
+    <dimen name="lesson_image_size">128dp</dimen>
+
+    <!-- SwipeStack -->
+    <dimen name="default_stack_spacing">12dp</dimen>
 </resources>

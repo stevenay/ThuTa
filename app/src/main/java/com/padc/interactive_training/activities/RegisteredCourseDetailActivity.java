@@ -17,8 +17,12 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.R;
+import com.padc.interactive_training.adapters.CourseHeaderPagerAdapter;
 import com.padc.interactive_training.adapters.CoursePagerAdapter;
+import com.padc.interactive_training.components.PageIndicatorView;
 import com.padc.interactive_training.data.vos.CourseVO;
+import com.padc.interactive_training.fragments.CourseInfoHeaderFragment;
+import com.padc.interactive_training.fragments.CourseProgressHeaderFragment;
 import com.padc.interactive_training.utils.MMFontUtils;
 
 import butterknife.BindView;
@@ -114,7 +118,7 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity {
                 if (scrollRange + verticalOffset == 0) {
                     collapsingToolbar.setTitle(courseVO.getTitle());
                     isShow = true;
-                } else if(isShow) {
+                } else if (isShow) {
                     collapsingToolbar.setTitle(" ");//carefull there should a space between double quote otherwise it wont work
                     isShow = false;
                 }
@@ -147,15 +151,14 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity {
 
     }
 
-    private CourseVO prepareSampleCourseVO()
-    {
+    private CourseVO prepareSampleCourseVO() {
         CourseVO courseVO = new CourseVO();
         courseVO.setTitle("UV ေရာင္ျခည္ကို ဘယ္လိုကာကြယ္မလဲ");
         return courseVO;
     }
 
-    private void navigateToCourseFlow()
-    {
+    private void navigateToCourseFlow() {
 
     }
+}
 

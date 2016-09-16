@@ -8,4 +8,7 @@
 
     <string name="home_screen_title">ပင္မ စာသင္ခန္း</string>
     <string name="home_screen_small_title">(ေရြးခ်ယ္ထားေသာ)</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -45,6 +45,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.padc.interactive_training.activities.HomeActivity" />
         </activity>
+        <activity android:name=".activities.RegisteredCourseDetailActivity"></activity>
     </application>
 
 </manifest>

@@ -17,6 +17,7 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.R;
+import com.padc.interactive_training.adapters.CoursePagerAdapter;
 import com.padc.interactive_training.data.vos.CourseVO;
 import com.padc.interactive_training.utils.MMFontUtils;
 

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="course_background_sample">#afd582</color>
+    <color name="course_background_sample_ish">#FF9BBE74</color>
+    <color name="course_background_dark_sample">#8cc99b</color>
+    <color name="course_background_progress_bar">#FF9BBE74</color>
+
     <color name="menuPrimary">#2f4050</color>
     <!-- Primer Primary Color #536e79 -->
     <color name="homeBackground">#273a4a</color>
@@ -21,7 +26,7 @@
 
     <!-- theme on white -->
     <color name="text_white_ish">#EEE</color>
-    <color name="white_full">#FFF</color>
+    <color name="white_full">#fff</color>
 
     <!-- theme on black -->
     <color name="text_black_ish">#111</color>
@@ -30,6 +35,10 @@
     <!-- overlays -->
     <color name="black_overlay">#9000</color>
     <color name="black_overlay_light">#6000</color>
+
+    <!-- chapter disabled -->
+    <color name="chapter_disabled_background">#fff</color>
+    <color name="chapter_disabled_text_color">#999</color>
 
     <!-- InstaMaterial Theme -->
     <color name="style_color_primary">#2d5d82</color>
@@ -59,4 +68,8 @@
     <!-- HMT question start-->
     <color name="question_view_background">#81c687</color>
     <!-- HMT question end-->
+    <color name="transparent">#00000000</color>
+
+    <color name="backgroundColor">#E8E8E0</color>
+    <color name="backgroundColorPress">#DBDBD3</color>
 </resources>

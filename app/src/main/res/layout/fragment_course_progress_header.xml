@@ -1,0 +1,114 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/course_background_sample"
+    tools:context="com.padc.interactive_training.fragments.CourseProgressHeaderFragment">
+
+    <!--<net.naylinaung.appdesign.components.MMTextView-->
+        <!--android:id="@+id/tv_fragment_title"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_marginTop="@dimen/margin_medium"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:text="Course Progress"-->
+        <!--android:textAllCaps="true"-->
+        <!--android:textColor="@color/white_full"-->
+        <!--android:textSize="@dimen/text_regular_3x" />-->
+
+    <com.github.lzyzsd.circleprogress.ArcProgress
+        android:layout_marginLeft="50dp"
+        android:id="@+id/dp_reading_progress"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_medium_2"
+        android:layout_marginBottom="@dimen/margin_medium"
+        app:arc_text_color="@color/black_overlay"
+        app:arc_unfinished_color="@color/course_background_progress_bar"
+        app:arc_progress="40"
+        app:arc_stroke_width="8dp"
+        app:arc_bottom_text="Reading"/>
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_toRightOf="@id/dp_reading_progress"-->
+        <!--android:layout_alignBottom="@id/dp_reading_progress">-->
+
+        <!--<net.naylinaung.appdesign.components.MMTextView-->
+            <!--android:id="@+id/tv_earned_label"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginBottom="@dimen/margin_smallest"-->
+            <!--android:text="earned"-->
+            <!--android:textColor="@color/white_full"-->
+            <!--android:textSize="@dimen/text_regular_3x" />-->
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/layout_cards_done"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/tv_earned_label"-->
+            <!--android:layout_marginLeft="@dimen/margin_medium_3"-->
+            <!--android:orientation="vertical">-->
+
+            <!--<net.naylinaung.appdesign.components.MMTextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:textColor="@color/black_overlay"-->
+                <!--android:textSize="@dimen/text_regular_3x"-->
+                <!--android:textStyle="bold"-->
+                <!--android:text="45"/>-->
+
+            <!--<net.naylinaung.appdesign.components.MMTextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:textSize="@dimen/text_small"-->
+                <!--android:text="Experience"/>-->
+
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/tv_earned_label"-->
+            <!--android:layout_toRightOf="@id/layout_cards_done"-->
+            <!--android:layout_marginLeft="@dimen/margin_medium_3"-->
+            <!--android:orientation="vertical">-->
+
+            <!--<net.naylinaung.appdesign.components.MMTextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:textColor="@color/black_overlay"-->
+                <!--android:textSize="@dimen/text_regular_3x"-->
+                <!--android:textStyle="bold"-->
+                <!--android:text="15"/>-->
+
+            <!--<net.naylinaung.appdesign.components.MMTextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textSize="@dimen/text_small"-->
+                <!--android:text="Cashes"/>-->
+
+        <!--</LinearLayout>-->
+
+    <!--</RelativeLayout>-->
+
+    <net.naylinaung.appdesign.components.MMTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dp_reading_progress"
+        android:gravity="center_horizontal"
+        android:text="၆၀% ဖတ္ဖို႔ က်န္ေသးတယ္"
+        android:textColor="@color/white_full"
+        android:textSize="@dimen/text_regular_3x" />
+
+</RelativeLayout>

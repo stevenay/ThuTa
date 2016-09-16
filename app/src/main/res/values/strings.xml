@@ -75,4 +75,7 @@
     <string name="true_false_question_sample">Hot Diggity Dog Food\'s media agency has to spend a lot of man hours negotiating the standard media buy.</string>
     <string name="title_activity_test">TestActivity</string>
     <!-- Development Package, dir, path, notation finish-->
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

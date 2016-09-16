@@ -1,0 +1,29 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/course_background_sample"
+    tools:context="com.padc.interactive_training.fragments.CourseInfoHeaderFragment">
+
+    <ImageView
+        android:id="@+id/iv_course_cover_image"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:background="#aed582"
+        android:paddingBottom="24dp"
+        android:paddingTop="16dp"
+        android:src="@drawable/co_terrace" />
+
+    <net.naylinaung.appdesign.components.MMTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_course_cover_image"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/text_regular_3x"
+        android:textColor="@color/white_full"
+        android:text="UV ေရာင္ျခည္ကို ဘယ္လိုကာကြယ္မလဲ"/>
+
+</RelativeLayout>

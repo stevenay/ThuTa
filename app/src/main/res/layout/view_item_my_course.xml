@@ -107,16 +107,16 @@
 
             <ImageButton
                 android:id="@+id/btnLike"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/margin_large"
+                android:layout_height="@dimen/margin_large"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_heart_outline_grey" />
 
             <ImageButton
                 android:id="@+id/btnComments"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/margin_large"
+                android:layout_height="@dimen/margin_large"
                 android:layout_marginLeft="@dimen/margin_medium"
                 android:background="@drawable/btn_feed_action"
                 android:scaleType="centerCrop"
@@ -124,8 +124,8 @@
 
             <ImageButton
                 android:id="@+id/btnMore"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/margin_large"
+                android:layout_height="@dimen/margin_large"
                 android:layout_marginLeft="@dimen/margin_medium"
                 android:scaleType="centerCrop"
                 android:background="@drawable/btn_feed_action"
@@ -146,8 +146,8 @@
                     android:id="@+id/tsLikesCounter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:layout_marginRight="@dimen/margin_medium"
                     android:inAnimation="@anim/slide_in_likes_counter"
                     android:outAnimation="@anim/slide_out_likes_counter">
 

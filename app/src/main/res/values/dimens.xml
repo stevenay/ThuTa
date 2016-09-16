@@ -62,4 +62,6 @@
 
     <!-- SwipeStack -->
     <dimen name="default_stack_spacing">12dp</dimen>
+    <dimen name="header_image_size">128dp</dimen>
+    <dimen name="header_progress_size">120dp</dimen>
 </resources>

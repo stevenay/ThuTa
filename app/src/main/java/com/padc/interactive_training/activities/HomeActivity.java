@@ -6,12 +6,17 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.padc.interactive_training.R;
 import com.padc.interactive_training.adapters.MyCourseAdapter;
@@ -37,7 +43,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeActivity extends AppCompatActivity
-        implements MyCourseViewHolder.ControllerCourseItem {
+        implements MyCourseViewHolder.ControllerCourseItem, NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -81,6 +87,15 @@ public class HomeActivity extends AppCompatActivity
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         setupMyCourse();
 
@@ -264,5 +279,51 @@ public class HomeActivity extends AppCompatActivity
     public void onCoverImageClick() {
 
     }
+
+
+    //endregion
+
+    //region Navigation menu and its related
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.nav_my_course) {
+            Toast.makeText(getApplicationContext(), "You hit my course option", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_my_test) {
+            Toast.makeText(getApplicationContext(), "You hit my test option", Toast.LENGTH_SHORT).show();
+            //navigateToMyTest();
+        }
+        else if (id == R.id.nav_explore) {
+            Toast.makeText(getApplicationContext(), "You hit explore option", Toast.LENGTH_SHORT).show();
+        }
+        else if (id == R.id.nav_notifications) {
+            Toast.makeText(getApplicationContext(), "You hit notification option", Toast.LENGTH_SHORT).show();
+        }
+        else if (id == R.id.nav_pin_cards) {
+            Toast.makeText(getApplicationContext(), "You hit pin cards option", Toast.LENGTH_SHORT).show();
+        }
+        else if (id == R.id.nav_articles) {
+            Toast.makeText(getApplicationContext(), "You hit articles option", Toast.LENGTH_SHORT).show();
+            navigateToArticle();
+        }
+        else if (id == R.id.nav_local_training_center) {
+            Toast.makeText(getApplicationContext(), "You hit local training center option", Toast.LENGTH_SHORT).show();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return false;
+    }
+
+    /*private void navigateToMyTest() {
+        Intent intent = MyTestActivity.newIntent();
+        startActivity(intent);
+    }*/
+
+    private void navigateToArticle() {
+        Intent intent = ArticlesActivity.newIntent();
+        startActivity(intent);
+    }
+
     //endregion
 }

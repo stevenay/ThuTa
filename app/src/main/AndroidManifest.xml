@@ -19,6 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activities.ArticlesActivity"
             android:label="@string/title_activity_articles"
@@ -28,6 +29,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.padc.interactive_training.activities.HomeActivity" />
         </activity>
+
+        <activity android:name=".activities.RegisteredCourseDetailActivity"></activity>
 
     </application>
 

@@ -57,6 +57,7 @@
     <dimen name="btn_fab_size">56dp</dimen>
     <dimen name="btn_fab_margins">16dp</dimen>
     <dimen name="default_elevation">8dp</dimen>
+
     <dimen name="tab_height">48dp</dimen>
     <dimen name="lesson_image_size">128dp</dimen>
 
@@ -64,4 +65,10 @@
     <dimen name="default_stack_spacing">12dp</dimen>
     <dimen name="header_image_size">128dp</dimen>
     <dimen name="header_progress_size">120dp</dimen>
+
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+
 </resources>

@@ -25,6 +25,15 @@
             android:name=".activities.RegisteredCourseDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.ArticlesActivity"
+            android:label="@string/title_activity_articles"
+            android:parentActivityName=".activities.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.padc.interactive_training.activities.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -17,7 +17,7 @@ import com.padc.interactive_training.views.items.LoadingCourseItemView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MyCourseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class MyCourseViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.iv_course_cover_image)
     ImageView ivCourseCoverImage;
 
@@ -62,10 +62,10 @@ public class MyCourseViewHolder extends RecyclerView.ViewHolder implements View.
         ButterKnife.bind(this, view);
 
         this.mController = controller;
-        setupClickableViews(controller);
+        setupClickableViews(view, controller);
     }
 
-    private void setupClickableViews(final ControllerCourseItem controller) {
+    private void setupClickableViews(View selfView, final ControllerCourseItem controller) {
         this.ivCourseCoverImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,7 +73,12 @@ public class MyCourseViewHolder extends RecyclerView.ViewHolder implements View.
             }
         });
 
-
+        selfView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                controller.onTapCourse(mCourseVO);
+            }
+        });
     }
 
     public void bindData(CourseVO courseVO) {
@@ -81,6 +86,7 @@ public class MyCourseViewHolder extends RecyclerView.ViewHolder implements View.
         ivCourseCoverImage.setBackgroundColor(Color.parseColor(mCourseVO.getColorCode()));
         tvCourseTitle.setText(mCourseVO.getTitle());
         tvCategoryName.setText(mCourseVO.getCategoryName());
+        tvCategoryName.setTextColor(Color.parseColor(mCourseVO.getColorCode()));
         String durationAndAuthor = mCourseVO.getDurationInMinute().toString() + " mins - Admin Team";
         tvDuration.setText(durationAndAuthor);
 
@@ -96,11 +102,6 @@ public class MyCourseViewHolder extends RecyclerView.ViewHolder implements View.
 //                    .placeholder(R.drawable.stock_photo_placeholder)
 //                    .error(R.drawable.stock_photo_placeholder)
 //                    .into(ivAttraction);
-    }
-
-    @Override
-    public void onClick(View view) {
-        this.mController.onTapCourse(this.mCourseVO);
     }
 
     public static class LoadingCourseItemViewHolder extends MyCourseViewHolder {

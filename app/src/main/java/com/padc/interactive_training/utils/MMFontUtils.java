@@ -2,6 +2,7 @@ package com.padc.interactive_training.utils;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -67,6 +68,11 @@ public class MMFontUtils {
                 }
             }
         }
+    }
+
+    public static void applyMMFontToCollapsingToolbar(CollapsingToolbarLayout collapsingToolbar) {
+        collapsingToolbar.setCollapsedTitleTypeface(mmTypeFace);
+        collapsingToolbar.setExpandedTitleTypeface(mmTypeFace);
     }
 }
 

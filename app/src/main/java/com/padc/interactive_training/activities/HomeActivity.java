@@ -34,6 +34,7 @@ import com.padc.interactive_training.adapters.MyCourseAdapter;
 import com.padc.interactive_training.animators.RecyclerItemAnimator;
 import com.padc.interactive_training.data.vos.CourseVO;
 import com.padc.interactive_training.utils.ScreenUtils;
+import com.padc.interactive_training.utils.TransitionHelper;
 import com.padc.interactive_training.views.holders.MyCourseViewHolder;
 
 import java.util.ArrayList;
@@ -257,7 +258,11 @@ public class HomeActivity extends AppCompatActivity
     //region ControllerCourseItem Implementation
     @Override
     public void onTapCourse(CourseVO course) {
+        Intent intent = RegisteredCourseDetailActivity.newIntent("SampleCourseName");
 
+        final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(this, true);
+        ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this, pairs);
+        startActivity(intent, transitionActivityOptions.toBundle());
     }
 
     @Override

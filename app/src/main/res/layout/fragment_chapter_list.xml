@@ -11,5 +11,4 @@
         android:layout_marginBottom="@dimen/margin_small"
         android:layout_marginTop="@dimen/margin_medium_2" />
 
-
 </FrameLayout>

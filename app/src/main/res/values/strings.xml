@@ -3,6 +3,15 @@
         <item quantity="one">%d like</item>
         <item quantity="other">%d likes</item>
     </plurals>
+    <plurals name="minutes_count">
+        <item quantity="one">%d min</item>
+        <item quantity="other">%d mins</item>
+    </plurals>
+    <plurals name="cards_count">
+        <item quantity="one">%d step</item>
+        <item quantity="other">%d steps</item>
+    </plurals>
+
     <string name="app_name">PADC-FP-InteractiveTraining</string>
     <string name="action_settings">Settings</string>
 

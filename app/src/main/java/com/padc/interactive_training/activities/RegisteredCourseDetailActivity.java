@@ -22,17 +22,21 @@ import com.padc.interactive_training.adapters.CoursePagerAdapter;
 import com.padc.interactive_training.components.PageIndicatorView;
 import com.padc.interactive_training.data.vos.ChapterVO;
 import com.padc.interactive_training.data.vos.CourseVO;
+import com.padc.interactive_training.data.vos.DiscussionVO;
 import com.padc.interactive_training.fragments.ChapterListFragment;
 import com.padc.interactive_training.fragments.CourseInfoHeaderFragment;
 import com.padc.interactive_training.fragments.CourseProgressHeaderFragment;
+import com.padc.interactive_training.fragments.DiscussionListFragment;
 import com.padc.interactive_training.utils.MMFontUtils;
 import com.padc.interactive_training.views.holders.ChapterViewHolder;
+import com.padc.interactive_training.views.holders.DiscussionViewHolder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RegisteredCourseDetailActivity extends AppCompatActivity
-        implements ChapterViewHolder.ControllerChapterItem {
+        implements ChapterViewHolder.ControllerChapterItem,
+        DiscussionViewHolder.ControllerDiscussionItem {
 
     @BindView(R.id.appbar)
     AppBarLayout appBar;
@@ -77,7 +81,7 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
         mCoursePagerAdapter = new CoursePagerAdapter(getSupportFragmentManager());
 
         mCoursePagerAdapter.addTab(ChapterListFragment.newInstance(), "CHAPTERS");
-        mCoursePagerAdapter.addTab(ChapterListFragment.newInstance(), "DISCUSSION");
+        mCoursePagerAdapter.addTab(DiscussionListFragment.newInstance(), "DISCUSSION");
         mCoursePagerAdapter.addTab(ChapterListFragment.newInstance(), "TODO-List (3)");
 
         pagerNavigations.setAdapter(mCoursePagerAdapter);
@@ -170,6 +174,19 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
     //region ChapterController
     @Override
     public void onTapChapter(ChapterVO chapter) {
+
+    }
+    //endregion
+
+    //region DiscussionController
+    @Override
+    public void onTapDiscussion(DiscussionVO discussion) {
+        Intent intent = DiscussionDetailActivity.newIntent("Sample Disucssion ID");
+        startActivity(intent);
+    }
+
+    @Override
+    public void onTapLikeButton(Integer discussionID) {
 
     }
     //endregion

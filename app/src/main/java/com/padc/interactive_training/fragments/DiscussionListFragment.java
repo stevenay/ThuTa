@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.padc.interactive_training.R;
+import com.padc.interactive_training.adapters.DiscussionAdapter;
+import com.padc.interactive_training.data.vos.DiscussionVO;
+import com.padc.interactive_training.views.holders.DiscussionViewHolder;
 
 import java.util.ArrayList;
 

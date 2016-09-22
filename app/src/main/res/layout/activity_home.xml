@@ -93,6 +93,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        android:background="@color/left_menu_background"
         app:headerLayout="@layout/left_menu_header"
         app:menu="@menu/left_menu" />
 

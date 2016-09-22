@@ -10,49 +10,50 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/margin_small"
+        android:padding="@dimen/margin_medium"
         android:orientation="vertical"
+        android:background="@color/accent"
         >
-            <TextView
+            <com.padc.interactive_training.components.MMTextView
                 android:id="@+id/tv_article_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Article1"
-                android:textSize="24sp"
-                android:fontFamily="sans-serif-condensed"
-                android:textAppearance="?android:textAppearanceLarge"/>
-            <TextView
-                android:id="@+id/tv_author_name"
+                android:text="ဂိုဂလ္း အလိုေလ်ာက္ေမာင္းေသာ ကား"
+                style="@style/Heading1"
+                />
+            <com.padc.interactive_training.components.MMTextView
+                android:id="@+id/tv_category_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Maung Tayar"/>
-            <!--<ImageView
-                android:id="@+id/iv_article"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginTop="8dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/side_nav_bar"
-                />-->
-            <TextView
-                android:id="@+id/tv_article_short_description"
+                android:fontFamily="sans-serif-condensed"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:text="ေမာ္ေတာ္ယာဥ္"/>
+
+            <com.padc.interactive_training.components.MMTextView
+                android:id="@+id/tv_published_date"
+                android:layout_marginTop="@dimen/margin_minus_medium_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="12th, Aug, 2015"/>
+            <com.padc.interactive_training.components.MMTextView
+                android:id="@+id/tv_article_brief_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/lorem_ipsum_one_third"/>
-        <!--<LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            >
-                <Button
-                    android:id="@+id/btn_read_more_article"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Read More"
-                    android:layout_gravity="right"
-                    />
-        </LinearLayout>-->
+
+        <ImageView
+                android:id="@+id/iv_article"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_feed_top"
+                />
+
 
     </LinearLayout>
 

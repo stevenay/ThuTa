@@ -26,6 +26,7 @@ import com.padc.interactive_training.data.vos.DiscussionVO;
 import com.padc.interactive_training.fragments.ChapterListFragment;
 import com.padc.interactive_training.fragments.CourseInfoHeaderFragment;
 import com.padc.interactive_training.fragments.CourseProgressHeaderFragment;
+import com.padc.interactive_training.fragments.CourseTodoListFragment;
 import com.padc.interactive_training.fragments.DiscussionListFragment;
 import com.padc.interactive_training.utils.InteractiveTrainingConstants;
 import com.padc.interactive_training.utils.MMFontUtils;
@@ -87,7 +88,7 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
 
         mCoursePagerAdapter.addTab(ChapterListFragment.newInstance(), "CHAPTERS");
         mCoursePagerAdapter.addTab(DiscussionListFragment.newInstance(), "DISCUSSION");
-        mCoursePagerAdapter.addTab(ChapterListFragment.newInstance(), "TODO-List (3)");
+        mCoursePagerAdapter.addTab(CourseTodoListFragment.newInstance(), "TODO-List (3)");
 
         pagerNavigations.setAdapter(mCoursePagerAdapter);
         pagerNavigations.setOffscreenPageLimit(mCoursePagerAdapter.getCount());

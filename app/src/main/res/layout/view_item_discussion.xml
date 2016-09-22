@@ -41,7 +41,7 @@
                 android:textSize="@dimen/text_regular"
                 android:textStyle="normal" />
 
-            <net.naylinaung.appdesign.components.MMTextView
+            <com.padc.interactive_training.components.MMTextView
                 android:id="@+id/tv_post_past_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                 android:textColor="@color/black_overlay"
                 android:textSize="@dimen/text_small" />
 
-            <net.naylinaung.appdesign.components.MMTextView
+            <com.padc.interactive_training.components.MMTextView
                 android:id="@+id/tv_post_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

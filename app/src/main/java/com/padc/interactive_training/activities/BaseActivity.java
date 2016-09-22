@@ -13,7 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Dell on 9/1/2016.
+ * Created by NayLinAung on 9/1/2016.
  */
 public class BaseActivity extends AppCompatActivity {
 

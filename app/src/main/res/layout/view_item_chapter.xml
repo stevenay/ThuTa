@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="1dp"
+        android:background="#FFFFFF"
+        android:paddingBottom="0dp">
+
+        <!--#FFF6FAF2-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/course_background_sample"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/view_finished_percentage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".50"
+                android:background="#FFF6FAF2" />
+
+            <View
+                android:id="@+id/view_remaining_percentage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".50"
+                android:background="#FFFFFF" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_chapter_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="@dimen/margin_large"
+            android:layout_marginTop="@dimen/margin_medium_2"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:lineSpacingMultiplier="1.2"
+            android:maxLines="4"
+            android:text="Chapter-1"
+            android:textColor="@color/course_background_dark_sample"
+            android:textSize="@dimen/text_regular"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_chapter_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_chapter_number"
+            android:layout_marginLeft="@dimen/margin_large"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:lineSpacingMultiplier="1.2"
+            android:maxLines="4"
+            android:text="Wear broad-spectrum sunscreen."
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/text_regular_2x"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/tv_chapter_brief"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_chapter_title"
+            android:layout_marginLeft="@dimen/margin_medium_2"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:lineSpacingMultiplier="1.2"
+            android:maxLines="4"
+            android:paddingLeft="@dimen/margin_medium_2"
+            android:paddingRight="@dimen/margin_medium_2"
+            android:text="It's not enough to wear sunscreen. You need to wear the right kind of sunscreen and keep reapplying..."
+            android:textColor="@color/black_overlay"
+            android:textSize="@dimen/text_regular" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_chapter_brief"
+            android:layout_marginTop="@dimen/margin_small"
+            android:paddingBottom="@dimen/margin_medium_2"
+            android:paddingLeft="@dimen/margin_medium_2"
+            android:paddingRight="@dimen/margin_medium_2"
+            android:paddingTop="@dimen/margin_medium">
+
+            <com.padc.interactive_training.components.MMTextView
+                android:id="@+id/tv_finished_percentage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_medium_2"
+                android:layout_alignParentLeft="true"
+                android:visibility="invisible"
+                android:gravity="left"
+                android:text="48% ဖတ္ၿပီး"
+                android:textColor="@color/black_overlay_light"
+                android:textSize="@dimen/text_small"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tv_lock_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_alignParentRight="true"
+                android:gravity="left"
+                android:text="Locked"
+                android:textColor="@color/black_overlay_light"
+                android:textSize="@dimen/text_regular" />
+
+            <ImageView
+                android:id="@+id/iv_lock"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="@dimen/margin_medium"
+                android:layout_toLeftOf="@id/tv_lock_label"
+                android:src="@drawable/ic_lock_48" />
+
+            <TextView
+                android:id="@+id/tv_card_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="@dimen/margin_medium"
+                android:drawableLeft="@drawable/ic_radio_button_checked_24dp"
+                android:drawablePadding="@dimen/margin_small"
+                android:gravity="right"
+                android:text="8 steps"
+                android:textColor="@color/black_overlay_light"
+                android:textSize="@dimen/text_regular" />
+
+            <TextView
+                android:id="@+id/tv_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_medium"
+                android:layout_toLeftOf="@id/tv_card_count"
+                android:drawableLeft="@drawable/ic_query_builder_24dp"
+                android:drawablePadding="@dimen/margin_small"
+                android:text="5 min"
+                android:textColor="@color/black_overlay_light"
+                android:textSize="@dimen/text_regular" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</LinearLayout>
+

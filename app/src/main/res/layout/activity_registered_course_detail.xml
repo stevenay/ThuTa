@@ -115,13 +115,11 @@
         android:id="@+id/fab_play_course"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/fab_margin"
-        android:layout_marginTop="@dimen/fab_margin"
+        android:layout_margin="@dimen/fab_margin"
         android:scaleType="center"
         android:src="@drawable/ic_chevron_right_white_24dp"
         android:tint="@android:color/white"
-        app:backgroundTint="@color/course_background_dark_sample"
-        app:layout_anchor="@id/appbar"
-        app:layout_anchorGravity="bottom|end|right" />
+        android:layout_gravity="bottom|end"
+        app:backgroundTint="@color/course_background_dark_sample" />
 
 </android.support.design.widget.CoordinatorLayout>

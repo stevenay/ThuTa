@@ -1,8 +1,12 @@
 package com.padc.interactive_training.views.holders;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.padc.interactive_training.InteractiveTrainingApp;
@@ -20,6 +24,9 @@ public class DiscussionViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.layout_like_button)
     LinearLayout layoutLikeButton;
 
+    @BindView(R.id.iv_profile)
+    ImageView ivProfile;
+
     private Context mContext;
     private DiscussionVO mDiscussionVO;
     private ControllerDiscussionItem mController;
@@ -32,6 +39,11 @@ public class DiscussionViewHolder extends RecyclerView.ViewHolder {
         this.mContext = InteractiveTrainingApp.getContext();
         this.mController = controller;
         this.mSelfView = itemView;
+
+        Drawable mDrawable = mContext.getResources().getDrawable(R.drawable.ic_face_24dp);
+        mDrawable.setColorFilter(new
+                PorterDuffColorFilter(0xFF9BBE74, PorterDuff.Mode.SRC_IN));
+        this.ivProfile.setImageDrawable(mDrawable);
 
         setupClickableViews(mSelfView, mController);
     }

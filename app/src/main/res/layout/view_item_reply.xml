@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="1dp"
+    android:background="#FFFFFF"
+    android:paddingBottom="@dimen/margin_medium_2">
+
+    <RelativeLayout
+        android:id="@+id/layout_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginLeft="@dimen/margin_large"
+            android:layout_marginTop="@dimen/margin_medium_2"
+            android:src="@drawable/ic_face_dark_24dp" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_medium_2"
+            android:layout_toRightOf="@id/iv_profile"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:lineSpacingMultiplier="1.2"
+            android:maxLines="4"
+            android:text="Jason Matthew"
+            android:textColor="@color/black_overlay"
+            android:textSize="@dimen/text_regular"
+            android:textStyle="bold" />
+
+        <net.naylinaung.appdesign.components.MMTextView
+            android:id="@+id/tv_post_past_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_user_name"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_toRightOf="@id/iv_profile"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:lineSpacingMultiplier="1.2"
+            android:maxLines="4"
+            android:text="လြန္ခဲ့ေသာ ၂ နာရီ"
+            android:textColor="@color/black_overlay"
+            android:textSize="@dimen/text_small" />
+
+        <net.naylinaung.appdesign.components.MMTextView
+            android:id="@+id/tv_post_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_user_name"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_toRightOf="@id/tv_post_past_time"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:lineSpacingMultiplier="1.2"
+            android:maxLines="4"
+            android:text=", 11:14 PM"
+            android:textColor="@color/black_overlay"
+            android:textSize="@dimen/text_small" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_chapter_brief"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_user"
+        android:layout_marginLeft="@dimen/margin_medium_2"
+        android:layout_marginRight="@dimen/margin_medium_2"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-light"
+        android:lineSpacingMultiplier="1.2"
+        android:maxLines="6"
+        android:paddingLeft="@dimen/margin_medium_2"
+        android:paddingRight="@dimen/margin_medium_2"
+        android:text="Can we expect a full course update since the final version of Angular 2.0.0 is out? Thanks for your amazing work."
+        android:textColor="@color/black_overlay"
+        android:textSize="@dimen/text_regular" />
+
+    <LinearLayout
+        android:id="@+id/layout_like_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_chapter_brief"
+        android:layout_alignParentRight="true"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium_2"
+        android:gravity="center_vertical|right">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_heart_outline_grey" />
+
+        <TextSwitcher
+            android:id="@+id/tsLikesCounter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_medium_1"
+            android:inAnimation="@anim/slide_in_likes_counter"
+            android:outAnimation="@anim/slide_out_likes_counter">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Like (123)"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/text_small"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_like_counter" />
+        </TextSwitcher>
+
+    </LinearLayout>
+
+</RelativeLayout>

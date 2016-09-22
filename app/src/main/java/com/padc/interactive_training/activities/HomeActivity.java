@@ -294,11 +294,7 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
         if (id == R.id.nav_my_course) {
             Toast.makeText(getApplicationContext(), "You hit my course option", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_my_test) {
-            Toast.makeText(getApplicationContext(), "You hit my test option", Toast.LENGTH_SHORT).show();
-            //navigateToMyTest();
-        }
-        else if (id == R.id.nav_explore) {
+        } else if (id == R.id.nav_explore) {
             Toast.makeText(getApplicationContext(), "You hit explore option", Toast.LENGTH_SHORT).show();
         }
         else if (id == R.id.nav_notifications) {

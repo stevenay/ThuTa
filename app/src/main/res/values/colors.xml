@@ -52,5 +52,11 @@
 
     <color name="bg_comments">#ffffff</color>
      <!-- Left Menu -->
-    <color name="left_menu_background">#D2E3F3</color>
+    <color name="left_menu_background">#E1F5FE</color>
+    <!-- HMT Card View start-->
+    <color name="card_background">#64B5F6</color>
+    <!-- HMT Card View end-->
+    <!-- HMT question start-->
+    <color name="question_view_background">#81c687</color>
+    <!-- HMT question end-->
 </resources>

@@ -29,6 +29,7 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.R;
 import com.padc.interactive_training.adapters.MyCourseAdapter;
 import com.padc.interactive_training.animators.RecyclerItemAnimator;
@@ -70,6 +71,12 @@ public class HomeActivity extends AppCompatActivity
 
     private MyCourseAdapter myCourseAdapter;
     private boolean pendingIntroAnimation;
+
+
+    public static Intent newIntent(){
+        Intent newIntent = new Intent(InteractiveTrainingApp.getContext(),HomeActivity.class);
+        return newIntent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -309,10 +316,18 @@ public class HomeActivity extends AppCompatActivity
         else if (id == R.id.nav_local_training_center) {
             Toast.makeText(getApplicationContext(), "You hit local training center option", Toast.LENGTH_SHORT).show();
         }
+        else if(id == R.id.nav_help){
+            Toast.makeText(getApplicationContext(), "You hit help topic menu item", Toast.LENGTH_SHORT).show();
+        }
+        else if(id == R.id.nav_about_app){
+            Toast.makeText(getApplicationContext(), "You hit About App menu item", Toast.LENGTH_SHORT).show();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return false;
+
+
     }
 
     /*private void navigateToMyTest() {
@@ -323,6 +338,7 @@ public class HomeActivity extends AppCompatActivity
     private void navigateToArticle() {
         Intent intent = ArticlesActivity.newIntent();
         startActivity(intent);
+
     }
 
     //endregion

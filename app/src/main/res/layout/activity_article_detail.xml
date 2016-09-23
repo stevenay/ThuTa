@@ -54,33 +54,119 @@
             android:padding="@dimen/margin_small">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="@dimen/margin_small">
+                android:padding="@dimen/margin_small"
+                android:weightSum="10">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_stars_black_24dp"/>
+                    android:src="@drawable/ic_view_week_black_24dp"
+                    android:layout_weight="0"/>
                 <com.padc.interactive_training.components.MMTextView
                     android:id="@+id/tv_category_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_medium_2"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="ေမာ္ေတာယာဥ္"/>
+                    android:text="ေမာ္ေတာ္ယာဥ္"
+                    android:layout_weight="9"/>
+
+                <ImageView
+                    android:id="@+id/iv_post_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_weight="0"
+                    android:src="@drawable/ic_date_range_black_24dp"
+                    />
+                <TextView
+                    android:id="@+id/tv_published_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="@dimen/margin_medium_2"
+                    android:layout_weight="1"
+                    android:text="12, Sep, 2016"/>
+
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:padding="@dimen/margin_small">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_keyboard_hide_black_24dp"/>
+                <com.padc.interactive_training.components.MMTextView
+                    android:id="@+id/tv_author_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_medium_2"
+                    android:text="Maung Tayar"/>
+            </LinearLayout>
+            <com.padc.interactive_training.components.MMTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Introduction"
+                style="@style/cardViewTitle"
+                android:layout_marginTop="@dimen/margin_medium"/>
+            <com.padc.interactive_training.components.MMTextView
+                android:id="@+id/tv_introduction_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lorem_ipsum_one_third"/>
+            <com.padc.interactive_training.components.MMTextView
+                android:id="@+id/tv_first_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/cardViewTitle"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:text="First Heading"/>
 
+            <com.padc.interactive_training.components.MMTextView
+                android:id="@+id/tv_first_heading_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lorem_ipsum_one_third"
+                android:layout_marginTop="@dimen/margin_small"/>
+
+            <com.padc.interactive_training.components.MMTextView
+                android:id="@+id/tv_second_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/cardViewTitle"
+                android:text="Second Heading"
+                android:layout_marginTop="@dimen/margin_medium"/>
+            <com.padc.interactive_training.components.MMTextView
+                android:id="@+id/tv_second_heading_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:text="@string/lorem_ipsum_one_third"/>
+
+            <com.padc.interactive_training.components.MMTextView
+                android:id="@+id/tv_list_content_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="List Content Heading"
+                android:layout_marginTop="@dimen/margin_medium"
+                style="@style/cardViewTitle"/>
 
             <com.padc.interactive_training.components.MMTextView
                 android:id="@+id/tv_article_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_medium"
-                android:text="@string/lorem_ipsum_full_3x"/>
+                android:text="@string/lorem_ipsum_full_3x"
+                android:layout_marginBottom="@dimen/margin_small"/>
 
         </LinearLayout>
 

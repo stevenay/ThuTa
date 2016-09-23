@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/question_background_pattern"
+    android:padding="24dp"
+    >
+
+
+    <com.padc.interactive_training.components.MMTextView
+        android:id="@+id/tv_question_type_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="0dp"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:text="Tap to choose your answer below"
+        android:textSize="24sp"
+        android:textColor="@color/bg_comments"
+        android:textAppearance="?android:textAppearanceLarge"/>
+
+    <LinearLayout
+        android:id="@+id/ll_question_content"
+        android:layout_below="@+id/tv_question_type_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_medium_3"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:layout_marginLeft="@dimen/margin_medium_3"
+        android:layout_marginRight="@dimen/margin_medium_3"
+        android:background="@color/bg_comments"
+        android:orientation="vertical"
+        android:weightSum="10"
+        >
+        <com.padc.interactive_training.components.MMTextView
+            android:id="@+id/tv_question_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_medium_2"
+            android:layout_marginTop="@dimen/margin_medium_2"
+            android:layout_marginRight="@dimen/margin_medium_2"
+            android:text="@string/true_false_question_sample"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:layout_weight="10"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="0"
+            android:weightSum="10">
+            <Button
+                android:id="@+id/btn_true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="True"
+                android:layout_weight="5"/>
+            <Button
+                android:id="@+id/btn_false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="False"
+                android:layout_weight="5"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

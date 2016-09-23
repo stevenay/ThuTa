@@ -13,7 +13,7 @@ public class ArticleVO {
     private Date publishedDate;
     private String categoryName;
     private String briefDescription;
-    private String imageURL;
+    private int imageURL;
     //endregion
 
 
@@ -33,7 +33,7 @@ public class ArticleVO {
         return briefDescription;
     }
 
-    public String getImageURL() {
+    public int getImageURL() {
         return imageURL;
     }
 
@@ -53,7 +53,7 @@ public class ArticleVO {
         this.briefDescription = briefDescription;
     }
 
-    public void setImageURL(String imageURL) {
+    public void setImageURL(int imageURL) {
         this.imageURL = imageURL;
     }
 

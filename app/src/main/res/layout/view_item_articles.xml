@@ -13,16 +13,27 @@
         android:layout_margin="@dimen/margin_small"
         android:padding="@dimen/margin_medium"
         android:orientation="vertical"
-        android:background="@color/accent"
+        android:background="@color/card_background"
         >
-            <com.padc.interactive_training.components.MMTextView
-                android:id="@+id/tv_article_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ဂိုဂလ္း အလိုေလ်ာက္ေမာင္းေသာ ကား"
-                style="@style/Heading1"
-                />
-            <com.padc.interactive_training.components.MMTextView
+        <ImageView
+            android:id="@+id/iv_article"
+            android:layout_width="match_parent"
+            android:layout_height="128dp"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/otto_blue"
+            />
+        <com.padc.interactive_training.components.MMTextView
+            android:id="@+id/tv_article_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium_2"
+            android:text="ဂိုဂလ္း အလိုေလ်ာက္ေမာင္းေသာ ကား"
+            style="@style/cardViewTitle"
+            />
+        <com.padc.interactive_training.components.MMTextView
                 android:id="@+id/tv_category_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -30,29 +41,21 @@
                 android:layout_marginTop="@dimen/margin_medium"
                 android:text="ေမာ္ေတာ္ယာဥ္"/>
 
-            <com.padc.interactive_training.components.MMTextView
+        <com.padc.interactive_training.components.MMTextView
                 android:id="@+id/tv_published_date"
                 android:layout_marginTop="@dimen/margin_minus_medium_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:text="12th, Aug, 2015"/>
-            <com.padc.interactive_training.components.MMTextView
+        <com.padc.interactive_training.components.MMTextView
                 android:id="@+id/tv_article_brief_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/lorem_ipsum_one_third"/>
 
-        <ImageView
-                android:id="@+id/iv_article"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:layout_marginBottom="@dimen/margin_medium"
-                android:adjustViewBounds="true"
-                android:src="@drawable/ic_feed_top"
-                />
+
 
 
     </LinearLayout>

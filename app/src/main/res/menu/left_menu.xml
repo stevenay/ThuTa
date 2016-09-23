@@ -3,33 +3,47 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_my_course"
-            android:icon="@drawable/ic_stars_black_24dp"
-            android:title="My Course" />
+            android:icon="@drawable/ic_dashboard_black_24dp"
+            android:title="My Course"
+            />
         <item
             android:id="@+id/nav_my_test"
-            android:icon="@drawable/ic_stars_black_24dp"
+            android:icon="@drawable/ic_question_answer_black_24dp"
             android:title="My Test" />
         <item
             android:id="@+id/nav_explore"
-            android:icon="@drawable/ic_stars_black_24dp"
+            android:icon="@drawable/ic_explore_black_24dp"
             android:title="Explore" />
         <item
             android:id="@+id/nav_notifications"
-            android:icon="@drawable/ic_stars_black_24dp"
+            android:icon="@drawable/ic_notifications_black_24dp"
             android:title="Notifications" />
         <item
             android:id="@+id/nav_pin_cards"
-            android:icon="@drawable/ic_stars_black_24dp"
+            android:icon="@drawable/ic_collections_bookmark_black_24dp"
             android:title="Pin Cards" />
         <item
             android:id="@+id/nav_articles"
-            android:icon="@drawable/ic_stars_black_24dp"
+            android:icon="@drawable/ic_chrome_reader_mode_black_24dp"
             android:title="Articles" />
         <item
             android:id="@+id/nav_local_training_center"
-            android:icon="@drawable/ic_stars_black_24dp"
+            android:icon="@drawable/ic_place_black_24dp"
             android:title="Local Training Center" />
 
     </group>
+    <item android:title="Help">
+        <menu >
+            <item
+                android:id="@+id/nav_help"
+                android:icon="@drawable/ic_help_black_24dp"
+                android:title="Help topic"/>
+            <item
+                android:id="@+id/nav_about_app"
+                android:icon="@drawable/ic_info_black_24dp"
+                android:title="About App"/>
+        </menu>
+
+    </item>
 
 </menu>

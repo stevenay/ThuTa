@@ -2,7 +2,9 @@ package com.padc.interactive_training.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,6 +38,8 @@ public class ArticleListFragment extends Fragment {
     RecyclerView rvArticle;
 
 
+
+
     //endregion
 
     public static ArticleListFragment newInstance(){
@@ -44,6 +48,7 @@ public class ArticleListFragment extends Fragment {
     }
 
     public ArticleListFragment() {
+
     }
 
     @Override
@@ -75,6 +80,19 @@ public class ArticleListFragment extends Fragment {
         articleAdapter = new ArticleAdapter(prepareSampleArticleList(), getContext(),controllerArticleItem);
         rvArticle.setAdapter(articleAdapter);
 
+        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                },3000); // ms
+            }
+        });
+
 
     }
 
@@ -86,7 +104,7 @@ public class ArticleListFragment extends Fragment {
         articleSample1.setBriefDescription(getString(R.string.lorem_ipsum_one_third));
         articleSample1.setPublishedDate(DateTimeUtils.parseStringToDate("2015-08-21"));
         articleSample1.setCategoryName("Driving Manual");
-        //articleSample1.setImageURL();
+        articleSample1.setImageURL(R.drawable.tech_android_wallpaper);
         articleList.add(articleSample1);
 
         ArticleVO articleSample2 = new ArticleVO();
@@ -94,7 +112,7 @@ public class ArticleListFragment extends Fragment {
         articleSample2.setBriefDescription(getString(R.string.lorem_ipsum_one_third));
         articleSample2.setPublishedDate(DateTimeUtils.parseStringToDate("2015-08-21"));
         articleSample2.setCategoryName("Driving Manual");
-        //articleSample1.setImageURL();
+        articleSample2.setImageURL(R.drawable.gento_cow);
         articleList.add(articleSample2);
 
         ArticleVO articleSample3 = new ArticleVO();
@@ -102,7 +120,7 @@ public class ArticleListFragment extends Fragment {
         articleSample3.setBriefDescription(getString(R.string.lorem_ipsum_one_third));
         articleSample3.setPublishedDate(DateTimeUtils.parseStringToDate("2015-08-21"));
         articleSample3.setCategoryName("Driving Manual");
-        //articleSample1.setImageURL();
+        articleSample3.setImageURL(R.drawable.otto_blue);
         articleList.add(articleSample3);
 
         return articleList;

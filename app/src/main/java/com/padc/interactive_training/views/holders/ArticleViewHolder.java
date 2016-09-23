@@ -77,7 +77,7 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder implements View.O
         tvPublishedDate.setText(strPublishedDate);
         tvCategoryName.setText(mArticleVO.getCategoryName());
         tvArticleBriefDescription.setText(mArticleVO.getBriefDescription());
-        ivArticle.setImageResource(R.drawable.ic_feed_top);
+        ivArticle.setImageResource(mArticleVO.getImageURL());
 
     }
 

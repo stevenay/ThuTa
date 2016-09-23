@@ -33,8 +33,12 @@ import com.padc.interactive_training.R;
 import com.padc.interactive_training.adapters.MyCourseAdapter;
 import com.padc.interactive_training.animators.RecyclerItemAnimator;
 import com.padc.interactive_training.data.vos.CourseVO;
+import com.padc.interactive_training.fragments.FeaturedCourseListFragment;
+import com.padc.interactive_training.fragments.MyCourseListFragment;
+import com.padc.interactive_training.utils.MMFontUtils;
 import com.padc.interactive_training.utils.ScreenUtils;
 import com.padc.interactive_training.utils.TransitionHelper;
+import com.padc.interactive_training.views.holders.FeaturedCourseViewHolder;
 import com.padc.interactive_training.views.holders.MyCourseViewHolder;
 
 import java.util.ArrayList;
@@ -44,7 +48,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeActivity extends AppCompatActivity
-        implements MyCourseViewHolder.ControllerCourseItem, NavigationView.OnNavigationItemSelectedListener {
+        implements MyCourseViewHolder.ControllerCourseItem,
+        FeaturedCourseViewHolder.ControllerFeaturedCourseItem,
+        NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -52,14 +58,17 @@ public class HomeActivity extends AppCompatActivity
     @BindView(R.id.content)
     CoordinatorLayout clContent;
 
-    @BindView(R.id.rvMyCourse)
-    RecyclerView rvMyCourse;
-
     @BindView(R.id.fab_search)
     FloatingActionButton fabSearch;
 
     @BindView(R.id.tv_screen_title)
     TextView tvScreenTitle;
+
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+
+    @BindView(R.id.navigation_view)
+    NavigationView navigationView;
 
     private MenuItem inboxMenuItem;
 
@@ -89,45 +98,21 @@ public class HomeActivity extends AppCompatActivity
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Menu leftMenu = navigationView.getMenu();
+        MMFontUtils.applyMMFontToMenu(leftMenu);
         navigationView.setNavigationItemSelectedListener(this);
-
-        setupMyCourse();
 
         if (savedInstanceState == null) {
             pendingIntroAnimation = true;
             prepareIntroAnimation();
-        } else {
-            myCourseAdapter.updateItems(false, new ArrayList<CourseVO>());
         }
-    }
-
-    private void setupMyCourse() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this) {
-            @Override
-            protected int getExtraLayoutSpace(RecyclerView.State state) {
-                return 300;
-            }
-        };
-        rvMyCourse.setLayoutManager(linearLayoutManager);
-
-        myCourseAdapter = new MyCourseAdapter(new ArrayList<CourseVO>(), this);
-        rvMyCourse.setAdapter(myCourseAdapter);
-
-        rvMyCourse.setItemAnimator(new RecyclerItemAnimator());
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         if (ACTION_SHOW_LOADING_ITEM.equals(intent.getAction())) {
-            showFeedLoadingItemDelayed();
+            // showFeedLoadingItemDelayed();
         }
     }
 
@@ -137,15 +122,15 @@ public class HomeActivity extends AppCompatActivity
         tvScreenTitle.setTranslationY(-ACTION_BAR_SIZE);
     }
 
-    private void showFeedLoadingItemDelayed() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                rvMyCourse.smoothScrollToPosition(0);
-                myCourseAdapter.showLoadingView();
-            }
-        }, 500);
-    }
+//    private void showFeedLoadingItemDelayed() {
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                rvMyCourse.smoothScrollToPosition(0);
+//                myCourseAdapter.showLoadingView();
+//            }
+//        }, 500);
+//    }
 
     private void startIntroAnimation() {
 
@@ -180,7 +165,7 @@ public class HomeActivity extends AppCompatActivity
                 .setDuration(ANIM_DURATION_FAB)
                 .start();
 
-        myCourseAdapter.updateItems(true, prepareSampleCourseList());
+        navigateToFeaturedCourseListFragment();
     }
 
     @Override
@@ -207,8 +192,13 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_profile) {
-            return true;
+        switch (id) {
+            case R.id.action_profile:
+                // GAUtils.getInstance().sendAppAction(GAUtils.ACTION_TAP_SETTINGS);
+                return true;
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -220,39 +210,6 @@ public class HomeActivity extends AppCompatActivity
             explode.setDuration(800);
             getWindow().setExitTransition(explode);
         }
-    }
-
-    public List<CourseVO> prepareSampleCourseList() {
-        List<CourseVO> courseList = new ArrayList<>();
-
-        CourseVO courseOne = new CourseVO();
-        courseOne.setTitle("UV ေရာင္ျခည္ကို ဘယ္လိုကာကြယ္မလဲ");
-        courseOne.setCategoryName("LifeStyle");
-        courseOne.setDurationInMinute(15);
-        courseOne.setAuthorName("Admin Team");
-        courseOne.setColorCode("#aed582");
-        courseOne.setImageUrl("co_terrace.png");
-        courseList.add(courseOne);
-
-        CourseVO courseTwo = new CourseVO();
-        courseTwo.setTitle("အားကစားကို နည္းမွန္လမ္းမွန္ ျပဳလုပ္နည္းမ်ား");
-        courseTwo.setCategoryName("Sports and Fitness");
-        courseTwo.setDurationInMinute(15);
-        courseTwo.setAuthorName("Admin Team");
-        courseTwo.setColorCode("#81c683");
-        courseOne.setImageUrl("co_runner.png");
-        courseList.add(courseTwo);
-
-        CourseVO courseThree = new CourseVO();
-        courseThree.setTitle("C# အသံုးျပဳ Console Application တစ္ခု ဘယ္လိုတည္ေဆာက္မလဲ");
-        courseThree.setCategoryName("Programming");
-        courseThree.setDurationInMinute(10);
-        courseThree.setAuthorName("Admin Team");
-        courseThree.setColorCode("#25c6da");
-        courseOne.setImageUrl("co_terrace.png");
-        courseList.add(courseThree);
-
-        return courseList;
     }
 
     //region ControllerCourseItem Implementation
@@ -288,38 +245,66 @@ public class HomeActivity extends AppCompatActivity
 
     //endregion
 
+    //region FeaturedCourseItemListener
+    @Override
+    public void onTapFeaturedCourse(CourseVO course) {
+        Intent intent = RegisteredCourseDetailActivity.newIntent("SampleCourseName");
+
+        final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(this, true);
+        ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this, pairs);
+        startActivity(intent, transitionActivityOptions.toBundle());
+    }
+
+    @Override
+    public void onFeaturedCoverImageClick() {
+
+    }
+    //endregion
+
     //region Navigation menu and its related
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.nav_my_course) {
-            Toast.makeText(getApplicationContext(), "You hit my course option", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_explore) {
-            Toast.makeText(getApplicationContext(), "You hit explore option", Toast.LENGTH_SHORT).show();
-        }
-        else if (id == R.id.nav_notifications) {
-            Toast.makeText(getApplicationContext(), "You hit notification option", Toast.LENGTH_SHORT).show();
-        }
-        else if (id == R.id.nav_pin_cards) {
-            Toast.makeText(getApplicationContext(), "You hit pin cards option", Toast.LENGTH_SHORT).show();
-        }
-        else if (id == R.id.nav_articles) {
-            Toast.makeText(getApplicationContext(), "You hit articles option", Toast.LENGTH_SHORT).show();
-            navigateToArticle();
-        }
-        else if (id == R.id.nav_local_training_center) {
-            Toast.makeText(getApplicationContext(), "You hit local training center option", Toast.LENGTH_SHORT).show();
+        drawerLayout.closeDrawer(GravityCompat.START);
+        fabSearch.setVisibility(View.VISIBLE);
+        switch (item.getItemId()) {
+            case R.id.nav_featured_course:
+                navigateToFeaturedCourseListFragment();
+                return true;
+            case R.id.nav_course_categories:
+                Toast.makeText(getApplicationContext(), "You hit course categories.", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.nav_my_course:
+                navigateToMyCourseListFragment();
+                return true;
+            case R.id.nav_notifications:
+                return true;
+            case R.id.nav_pin_cards:
+                return true;
+            case R.id.nav_articles:
+                return true;
+            case R.id.nav_local_training_center:
+                return true;
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
         return false;
     }
 
-    /*private void navigateToMyTest() {
-        Intent intent = MyTestActivity.newIntent();
-        startActivity(intent);
-    }*/
+    //region Navigation
+    private void navigateToMyCourseListFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(R.anim.slide_up_fragment, R.anim.slide_up_out_fragment)
+                .replace(R.id.fl_container, MyCourseListFragment.newInstance())
+                .commit();
+    }
+
+    private void navigateToFeaturedCourseListFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(R.anim.slide_up_fragment, R.anim.slide_up_out_fragment)
+                .replace(R.id.fl_container, FeaturedCourseListFragment.newInstance())
+                .commit();
+    }
+
+    //endregion
 
     private void navigateToArticle() {
         Intent intent = ArticlesActivity.newIntent();

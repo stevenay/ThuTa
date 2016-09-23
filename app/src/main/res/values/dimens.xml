@@ -12,12 +12,14 @@
     <dimen name="margin_medium_2">16dp</dimen>
     <dimen name="margin_medium_3">18dp</dimen>
     <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_large_2">28dp</dimen>
     <dimen name="margin_xlarge">32dp</dimen>
     <dimen name="margin_xxlarge">48dp</dimen>
 
     <dimen name="text_small">12sp</dimen>
     <dimen name="text_regular">14sp</dimen>
     <dimen name="text_regular_2x">16sp</dimen>
+    <dimen name="text_regular_2.5x">18sp</dimen>
     <dimen name="text_regular_3x">20sp</dimen>
     <dimen name="text_heading_1x">24sp</dimen>
     <dimen name="text_heading_2x">32sp</dimen>
@@ -31,6 +33,7 @@
     <!-- Specific Declaration -->
     <dimen name="padding_bottom_for_fab">80dp</dimen>
     <dimen name="detail_backdrop_height">235dp</dimen>
+    <dimen name="detail_featured_course_pager">195dp</dimen>
     <dimen name="left_menu_width">280dp</dimen>
     <dimen name="user_profile_image_size">64dp</dimen>
     <dimen name="user_profile_image_size_large">90dp</dimen>

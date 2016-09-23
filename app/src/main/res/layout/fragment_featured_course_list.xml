@@ -19,7 +19,7 @@
             android:orientation="vertical"
             android:background="#FF529DCB">
 
-            <net.naylinaung.appdesign.components.MMTextView
+            <com.padc.interactive_training.components.MMTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_medium_3"
@@ -30,7 +30,7 @@
                 android:textSize="@dimen/text_regular_2.5x"
                 android:textStyle="bold"/>
 
-            <net.naylinaung.appdesign.components.MMTextView
+            <com.padc.interactive_training.components.MMTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_medium_2"
@@ -150,7 +150,7 @@
                     android:textSize="@dimen/text_small"
                     android:textStyle="bold" />
 
-                <net.naylinaung.appdesign.components.MMTextView
+                <com.padc.interactive_training.components.MMTextView
                     android:id="@+id/tv_course_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -169,7 +169,7 @@
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_heading_1x" />
 
-                <net.naylinaung.appdesign.components.MMTextView
+                <com.padc.interactive_training.components.MMTextView
                     android:id="@+id/tv_duration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -363,7 +363,7 @@
                     android:textSize="@dimen/text_small"
                     android:textStyle="bold" />
 
-                <net.naylinaung.appdesign.components.MMTextView
+                <com.padc.interactive_training.components.MMTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -381,7 +381,7 @@
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_heading_1x" />
 
-                <net.naylinaung.appdesign.components.MMTextView
+                <com.padc.interactive_training.components.MMTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -586,7 +586,7 @@
                     android:textSize="@dimen/text_small"
                     android:textStyle="bold" />
 
-                <net.naylinaung.appdesign.components.MMTextView
+                <com.padc.interactive_training.components.MMTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -604,7 +604,7 @@
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_heading_1x" />
 
-                <net.naylinaung.appdesign.components.MMTextView
+                <com.padc.interactive_training.components.MMTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

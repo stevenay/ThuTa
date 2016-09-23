@@ -10,11 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import net.naylinaung.appdesign.R;
-import net.naylinaung.appdesign.adapters.FeaturedCourseAdapter;
-import net.naylinaung.appdesign.animators.RecyclerItemAnimator;
-import net.naylinaung.appdesign.data.vos.CourseVO;
-import net.naylinaung.appdesign.views.holders.FeaturedCourseViewHolder;
+import com.padc.interactive_training.R;
+import com.padc.interactive_training.adapters.FeaturedCourseAdapter;
+import com.padc.interactive_training.animators.RecyclerItemAnimator;
+import com.padc.interactive_training.data.vos.CourseVO;
+import com.padc.interactive_training.views.holders.FeaturedCourseViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

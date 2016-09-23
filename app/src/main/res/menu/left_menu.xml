@@ -4,7 +4,7 @@
         android:id="@+id/group_general"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_explore"
+            android:id="@+id/nav_featured_course"
             android:icon="@drawable/ic_home_48"
             android:title="Featured Courses"
             android:checked="true"/>

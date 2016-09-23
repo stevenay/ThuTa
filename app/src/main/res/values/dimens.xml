@@ -30,6 +30,7 @@
 
     <!-- Default Button Size -->
     <dimen name="btn_big">64dp</dimen>
+    <dimen name="btn_biggest">68dp</dimen>
 
     <!-- Specific Declaration -->
     <dimen name="padding_bottom_for_fab">80dp</dimen>

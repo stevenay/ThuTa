@@ -165,7 +165,7 @@ public class HomeActivity extends AppCompatActivity
                 .setDuration(ANIM_DURATION_FAB)
                 .start();
 
-        navigateToFeaturedCourseListFragment();
+        navigateToFeaturedCourseListFragment(true);
     }
 
     @Override
@@ -268,7 +268,7 @@ public class HomeActivity extends AppCompatActivity
         fabSearch.setVisibility(View.VISIBLE);
         switch (item.getItemId()) {
             case R.id.nav_featured_course:
-                navigateToFeaturedCourseListFragment();
+                navigateToFeaturedCourseListFragment(false);
                 return true;
             case R.id.nav_course_categories:
                 Toast.makeText(getApplicationContext(), "You hit course categories.", Toast.LENGTH_SHORT).show();
@@ -292,16 +292,20 @@ public class HomeActivity extends AppCompatActivity
     //region Navigation
     private void navigateToMyCourseListFragment() {
         getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(R.anim.slide_up_fragment, R.anim.slide_up_out_fragment)
                 .replace(R.id.fl_container, MyCourseListFragment.newInstance())
                 .commit();
     }
 
-    private void navigateToFeaturedCourseListFragment() {
-        getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(R.anim.slide_up_fragment, R.anim.slide_up_out_fragment)
-                .replace(R.id.fl_container, FeaturedCourseListFragment.newInstance())
-                .commit();
+    private void navigateToFeaturedCourseListFragment(boolean animate) {
+        if (animate)
+            getSupportFragmentManager().beginTransaction()
+                    .setCustomAnimations(R.anim.slide_up_fragment, R.anim.slide_up_out_fragment)
+                    .replace(R.id.fl_container, FeaturedCourseListFragment.newInstance())
+                    .commit();
+        else
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fl_container, FeaturedCourseListFragment.newInstance())
+                    .commit();
     }
 
     //endregion

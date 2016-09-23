@@ -87,13 +87,18 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
+
+
+
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="@dimen/left_menu_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        android:background="@color/left_menu_background"
+        app:itemTextColor="@drawable/state_left_menu_item"
+        app:itemIconTint="@drawable/state_left_menu_item"
+        android:background="#FF2F4050"
         app:headerLayout="@layout/left_menu_header"
         app:menu="@menu/left_menu">
 
@@ -104,6 +109,7 @@
             android:layout_gravity="bottom|right"
             android:layout_margin="@dimen/margin_medium"
             android:paddingRight="@dimen/margin_medium"
+
             android:visibility="invisible"
             android:fontFamily="sans-serif-light"
             android:textColor="@color/primary"

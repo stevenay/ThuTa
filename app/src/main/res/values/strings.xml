@@ -1,4 +1,4 @@
-<resources>
+﻿<resources>
     <plurals name="likes_count">
         <item quantity="one">%d like</item>
         <item quantity="other">%d likes</item>
@@ -18,6 +18,9 @@
     <string name="home_screen_title">ပင္မ စာသင္ခန္း</string>
     <string name="home_screen_small_title">(ေရြးခ်ယ္ထားေသာ)</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="navigation_drawer_open">Open Navigation Drawer</string>
     <string name="navigation_drawer_close">Close Navigation Drawer</string>
     <string name="title_activity_articles">ArticlesActivity</string>
@@ -25,7 +28,24 @@
     <string name="title_activity_">Activity</string>
     <string name="title_activity_my_test">MyTestActivity</string>
 
+    <!-- Sample Text-->
+    <string name="lorem_ipsum_full">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </string>
+    <string name="lorem_ipsum_full_2x">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
+<<<<<<< HEAD
     <!-- Sample Text-->
     <string name="lorem_ipsum_full">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -82,6 +102,7 @@
         cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
+
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -121,6 +142,7 @@
     <!-- Sample Text Finish -->
 
 
+
     <!-- Development Package, dir, path, notation start-->
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
     <string name="true_false_question_sample">Hot Diggity Dog Food\'s media agency has to spend a lot of man hours negotiating the standard media buy.</string>
@@ -130,6 +152,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+
+    <!-- Development Package, dir, path, notation start-->
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <!-- Development Package, dir, path, notation finish-->
 
     <!-- Development Package, dir, path, notation start-->
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>

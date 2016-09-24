@@ -4,14 +4,14 @@ import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.transition.Explode;
 import android.transition.Fade;
 import android.view.View;
+import android.widget.Toast;
 
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
@@ -22,17 +22,23 @@ import com.padc.interactive_training.adapters.CoursePagerAdapter;
 import com.padc.interactive_training.components.PageIndicatorView;
 import com.padc.interactive_training.data.vos.ChapterVO;
 import com.padc.interactive_training.data.vos.CourseVO;
+import com.padc.interactive_training.data.vos.DiscussionVO;
 import com.padc.interactive_training.fragments.ChapterListFragment;
 import com.padc.interactive_training.fragments.CourseInfoHeaderFragment;
 import com.padc.interactive_training.fragments.CourseProgressHeaderFragment;
+import com.padc.interactive_training.fragments.DiscussionListFragment;
+import com.padc.interactive_training.utils.InteractiveTrainingConstants;
 import com.padc.interactive_training.utils.MMFontUtils;
 import com.padc.interactive_training.views.holders.ChapterViewHolder;
+import com.padc.interactive_training.views.holders.DiscussionViewHolder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class RegisteredCourseDetailActivity extends AppCompatActivity
-        implements ChapterViewHolder.ControllerChapterItem {
+        implements ChapterViewHolder.ControllerChapterItem,
+        DiscussionViewHolder.ControllerDiscussionItem {
 
     @BindView(R.id.appbar)
     AppBarLayout appBar;
@@ -51,6 +57,9 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
 
     @BindView(R.id.fab_play_course)
     FloatingActionButton fabPlayCourse;
+
+    @BindView(R.id.fab_add_discussion)
+    FloatingActionButton fabAddDiscussion;
 
     @BindView(R.id.pi_course_header_pager)
     PageIndicatorView piCourseHeaderPager;
@@ -77,7 +86,7 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
         mCoursePagerAdapter = new CoursePagerAdapter(getSupportFragmentManager());
 
         mCoursePagerAdapter.addTab(ChapterListFragment.newInstance(), "CHAPTERS");
-        mCoursePagerAdapter.addTab(ChapterListFragment.newInstance(), "DISCUSSION");
+        mCoursePagerAdapter.addTab(DiscussionListFragment.newInstance(), "DISCUSSION");
         mCoursePagerAdapter.addTab(ChapterListFragment.newInstance(), "TODO-List (3)");
 
         pagerNavigations.setAdapter(mCoursePagerAdapter);
@@ -85,12 +94,44 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
 
         tlNavigations.setViewPager(pagerNavigations);
 
-        fabPlayCourse.setOnClickListener(new View.OnClickListener() {
+        pagerNavigations.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onClick(View view) {
-                navigateToCourseFlow();
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (mCoursePagerAdapter.getPageTitle(position).toString().toLowerCase())
+                {
+                    case "discussion":
+                        fabAddDiscussion.setVisibility(View.VISIBLE);
+                        fabPlayCourse.setVisibility(View.INVISIBLE);
+                        break;
+                    case "chapters":
+                        fabAddDiscussion.setVisibility(View.INVISIBLE);
+                        fabPlayCourse.setVisibility(View.VISIBLE);
+                        break;
+                    default:
+                        fabAddDiscussion.setVisibility(View.INVISIBLE);
+                        fabPlayCourse.setVisibility(View.INVISIBLE);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
+
+        final Intent intent = getIntent();
+        if (intent.hasExtra(InteractiveTrainingConstants.SWITCH_TAB)) {
+            final String tab = intent.getExtras().getString(InteractiveTrainingConstants.SWITCH_TAB);
+
+            if (tab.equals("tab_discussion"))
+                pagerNavigations.setCurrentItem(1);
+        }
     }
 
     private void setupWindowAnimations() {
@@ -155,6 +196,17 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
 
     }
 
+    @OnClick(R.id.fab_play_course)
+    public void onClickFabPlayCourse(View view) {
+        this.navigateToCourseFlow();
+    }
+
+
+    @OnClick(R.id.fab_add_discussion)
+    public void onClickFabAddDiscussion(View view) {
+        navigateToNewDiscussion(1); // need to pass Course ID
+    }
+
     private CourseVO prepareSampleCourseVO() {
         CourseVO courseVO = new CourseVO();
         courseVO.setTitle("UV ေရာင္ျခည္ကို ဘယ္လိုကာကြယ္မလဲ");
@@ -165,11 +217,30 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
     private void navigateToCourseFlow() {
 
     }
+
+    private void navigateToNewDiscussion(Integer courseID)
+    {
+        Intent intent = NewDiscussionActivity.newIntent(courseID);
+        startActivity(intent);
+    }
     //endregion
 
     //region ChapterController
     @Override
     public void onTapChapter(ChapterVO chapter) {
+
+    }
+    //endregion
+
+    //region DiscussionController
+    @Override
+    public void onTapDiscussion(DiscussionVO discussion) {
+        Intent intent = DiscussionDetailActivity.newIntent("Sample Disucssion ID");
+        startActivity(intent);
+    }
+
+    @Override
+    public void onTapLikeButton(Integer discussionID) {
 
     }
     //endregion

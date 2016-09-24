@@ -1,14 +1,17 @@
 package com.padc.interactive_training.views.holders;
 
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.padc.interactive_training.R;
 import com.padc.interactive_training.components.SendingProgressView;
 import com.padc.interactive_training.data.vos.CourseVO;
@@ -30,8 +33,8 @@ public class MyCourseViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tv_duration)
     TextView tvDuration;
 
-    @BindView(R.id.vImageRoot)
-    public FrameLayout vImageRoot;
+//    @BindView(R.id.vImageRoot)
+//    public FrameLayout vImageRoot;
 
     @BindView(R.id.btnComments)
     ImageButton btnComments;
@@ -51,8 +54,12 @@ public class MyCourseViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tsLikesCounter)
     public TextSwitcher tsLikesCounter;
 
+    @BindView(R.id.layout_image_cover)
+    public LinearLayout layoutImageCover;
+
     private ControllerCourseItem mController;
     private CourseVO mCourseVO;
+    private View mSelfView;
 
     public SendingProgressView vSendingProgress;
     public View vProgressBg;
@@ -62,7 +69,7 @@ public class MyCourseViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, view);
 
         this.mController = controller;
-        setupClickableViews(view, controller);
+        this.mSelfView = view;
     }
 
     private void setupClickableViews(View selfView, final ControllerCourseItem controller) {
@@ -83,12 +90,26 @@ public class MyCourseViewHolder extends RecyclerView.ViewHolder {
 
     public void bindData(CourseVO courseVO) {
         mCourseVO = courseVO;
-        ivCourseCoverImage.setBackgroundColor(Color.parseColor(mCourseVO.getColorCode()));
+
+        GradientDrawable bgShape = (GradientDrawable) layoutImageCover.getBackground();
+        bgShape.setColor(Color.parseColor(mCourseVO.getColorCode()));
+
+
         tvCourseTitle.setText(mCourseVO.getTitle());
         tvCategoryName.setText(mCourseVO.getCategoryName());
         tvCategoryName.setTextColor(Color.parseColor(mCourseVO.getColorCode()));
+
         String durationAndAuthor = mCourseVO.getDurationInMinute().toString() + " mins - Admin Team";
         tvDuration.setText(durationAndAuthor);
+
+        Glide.with(ivCourseCoverImage.getContext())
+                .load(R.drawable.uv_64)
+                .asBitmap().centerCrop()
+                .placeholder(R.drawable.misc_09_256)
+                .error(R.drawable.misc_09_256)
+                .into(ivCourseCoverImage);
+
+        setupClickableViews(mSelfView, mController);
 
 //        Context context = ivCourseCoverImage.getContext();
 //        int id = context

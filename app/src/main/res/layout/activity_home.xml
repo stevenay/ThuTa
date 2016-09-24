@@ -67,13 +67,11 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvMyCourse"
+        <FrameLayout
+            android:id="@+id/fl_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/toolbar"
-            android:paddingBottom="@dimen/margin_medium"
-            android:background="@color/menuPrimary"
+            android:background="#FF2F4050"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
@@ -91,7 +89,7 @@
 
 
     <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
+        android:id="@+id/navigation_view"
         android:layout_width="@dimen/left_menu_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"

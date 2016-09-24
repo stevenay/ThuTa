@@ -1,31 +1,30 @@
 package com.padc.interactive_training.data.vos;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 /**
  * Created by Dell on 9/2/2016.
  */
 public class CourseVO {
 
-    private String title;
+    private String courseTitle;
     private String categoryName;
     private Integer durationInMinute;
     private String authorName;
     private String colorCode;
-    private String imageUrl;
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+    private String progressColorCode;
+    private String coverPhotoUrl;
+    private List<ChapterVO> chapters;
+    private List<DiscussionVO> discussions;
 
     public String getTitle() {
-        return title;
+        return courseTitle;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.courseTitle = title;
     }
 
     public String getCategoryName() {
@@ -44,6 +43,22 @@ public class CourseVO {
         this.durationInMinute = durationInMinute;
     }
 
+    public String getProgressColorCode() {
+        return progressColorCode;
+    }
+
+    public void setProgressColorCode(String progressColorCode) {
+        this.progressColorCode = progressColorCode;
+    }
+
+    public String getCoverPhotoUrl() {
+        return coverPhotoUrl;
+    }
+
+    public void setCoverPhotoUrl(String coverPhotoUrl) {
+        this.coverPhotoUrl = coverPhotoUrl;
+    }
+
     public String getAuthorName() {
         return authorName;
     }
@@ -58,5 +73,21 @@ public class CourseVO {
 
     public void setColorCode(String colorCode) {
         this.colorCode = colorCode;
+    }
+
+    public List<ChapterVO> getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(List<ChapterVO> chapters) {
+        this.chapters = chapters;
+    }
+
+    public List<DiscussionVO> getDiscussions() {
+        return discussions;
+    }
+
+    public void setDiscussions(List<DiscussionVO> discussions) {
+        this.discussions = discussions;
     }
 }

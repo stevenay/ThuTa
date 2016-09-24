@@ -1,0 +1,749 @@
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".fragments.FeaturedCourseListFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".fragments.FeaturedCourseListFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/detail_featured_course_pager"
+            android:layout_marginBottom="@dimen/margin_medium_2"
+            android:orientation="vertical"
+            android:background="#FF529DCB">
+
+            <com.padc.interactive_training.components.MMTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium_3"
+                android:layout_gravity="center_horizontal"
+                android:drawableLeft="@drawable/ic_flash_on_24dp"
+                android:text="ယေန႔အတြက္ ပညာေပး"
+                android:textColor="@color/text_white_ish"
+                android:textSize="@dimen/text_regular_2.5x"
+                android:textStyle="bold"/>
+
+            <com.padc.interactive_training.components.MMTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium_2"
+                android:layout_marginRight="@dimen/margin_medium"
+                android:layout_marginLeft="@dimen/margin_medium"
+                android:gravity="center_horizontal"
+                android:text="တစ္ေန႔ကို ေရ ၈ ခြက္ခန္႔ ေသာက္သံုးသင့္ေၾကာင္း ပညာရွင္မ်ားက အႀကံျပဳထားၾကပါတယ္။"
+                android:textColor="@color/text_white_ish"
+                android:textSize="@dimen/text_regular_2x"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_medium_2"
+                android:paddingLeft="@dimen/margin_medium_2"
+                android:paddingRight="@dimen/margin_medium_2"
+                android:background="@drawable/bg_rounded_corner_button"
+                android:textColor="#FF529DCB"
+                android:text="Go to Lesson" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:padding="@dimen/margin_medium"
+            android:background="@color/text_white_ish"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_chapter_list"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:clickable="true"
+                android:foreground="@color/primary"
+                android:src="@drawable/ic_receipt_white_24dp" />
+
+            <TextView
+                android:id="@+id/tv_chapter_list_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:drawablePadding="@dimen/margin_small"
+                android:ellipsize="end"
+                android:maxLines="4"
+                android:paddingLeft="@dimen/margin_medium"
+                android:paddingRight="@dimen/margin_medium"
+                android:text="Featured course this week"
+                android:textColor="@color/text_black_ish"
+                android:textSize="@dimen/text_regular_2x"
+                android:textStyle="normal" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_gravity="center"
+            card_view:cardCornerRadius="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:orientation="vertical"
+                android:paddingBottom="0dp">
+
+                <FrameLayout
+                    android:id="@+id/vImageRoot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:layout_marginRight="@dimen/margin_medium">
+
+                    <ImageView
+                        android:id="@+id/iv_course_cover_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:background="#aed582"
+                        android:paddingBottom="32dp"
+                        android:paddingTop="32dp"
+                        android:src="@drawable/co_terrace" />
+
+                    <View
+                        android:id="@+id/vBgLike"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_like_circle_background"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/ivLike"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_touch_outline_white"
+                        android:visibility="gone" />
+
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_category_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:text="life style"
+                    android:textAllCaps="true"
+                    android:textColor="@color/course_background_sample"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold" />
+
+                <com.padc.interactive_training.components.MMTextView
+                    android:id="@+id/tv_course_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:layout_marginRight="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/margin_medium_2"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center_horizontal"
+                    android:lineSpacingMultiplier="1.2"
+                    android:maxLines="4"
+                    android:paddingLeft="@dimen/margin_medium_3"
+                    android:paddingRight="@dimen/margin_medium_3"
+                    android:text="UV ေရာင္ျခည္ကို ဘယ္လိုကာကြယ္မလဲ"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_heading_1x" />
+
+                <com.padc.interactive_training.components.MMTextView
+                    android:id="@+id/tv_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/margin_medium_2"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:drawableLeft="@drawable/ic_query_builder_24dp"
+                    android:drawablePadding="@dimen/margin_small"
+                    android:text="5 min - Admin Team"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="@dimen/text_small" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium_2"
+                    android:background="#efefef"
+                    android:padding="@dimen/margin_medium_2"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
+
+                    <ImageButton
+                        android:id="@+id/btnLike"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_heart_outline_grey" />
+
+                    <ImageButton
+                        android:id="@+id/btnComments"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="@dimen/margin_medium"
+                        android:background="@drawable/btn_feed_action"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_comment_outline_grey" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_heart_small_blue" />
+
+                        <TextSwitcher
+                            android:id="@+id/tsLikesCounter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:inAnimation="@anim/slide_in_likes_counter"
+                            android:outAnimation="@anim/slide_out_likes_counter">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="123 likes"
+                                android:textColor="@color/text_like_counter" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/text_like_counter" />
+                        </TextSwitcher>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium_2"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:layout_marginLeft="@dimen/margin_medium_2"
+                android:text="Trending Now"
+                android:textColor="#FF828C9A"
+                android:textSize="@dimen/text_regular_2x" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_lifestyle_list"
+                android:layout_width="match_parent"
+                android:layout_height="316dp"
+                android:clipToPadding="false"
+                android:paddingLeft="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:padding="@dimen/margin_medium"
+            android:background="@color/text_white_ish"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:clickable="true"
+                android:foreground="@color/primary"
+                android:src="@drawable/ic_receipt_white_24dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:drawablePadding="@dimen/margin_small"
+                android:ellipsize="end"
+                android:maxLines="4"
+                android:paddingLeft="@dimen/margin_medium"
+                android:paddingRight="@dimen/margin_medium"
+                android:text="နည္းပညာဆိုင္ရာ"
+                android:textColor="@color/text_black_ish"
+                android:textSize="@dimen/text_regular_2x"
+                android:textStyle="normal" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view_technology"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_gravity="center"
+            card_view:cardCornerRadius="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:orientation="vertical"
+                android:paddingBottom="0dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:layout_marginRight="@dimen/margin_medium">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:background="#50b7ae"
+                        android:paddingBottom="32dp"
+                        android:paddingTop="32dp"
+                        android:src="@drawable/tech_color_cable_50_256" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_like_circle_background"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_touch_outline_white"
+                        android:visibility="gone" />
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:text="life style"
+                    android:textAllCaps="true"
+                    android:textColor="@color/course_background_sample"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold" />
+
+                <com.padc.interactive_training.components.MMTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:layout_marginRight="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/margin_medium_2"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center_horizontal"
+                    android:lineSpacingMultiplier="1.2"
+                    android:maxLines="4"
+                    android:paddingLeft="@dimen/margin_medium_3"
+                    android:paddingRight="@dimen/margin_medium_3"
+                    android:text="ဖုန္း Battery သံုးစြဲမွု သက္သာေစရန္ အလြယ္ကူဆံုး နည္းလမ္း ၅ သြယ္"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_heading_1x" />
+
+                <com.padc.interactive_training.components.MMTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/margin_medium_2"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:drawableLeft="@drawable/ic_query_builder_24dp"
+                    android:drawablePadding="@dimen/margin_small"
+                    android:text="5 min - Admin Team"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="@dimen/text_small" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium_2"
+                    android:background="#efefef"
+                    android:padding="@dimen/margin_medium_2"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
+
+                    <ImageButton
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_heart_outline_grey" />
+
+                    <ImageButton
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="@dimen/margin_medium"
+                        android:background="@drawable/btn_feed_action"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_comment_outline_grey" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_heart_small_blue" />
+
+                        <TextSwitcher
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:inAnimation="@anim/slide_in_likes_counter"
+                            android:outAnimation="@anim/slide_out_likes_counter">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="123 likes"
+                                android:textColor="@color/text_like_counter" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/text_like_counter" />
+                        </TextSwitcher>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/margin_medium_2"
+                    android:text="အျခား နည္းပညာဆိုင္ရာ"
+                    android:textColor="#FF828C9A"
+                    android:textSize="@dimen/text_regular_2x" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:background="@color/transparent"
+                    android:textColor="#FF828C9A"
+                    android:text="See All"
+                    android:textAllCaps="false" />
+
+            </LinearLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_technology_list"
+                android:layout_width="match_parent"
+                android:layout_height="316dp"
+                android:clipToPadding="false"
+                android:paddingLeft="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:padding="@dimen/margin_medium"
+            android:background="@color/text_white_ish"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:clickable="true"
+                android:foreground="@color/primary"
+                android:src="@drawable/ic_receipt_white_24dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:drawablePadding="@dimen/margin_small"
+                android:ellipsize="end"
+                android:maxLines="4"
+                android:paddingLeft="@dimen/margin_medium"
+                android:paddingRight="@dimen/margin_medium"
+                android:text="အခ်က္အျပဳတ္ဆိုင္ရာ"
+                android:textColor="@color/text_black_ish"
+                android:textSize="@dimen/text_regular_2x"
+                android:textStyle="normal" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view_cooking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_gravity="center"
+            card_view:cardCornerRadius="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:orientation="vertical"
+                android:paddingBottom="0dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:layout_marginRight="@dimen/margin_medium">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:background="#7e57c2"
+                        android:paddingBottom="32dp"
+                        android:paddingTop="32dp"
+                        android:src="@drawable/salad_256" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_like_circle_background"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_touch_outline_white"
+                        android:visibility="gone" />
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:text="Food and Cooking"
+                    android:textAllCaps="true"
+                    android:textColor="#7e57c2"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold" />
+
+                <com.padc.interactive_training.components.MMTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:layout_marginRight="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/margin_medium_2"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center_horizontal"
+                    android:lineSpacingMultiplier="1.2"
+                    android:maxLines="4"
+                    android:paddingLeft="@dimen/margin_medium_3"
+                    android:paddingRight="@dimen/margin_medium_3"
+                    android:text="က်န္းမာေရးႏွင့္အညီ ဟင္းခ်က္နည္းမ်ား"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_heading_1x" />
+
+                <com.padc.interactive_training.components.MMTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/margin_medium_2"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:drawableLeft="@drawable/ic_query_builder_24dp"
+                    android:drawablePadding="@dimen/margin_small"
+                    android:text="5 min - Wikihow translated by Admin Team"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="@dimen/text_small" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium_2"
+                    android:background="#efefef"
+                    android:padding="@dimen/margin_medium_2"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
+
+                    <ImageButton
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_heart_outline_grey" />
+
+                    <ImageButton
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="@dimen/margin_medium"
+                        android:background="@drawable/btn_feed_action"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_comment_outline_grey" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_heart_small_blue" />
+
+                        <TextSwitcher
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:inAnimation="@anim/slide_in_likes_counter"
+                            android:outAnimation="@anim/slide_out_likes_counter">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="123 likes"
+                                android:textColor="@color/text_like_counter" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/text_like_counter" />
+                        </TextSwitcher>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/margin_medium_2"
+                    android:text="အျခား အခ်က္အျပဳတ္ဆိုင္ရာ"
+                    android:textColor="#FF828C9A"
+                    android:textSize="@dimen/text_regular_2x" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:background="@color/transparent"
+                    android:textColor="#FF828C9A"
+                    android:text="See All"
+                    android:textAllCaps="false" />
+
+            </LinearLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_cooking_list"
+                android:layout_width="match_parent"
+                android:layout_height="316dp"
+                android:clipToPadding="false"
+                android:paddingLeft="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium_2"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:layout_marginLeft="@dimen/margin_medium_2"
+                android:text="စုစည္းမွုမ်ား"
+                android:textColor="#FF828C9A"
+                android:textSize="@dimen/text_regular_2x" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_collection_list"
+                android:layout_width="match_parent"
+                android:layout_height="316dp"
+                android:clipToPadding="false"
+                android:paddingLeft="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium" />
+
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

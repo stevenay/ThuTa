@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@color/homeBackground"
     tools:context="com.padc.interactive_training.activities.ArticlesActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -21,17 +22,13 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <!--<include layout="@layout/content_articles" />-->
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/fragment"
-        android:name="com.padc.interactive_training.fragments.ArticleListFragment"
+    <FrameLayout
+        android:id="@+id/fl_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="@dimen/margin_medium_2"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:layout="@layout/fragment_article_list" />
-
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

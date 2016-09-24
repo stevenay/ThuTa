@@ -10,6 +10,7 @@
     <dimen name="margin_medium">8dp</dimen>
     <dimen name="margin_medium_1">10dp</dimen>
     <dimen name="margin_medium_2">16dp</dimen>
+    <dimen name="margin_minus_medium_2">-16dp</dimen>
     <dimen name="margin_medium_3">18dp</dimen>
     <dimen name="margin_large">24dp</dimen>
     <dimen name="margin_large_2">28dp</dimen>
@@ -54,8 +55,11 @@
     <dimen name="icon_in_detail">48dp</dimen>
     <dimen name="margin_top_profile_pic">60dp</dimen>
 
+    <!--Font Sizes-->
     <dimen name="screen_title_size">19sp</dimen>
     <dimen name="screen_title_small_size">12sp</dimen>
+    <dimen name="paragraph_normal">11sp</dimen>
+
 
     <!-- InstaMaterial Theme -->
     <dimen name="btn_fab_size">56dp</dimen>

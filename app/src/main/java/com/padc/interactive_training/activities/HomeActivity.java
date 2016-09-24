@@ -298,7 +298,7 @@ public class HomeActivity extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "You hit my course option", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_my_test) {
             Toast.makeText(getApplicationContext(), "You hit my test option", Toast.LENGTH_SHORT).show();
-            //navigateToMyTest();
+            navigateToTestActivity();
         }
         else if (id == R.id.nav_explore) {
             Toast.makeText(getApplicationContext(), "You hit explore option", Toast.LENGTH_SHORT).show();
@@ -330,15 +330,15 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
-    /*private void navigateToMyTest() {
-        Intent intent = MyTestActivity.newIntent();
-        startActivity(intent);
-    }*/
 
     private void navigateToArticle() {
         Intent intent = ArticlesActivity.newIntent();
         startActivity(intent);
 
+    }
+    private void navigateToTestActivity(){
+        Intent intent = TestActivity.newIntent();
+        startActivity(intent);
     }
 
     //endregion

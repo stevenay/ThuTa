@@ -54,7 +54,13 @@ public class ArticleListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        controllerArticleItem = (ArticleViewHolder.ControllerArticleItem) context;
+        if (context instanceof ArticleViewHolder.ControllerArticleItem){
+            controllerArticleItem = (ArticleViewHolder.ControllerArticleItem) context;
+        }
+        else{
+            throw new RuntimeException(context.toString()+ "must implement ArticleViewHolder.ControllerArticleItem");
+        }
+
 
     }
 

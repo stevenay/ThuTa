@@ -63,7 +63,7 @@
     <color name="bg_comments">#ffffff</color>
 
      <!-- Left Menu -->
-    <color name="left_menu_background">#E1F5FE</color>
+    <color name="left_menu_background_by_hmt">#E1F5FE</color>
     <!-- HMT Card View start-->
     <color name="card_background">#64B5F6</color>
     <!-- HMT Card View end-->

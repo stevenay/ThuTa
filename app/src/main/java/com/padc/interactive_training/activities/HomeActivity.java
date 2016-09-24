@@ -281,6 +281,7 @@ public class HomeActivity extends AppCompatActivity
             case R.id.nav_pin_cards:
                 return true;
             case R.id.nav_articles:
+                navigateToArticle();
                 return true;
             case R.id.nav_local_training_center:
                 return true;

@@ -23,15 +23,6 @@
 
         </activity>
 
-
-        <activity
-            android:name=".activities.RegisteredCourseDetailActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-
-
-
         <activity
             android:name=".activities.ArticlesActivity"
             android:label="@string/title_activity_articles"
@@ -49,16 +40,9 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.padc.interactive_training.activities.ArticlesActivity" />
-
-
-        <activity
-            android:name=".activities.ArticleDetailActivity"
-            android:label="@string/title_activity_article_detail"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.padc.interactive_training.activities.ArticlesActivity" />
         </activity>
+
+
         <activity
             android:name=".activities.TestActivity"
             android:label="@string/title_activity_test"
@@ -68,7 +52,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.padc.interactive_training.activities.HomeActivity" />
         </activity>
-        <activity android:name=".activities.RegisteredCourseDetailActivity"></activity>
 
 
         <activity
@@ -76,13 +59,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
-
-        <activity android:name=".activities.RegisteredCourseDetailActivity"></activity>
-
-
-
-
-
         <activity
             android:name=".activities.DiscussionDetailActivity"
             android:label="Discussion Details"
@@ -94,22 +70,6 @@
             android:screenOrientation="portrait"
             android:parentActivityName=".activities.RegisteredCourseDetailActivity" />
 
-
-
-        </activity>
-
-
-        <activity
-            android:name=".activities.DiscussionDetailActivity"
-            android:label="Discussion Details"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".activities.RegisteredCourseDetailActivity" />
-
-        <activity android:name=".activities.NewDiscussionActivity"
-            android:label="New Discussion"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".activities.RegisteredCourseDetailActivity" />
-        </activity>
     </application>
 
 </manifest>

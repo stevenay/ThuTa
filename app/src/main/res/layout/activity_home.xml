@@ -94,7 +94,6 @@
         app:itemTextColor="@drawable/state_left_menu_item"
         app:itemIconTint="@drawable/state_left_menu_item"
         android:background="#FF2F4050"
-        android:background="@color/left_menu_background"
         app:headerLayout="@layout/left_menu_header"
         app:menu="@menu/left_menu">
 

@@ -129,13 +129,13 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
             }
         });
 
-        final Intent intent = getIntent();
-        if (intent.hasExtra(InteractiveTrainingConstants.SWITCH_TAB)) {
-            final String tab = intent.getExtras().getString(InteractiveTrainingConstants.SWITCH_TAB);
-
-            if (tab.equals("tab_discussion"))
-                pagerNavigations.setCurrentItem(1);
-        }
+//        final Intent intent = getIntent();
+//        if (intent.hasExtra(InteractiveTrainingConstants.SWITCH_TAB)) {
+//            final String tab = intent.getExtras().getString(InteractiveTrainingConstants.SWITCH_TAB);
+//
+//            if (tab.equals("tab_discussion"))
+//                pagerNavigations.setCurrentItem(1);
+//        }
     }
 
     private void setupWindowAnimations() {

@@ -53,7 +53,6 @@
                 android:value="com.padc.interactive_training.activities.HomeActivity" />
         </activity>
 
-
         <activity
             android:name=".activities.RegisteredCourseDetailActivity"
             android:screenOrientation="portrait"
@@ -69,6 +68,16 @@
             android:label="New Discussion"
             android:screenOrientation="portrait"
             android:parentActivityName=".activities.RegisteredCourseDetailActivity" />
+
+        <activity
+            android:name=".activities.CourseFlowActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Base.NoActionBar" />
+
+        <activity
+            android:name=".activities.PopupQuestionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Base.NoActionBar.FullScreen" />
 
     </application>
 

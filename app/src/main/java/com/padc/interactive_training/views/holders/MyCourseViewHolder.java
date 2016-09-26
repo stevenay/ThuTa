@@ -94,7 +94,6 @@ public class MyCourseViewHolder extends RecyclerView.ViewHolder {
         GradientDrawable bgShape = (GradientDrawable) layoutImageCover.getBackground();
         bgShape.setColor(Color.parseColor(mCourseVO.getColorCode()));
 
-
         tvCourseTitle.setText(mCourseVO.getTitle());
         tvCategoryName.setText(mCourseVO.getCourseCategory().getCategoryName());
         tvCategoryName.setTextColor(Color.parseColor(mCourseVO.getColorCode()));

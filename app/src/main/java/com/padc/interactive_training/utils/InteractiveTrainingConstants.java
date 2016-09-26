@@ -30,7 +30,7 @@ public class InteractiveTrainingConstants {
     public static final String ACCESS_TOKEN = "b002c7e1a528b7cb460933fc2875e916";
 
     //Loader ID
-    public static final int ATTRACTION_LIST_LOADER = 1;
+    public static final int COURSE_LIST_LOADER = 1;
     public static final int ATTRACTION_DETAIL_LOADER = 2;
     public static final int ATTRACTION_LIST_LOADER_LISTVIEW = 3;
     public static final int ATTRACTION_LIST_LOADER_GRIDVIEW = 4;

@@ -3,6 +3,7 @@ package com.padc.interactive_training.data.vos;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
@@ -25,6 +26,9 @@ public class CourseVO {
 
     @SerializedName("color_code")
     private String colorCode;
+
+    @SerializedName("dark_color_code")
+    private String darkColorCode;
 
     @SerializedName("progress_color_code")
     private String progressColorCode;
@@ -53,8 +57,8 @@ public class CourseVO {
     @SerializedName("discussions")
     private List<DiscussionVO> discussions;
 
-//    @SerializedName("last_accessed_card_id")
-//    private Integer lastAccessedCardId;
+    @SerializedName("last_accessed_card_id")
+    private String lastAccessedCardId;
 
     public String getTitle() {
         return courseTitle;
@@ -78,7 +82,6 @@ public class CourseVO {
 
     public void setAuthor(AuthorVO author) {
         this.author = author;
-        this.authorName = author.getAuthorName();
     }
 
     public Integer getDurationInMinute() {
@@ -119,7 +122,30 @@ public class CourseVO {
 
     public void setCourseCategory(CourseCategoryVO courseCategory) {
         this.courseCategory = courseCategory;
-        this.categoryName = courseCategory.getCategoryName();
+    }
+
+    public String getLastAccessedCardId() {
+        return lastAccessedCardId;
+    }
+
+    public void setLastAccessedCardId(String lastAccessedCardId) {
+        this.lastAccessedCardId = lastAccessedCardId;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public List<ChapterVO> getChapters() {
@@ -145,9 +171,11 @@ public class CourseVO {
             CourseVO course = courseList.get(index);
             courseCVs[index] = course.parseToContentValues();
 
-//            CourseVO.saveCourseCategory();
-//            CourseVO.saveAuthor();
+            CourseVO.saveCourseCategory(course.getTitle(), course.getCourseCategory());
+            CourseVO.saveAuthor(course.getTitle(), course.getAuthor());
             CourseVO.saveChapters(course.getTitle(), course.getChapters()); // Bulk insert into chapters
+//            CourseVO.saveDiscussions(course.getTitle(), course.getDiscussions());
+//            CourseVO.saveTodoLists(course.getTitle(), course.getTodoLists());
         }
 
         //Bulk insert into attractions.
@@ -158,7 +186,6 @@ public class CourseVO {
 
     private static void saveChapters(String courseTitle, List<ChapterVO> chapters) {
         Log.d(InteractiveTrainingApp.TAG, "Method: saveChapters. Loaded chapters: " + chapters.size());
-
 
         ContentValues[] chapterCVs = new ContentValues[chapters.size()];
         for (int index = 0; index < chapters.size(); index++) {
@@ -182,16 +209,52 @@ public class CourseVO {
         Log.d(InteractiveTrainingApp.TAG, "Bulk inserted into chapters table : " + insertCount);
     }
 
+    private static void saveCourseCategory(String courseTitle, CourseCategoryVO courseCategory) {
+        ContentValues cv = new ContentValues();
+        cv.put(CoursesContract.CourseCategoryEntry.COLUMN_CATEGORY_NAME, courseCategory.getCategoryName());
+        cv.put(CoursesContract.CourseCategoryEntry.COLUMN_COURSE_TITLE, courseTitle);
+
+        Log.d(InteractiveTrainingApp.TAG, "Method: saveCategories. Category Name: " + courseCategory.getCategoryName());
+
+        Context context = InteractiveTrainingApp.getContext();
+        Uri insertedRow = context.getContentResolver().insert(CoursesContract.CourseCategoryEntry.CONTENT_URI, cv);
+
+        if (insertedRow != null)
+            Log.d(InteractiveTrainingApp.TAG, "OneRow inserted into category table : " + insertedRow.toString());
+    }
+
+    private static void saveAuthor(String courseTitle, AuthorVO author) {
+        ContentValues cv = new ContentValues();
+        cv.put(CoursesContract.AuthorEntry.COLUMN_AUTHOR_NAME, author.getAuthorName());
+        cv.put(CoursesContract.AuthorEntry.COLUMN_DESCRIPTION, author.getDescription());
+        cv.put(CoursesContract.AuthorEntry.COLUMN_EMAIL, author.getEmail());
+        cv.put(CoursesContract.AuthorEntry.COLUMN_PROFILE_PHOTO_URL, author.getProfilePhotoUrl());
+
+        Log.d(InteractiveTrainingApp.TAG, "Method: saveCategories. Author Name: " + author.getAuthorName());
+
+        Context context = InteractiveTrainingApp.getContext();
+        Uri insertedRow = context.getContentResolver().insert(CoursesContract.AuthorEntry.CONTENT_URI, cv);
+
+        if (insertedRow != null)
+            Log.d(InteractiveTrainingApp.TAG, "OneRow inserted into author table : " + insertedRow.toString());
+    }
+
     private ContentValues parseToContentValues() {
         ContentValues cv = new ContentValues();
+
+        Log.d(InteractiveTrainingApp.TAG, lastAccessedCardId);
+
         cv.put(CoursesContract.CourseEntry.COLUMN_TITLE, courseTitle);
         cv.put(CoursesContract.CourseEntry.COLUMN_DURATION, durationInMinute);
         cv.put(CoursesContract.CourseEntry.COLUMN_COLOR_CODE, colorCode);
+        cv.put(CoursesContract.CourseEntry.COLUMN_DARK_COLOR_CODE, darkColorCode);
         cv.put(CoursesContract.CourseEntry.COLUMN_PROGRESS_COLOR_CODE, progressColorCode);
         cv.put(CoursesContract.CourseEntry.COLUMN_COVER_PHOTO_URL, coverPhotoUrl);
         cv.put(CoursesContract.CourseEntry.COLUMN_LIKE_COUNT, likesCount);
-        cv.put(CoursesContract.CourseEntry.COLUMN_AUTHOR_NAME, authorName);
-        cv.put(CoursesContract.CourseEntry.COLUMN_CATEGORY_NAME, categoryName);
+        cv.put(CoursesContract.CourseEntry.COLUMN_AUTHOR_NAME, this.author.getAuthorName());
+        cv.put(CoursesContract.CourseEntry.COLUMN_CATEGORY_NAME, this.courseCategory.getCategoryName());
+        cv.put(CoursesContract.CourseEntry.COLUMN_LAST_ACCESS_CARD, lastAccessedCardId);
+
         return cv;
     }
 
@@ -217,7 +280,7 @@ public class CourseVO {
         Cursor cursor = context.getContentResolver().query(CoursesContract.AuthorEntry.buildAuthorUriWithAuthorName(authorName),
                 null, null, null, null);
 
-        if(cursor != null && cursor.moveToFirst()) {
+        if (cursor != null && cursor.moveToFirst()) {
             author.setAuthorName(cursor.getString(cursor.getColumnIndex(CoursesContract.AuthorEntry.COLUMN_AUTHOR_NAME)));
         }
 

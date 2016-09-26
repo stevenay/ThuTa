@@ -2,21 +2,30 @@ package com.padc.interactive_training.fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.util.Pair;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.R;
+import com.padc.interactive_training.activities.RegisteredCourseDetailActivity;
 import com.padc.interactive_training.adapters.FeaturedCourseAdapter;
 import com.padc.interactive_training.animators.RecyclerItemAnimator;
 import com.padc.interactive_training.data.models.CourseModel;
@@ -24,7 +33,11 @@ import com.padc.interactive_training.data.persistence.CoursesContract;
 import com.padc.interactive_training.data.vos.AuthorVO;
 import com.padc.interactive_training.data.vos.CourseCategoryVO;
 import com.padc.interactive_training.data.vos.CourseVO;
+import com.padc.interactive_training.utils.InteractiveTrainingConstants;
+import com.padc.interactive_training.utils.TransitionHelper;
 import com.padc.interactive_training.views.holders.FeaturedCourseViewHolder;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +47,24 @@ import butterknife.ButterKnife;
 
 public class FeaturedCourseListFragment extends Fragment
     implements LoaderManager.LoaderCallbacks<Cursor> {
+
+    @BindView(R.id.card_view)
+    CardView cardFeaturedCourse;
+
+    @BindView(R.id.tv_category_name)
+    TextView tvCategoryName;
+
+    @BindView(R.id.tv_course_title)
+    TextView tvCourseTitle;
+
+    @BindView(R.id.tv_duration_author)
+    TextView tvDurationAuthor;
+
+    @BindView(R.id.tv_likes_count)
+    TextView tvLikesCount;
+
+    @BindView(R.id.iv_course_cover_image)
+    ImageView ivCourseCoverImage;
 
     @BindView(R.id.rv_lifestyle_list)
     RecyclerView rvLifestyleList;
@@ -47,8 +78,7 @@ public class FeaturedCourseListFragment extends Fragment
     private FeaturedCourseAdapter featuredCourseAdapter;
     private FeaturedCourseViewHolder.ControllerFeaturedCourseItem controllerCourseItem;
 
-    public static FeaturedCourseListFragment newInstance()
-    {
+    public static FeaturedCourseListFragment newInstance() {
         FeaturedCourseListFragment fragment = new FeaturedCourseListFragment();
         return fragment;
     }
@@ -67,6 +97,12 @@ public class FeaturedCourseListFragment extends Fragment
         setupFeaturedCourse();
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getActivity().getSupportLoaderManager().initLoader(InteractiveTrainingConstants.COURSE_LIST_LOADER, null, this);
     }
 
     @Override
@@ -144,13 +180,52 @@ public class FeaturedCourseListFragment extends Fragment
         return courseList;
     }
 
-    private void bindFeaturedCourseData(CourseVO featuredCourse)
+    private void bindFeaturedCourseData(CourseVO featuredCourse) {
+        Log.d("BindFeaturedCourseData", "do the method");
+        tvCategoryName.setText(featuredCourse.getCategoryName());
+        tvCourseTitle.setText(featuredCourse.getTitle());
+        tvDurationAuthor.setText(String.valueOf(featuredCourse.getDurationInMinute()) + " min - " + featuredCourse.getAuthorName());
+
+        Glide.with(ivCourseCoverImage.getContext())
+                .load(featuredCourse.getCoverPhotoUrl())
+                .asBitmap()
+                .placeholder(R.drawable.misc_09_256)
+                .error(R.drawable.misc_09_256)
+                .into(ivCourseCoverImage);
+
+        tvLikesCount.setText(String.valueOf(featuredCourse.getLikesCount()));
+
+        setupClickableViews(featuredCourse.getTitle());
+    }
+
+    private void setupClickableViews(final String courseTitle) {
+        this.ivCourseCoverImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navigateToCourseDetail(courseTitle);
+            }
+        });
+
+        cardFeaturedCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navigateToCourseDetail(courseTitle);
+            }
+        });
+    }
+
+    private void navigateToCourseDetail(String courseTitle)
     {
-        Log.d(InteractiveTrainingApp.TAG, featuredCourse.getTitle());
+        Intent intent = RegisteredCourseDetailActivity.newIntent(courseTitle);
+
+        final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(this.getActivity(), true);
+        ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this.getActivity(), pairs);
+        startActivity(intent, transitionActivityOptions.toBundle());
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        Log.d(InteractiveTrainingApp.TAG, "course Loaded");
         return new CursorLoader(getContext(),
                 CoursesContract.CourseEntry.CONTENT_URI,
                 null, // projection - {"name", "location"}
@@ -164,13 +239,12 @@ public class FeaturedCourseListFragment extends Fragment
         CourseVO featuredCourse = null;
         if (data != null && data.moveToFirst()) {
             featuredCourse = CourseVO.parseFromCursor(data);
-            featuredCourse.setAuthor(CourseVO.loadAuthorByName(featuredCourse.getTitle()));
+            // featuredCourse.setAuthor(CourseVO.loadAuthorByName(featuredCourse.getAuthorName()));
+            this.bindFeaturedCourseData(featuredCourse);
+            CourseModel.getInstance().setStoredFeaturedCourseData(featuredCourse);
         }
 
         Log.d(InteractiveTrainingApp.TAG, "Retrieved featured course : " + featuredCourse);
-        this.bindFeaturedCourseData(featuredCourse);
-
-        CourseModel.getInstance().setStoredFeaturedCourseData(featuredCourse);
     }
 
     @Override

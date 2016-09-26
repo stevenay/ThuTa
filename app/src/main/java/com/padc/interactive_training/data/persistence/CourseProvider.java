@@ -25,6 +25,7 @@ public class CourseProvider extends ContentProvider {
     public static final int COURSE_TODOITEM = 700;
 
     private static final String sCourseTitleSelection = CoursesContract.CourseEntry.COLUMN_TITLE + " = ?";
+    private static final String sAuthorNameSelection = CoursesContract.AuthorEntry.COLUMN_AUTHOR_NAME + " = ?";
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private CourseDBHelper mCourseDBHelper;
@@ -49,6 +50,20 @@ public class CourseProvider extends ContentProvider {
                     selectionArgs = new String[]{courseTitle};
                 }
                 queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.CourseEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null, //group_by
+                        null, //having
+                        sortOrder);
+                break;
+            case AUTHOR:
+                String authorName = CoursesContract.AuthorEntry.getAuthorNameFromParam(uri);
+                if (!TextUtils.isEmpty(authorName)) {
+                    selection = sAuthorNameSelection;
+                    selectionArgs = new String[]{authorName};
+                }
+                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.AuthorEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -85,7 +100,7 @@ public class CourseProvider extends ContentProvider {
     public Uri insert(Uri uri, ContentValues contentValues) {
         final SQLiteDatabase db = mCourseDBHelper.getWritableDatabase();
         final int matchUri = sUriMatcher.match(uri);
-        Uri insertedUri;
+        Uri insertedUri = null;
 
         switch (matchUri) {
             case COURSE: {
@@ -93,12 +108,30 @@ public class CourseProvider extends ContentProvider {
                 if (_id > 0) {
                     insertedUri = CoursesContract.CourseEntry.buildCourseUri(_id);
                 } else {
-                    throw new SQLException("Failed to insert row into " + uri);
+                    // throw new SQLException("Failed to insert row into " + uri);
+                }
+                break;
+            }
+            case AUTHOR: {
+                long _id = db.insert(CoursesContract.AuthorEntry.TABLE_NAME, null, contentValues);
+                if (_id > 0) {
+                    insertedUri = CoursesContract.AuthorEntry.buildAuthorUri(_id);
+                } else {
+                    // throw new SQLException("Failed to insert row into " + uri);
+                }
+                break;
+            }
+            case COURSE_CATEGORY: {
+                long _id = db.insert(CoursesContract.CourseCategoryEntry.TABLE_NAME, null, contentValues);
+                if (_id > 0) {
+                    insertedUri = CoursesContract.CourseCategoryEntry.buildCourseCategoryUri(_id);
+                } else {
+                    // throw new SQLException("Failed to insert row into " + uri);
                 }
                 break;
             }
             default:
-                throw new UnsupportedOperationException("Unknown uri : " + uri);
+                throw new UnsupportedOperationException("Unknown uri from insert method : " + uri);
         }
 
         Context context = getContext();
@@ -172,6 +205,7 @@ public class CourseProvider extends ContentProvider {
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_AUTHOR, AUTHOR);
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_TAGS, COURSE_TAG);
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_CHAPTERS, COURSE_CHAPTER);
+        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_CATEGORIES, COURSE_CATEGORY);
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_TODOLIST, COURSE_TODOLIST);
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_TODOITEM, COURSE_TODOITEM);
 

@@ -19,7 +19,7 @@ public class CoursesContract {
     public static final String PATH_AUTHOR = "course_authors";
     public static final String PATH_COURSE_TAGS = "course_tags";
     public static final String PATH_COURSE_CHAPTERS = "chapters";
-    public static final String PATH_COURSE_CATEGORIES = "categories";
+    public static final String PATH_COURSE_CATEGORIES = "course_categories";
     public static final String PATH_COURSE_DISCUSSIONS = "discussions";
     public static final String PATH_COURSE_TODOLIST = "todolists";
     public static final String PATH_COURSE_TODOITEM = "todoitems";
@@ -46,6 +46,7 @@ public class CoursesContract {
         public static final String COLUMN_LIKE_COUNT = "like_count";
         public static final String COLUMN_AUTHOR_NAME = "author_name";
         public static final String COLUMN_CATEGORY_NAME = "category_name";
+        public static final String COLUMN_LAST_ACCESS_CARD = "last_access_card";
 
         public static Uri buildCourseUri(long id) {
             //content://xyz.aungpyaephyo.padc.myanmarattractions/attractions/1
@@ -154,6 +155,7 @@ public class CoursesContract {
         public static final String TABLE_NAME = "course_categories";
 
         public static final String COLUMN_CATEGORY_NAME = "category_name";
+        public static final String COLUMN_COURSE_TITLE = "course_title";
 
         public static Uri buildCourseCategoryUri(long id) {
             //content://xyz.aungpyaephyo.padc.myanmarattractions/attraction_images/1

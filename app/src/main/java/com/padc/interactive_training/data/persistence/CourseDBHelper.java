@@ -31,6 +31,7 @@ public class CourseDBHelper extends SQLiteOpenHelper {
             CourseEntry.COLUMN_LIKE_COUNT + " INTEGER NOT NULL, " +
             CourseEntry.COLUMN_AUTHOR_NAME + " TEXT NOT NULL, " +
             CourseEntry.COLUMN_CATEGORY_NAME + " TEXT NOT NULL, " +
+            CourseEntry.COLUMN_LAST_ACCESS_CARD + " TEXT NOT NULL, " +
 
             " UNIQUE (" + CourseEntry.COLUMN_TITLE + ") ON CONFLICT IGNORE" +
             " );";
@@ -58,6 +59,7 @@ public class CourseDBHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_COURSE_CATEGORY_TABLE = "CREATE TABLE " + CourseCategoryEntry.TABLE_NAME + " (" +
             CourseCategoryEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             CourseCategoryEntry.COLUMN_CATEGORY_NAME + " TEXT NOT NULL, " +
+            CourseCategoryEntry.COLUMN_COURSE_TITLE + " TEXT NOT NULL, " +
 
             " UNIQUE (" + CourseCategoryEntry.COLUMN_CATEGORY_NAME + ") ON CONFLICT IGNORE" +
             " );";

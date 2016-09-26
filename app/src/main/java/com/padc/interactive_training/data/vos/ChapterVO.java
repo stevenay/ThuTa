@@ -10,7 +10,7 @@ import java.util.List;
 public class ChapterVO {
 
     @SerializedName("chapter_id")
-    private int chapterId;
+    private String chapterId;
 
     @SerializedName("chapter_number")
     private int chapterNumber;

@@ -5,6 +5,8 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,6 +32,7 @@ import com.padc.interactive_training.fragments.CourseTodoListFragment;
 import com.padc.interactive_training.fragments.DiscussionListFragment;
 import com.padc.interactive_training.utils.InteractiveTrainingConstants;
 import com.padc.interactive_training.utils.MMFontUtils;
+import com.padc.interactive_training.utils.TransitionHelper;
 import com.padc.interactive_training.views.holders.ChapterViewHolder;
 import com.padc.interactive_training.views.holders.DiscussionViewHolder;
 
@@ -125,14 +128,6 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
 
             }
         });
-
-        final Intent intent = getIntent();
-        if (intent.hasExtra(InteractiveTrainingConstants.SWITCH_TAB)) {
-            final String tab = intent.getExtras().getString(InteractiveTrainingConstants.SWITCH_TAB);
-
-            if (tab.equals("tab_discussion"))
-                pagerNavigations.setCurrentItem(1);
-        }
     }
 
     private void setupWindowAnimations() {
@@ -216,7 +211,11 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
 
     //region NavigationMethods
     private void navigateToCourseFlow() {
+        Intent intent = CourseFlowActivity.newIntent("SampleCourseID");
 
+        final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(this, true);
+        ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this, pairs);
+        startActivity(intent);
     }
 
     private void navigateToNewDiscussion(Integer courseID)

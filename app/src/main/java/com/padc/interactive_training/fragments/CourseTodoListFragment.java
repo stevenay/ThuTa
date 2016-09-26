@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.daimajia.swipe.util.Attributes;
 import com.padc.interactive_training.R;
 import com.padc.interactive_training.adapters.CourseTodoAdapter;
+import com.padc.interactive_training.views.holders.CourseTodoItemViewHolder;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersTouchListener;
@@ -121,9 +122,9 @@ public class CourseTodoListFragment extends Fragment {
         }
 
         @Override
-        public CourseTodoAdapter.SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public CourseTodoItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_item_course_todo, parent, false);
-            return new CourseTodoAdapter.SimpleViewHolder(view) {};
+            return new CourseTodoItemViewHolder(view, this) {};
         }
 
         @Override

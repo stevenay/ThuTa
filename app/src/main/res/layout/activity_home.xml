@@ -91,7 +91,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:itemTextColor="@drawable/state_left_menu_item"
+        app:itemTextColor="@color/text_white_ish"
         app:itemIconTint="@drawable/state_left_menu_item"
         android:background="#FF2F4050"
         app:headerLayout="@layout/left_menu_header"

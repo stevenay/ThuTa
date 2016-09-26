@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <group
         android:id="@+id/group_general"
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_featured_course"
+            android:checked="true"
             android:icon="@drawable/ic_home_48"
-            android:title="Featured Courses"
-            android:checked="true"/>
+            android:title="Featured Courses" />
 
         <item
             android:id="@+id/nav_course_categories"
             android:icon="@drawable/ic_dns_24dp"
-            android:title="Categories"
-            />
+            android:title="Categories" />
 
         <item
             android:id="@+id/nav_articles"
@@ -32,8 +32,7 @@
         <item
             android:id="@+id/nav_my_course"
             android:icon="@drawable/ic_dns_24dp"
-            android:title="My Courses"
-            />
+            android:title="My Courses" />
 
         <item
             android:id="@+id/nav_pin_cards"
@@ -43,22 +42,25 @@
         <item
             android:id="@+id/nav_notifications"
             android:icon="@drawable/ic_notifications_24dp"
-            android:title="Notifications" />
+            android:title="Notifications"
+            app:actionLayout="@layout/menu_notification_counter"/>
     </group>
 
-    <item android:title="အကူအညီ">
-        <menu>
-            <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/menu_help"
-                    android:icon="@drawable/ic_help_24dp"
-                    android:title="အသံုးျပဳနည္း" />
-                <item
-                    android:id="@+id/menu_about_us"
-                    android:icon="@drawable/ic_chat_24dp"
-                    android:title="ကြ်နု္ပ္တို႔ အေၾကာင္း" />
-            </group>
-        </menu>
-    </item>
+    <group>
+        <item
+            android:id="@+id/nav_invite_friend"
+            android:icon="@drawable/ic_send_24dp"
+            android:title="သူငယ္ခ်င္း ဖိတ္ေခၚ" />
+
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_help_24dp"
+            android:title="အသံုးျပဳနည္း" />
+
+        <item
+            android:id="@+id/nav_about_us"
+            android:icon="@drawable/ic_chat_24dp"
+            android:title="ကြ်နု္ပ္တို႔ အေၾကာင္း" />
+    </group>
 
 </menu>

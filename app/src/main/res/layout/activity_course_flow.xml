@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/course_background_sample"
+    android:clipChildren="false"
+    android:padding="@dimen/margin_medium"
+    tools:context=".activities.CourseFlowActivity">
+
+    <LinearLayout
+        android:id="@+id/linear_layout_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_weight="0"
+            android:background="@color/transparent"
+            android:src="@drawable/ic_arrow_back_24dp" />
+
+        <ProgressBar
+            android:id="@+id/pb_course_flow"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_weight="1"
+            android:max="100"
+            android:progress="45"
+            android:progressBackgroundTint="@color/course_background_progress_bar"
+            android:progressTint="@color/text_white_ish" />
+
+        <ImageButton
+            android:id="@+id/btn_share"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_weight="0"
+            android:background="@color/transparent"
+            android:src="@drawable/ic_share_24dp" />
+
+    </LinearLayout>
+
+    <!--<in.arjsna.swipecardlib.SwipePageView-->
+    <!--android:id="@+id/page_swipe_view"-->
+    <!--android:background="@color/transparent"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_below="@id/linear_layout_top"-->
+    <!--/>-->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/linear_layout_top"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/fl_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_medium_1"
+            android:layout_weight="0"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_previous"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/bg_rounded_corner_background"
+                android:layout_marginRight="@dimen/margin_medium"
+                android:drawableLeft="@drawable/ic_chevron_left_24dp"
+                android:drawablePadding="-15sp"
+                android:textSize="@dimen/text_small"
+                android:text=" Prev" />
+
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="126dp"
+                android:layout_alignParentRight="true"
+                android:layout_height="38dp"
+                android:background="@drawable/bg_rounded_corner_background"
+                android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+                android:drawablePadding="-15sp"
+                android:textSize="@dimen/text_small"
+                android:text="1 Question" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

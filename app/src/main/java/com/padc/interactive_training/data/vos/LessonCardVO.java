@@ -1,33 +1,25 @@
 package com.padc.interactive_training.data.vos;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by NayLinAung on 9/8/2016.
  */
 public class LessonCardVO {
 
-    private int cardID;
-    private int courseID;
     private Integer chapterID;
-    private String lessonImage;
+
+    @SerializedName("card_image_url")
+    private String lessonImageUrl;
+
+    @SerializedName("card_description")
     private String lessonDescription;
+
+    @SerializedName("card_order_number")
     private Integer cardOrderNumber;
+
+    @SerializedName("bookmarked")
     private boolean bookmarked;
-
-    public int getCardID() {
-        return cardID;
-    }
-
-    public void setCardID(int cardID) {
-        this.cardID = cardID;
-    }
-
-    public int getCourseID() {
-        return courseID;
-    }
-
-    public void setCourseID(int courseID) {
-        this.courseID = courseID;
-    }
 
     public Integer getChapterID() {
         return chapterID;
@@ -37,12 +29,16 @@ public class LessonCardVO {
         this.chapterID = chapterID;
     }
 
-    public String getLessonImage() {
-        return lessonImage;
+    public String getLessonImageUrl() {
+        return lessonImageUrl;
     }
 
-    public void setLessonImage(String lessonImage) {
-        this.lessonImage = lessonImage;
+    public void setLessonImageUrl(String lessonImageUrl) {
+        this.lessonImageUrl = lessonImageUrl;
+    }
+
+    public void setCardOrderNumber(Integer cardOrderNumber) {
+        this.cardOrderNumber = cardOrderNumber;
     }
 
     public String getLessonDescription() {

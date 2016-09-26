@@ -10,13 +10,10 @@ import java.util.List;
  */
 public class DiscussionVO {
 
-    @SerializedName("discussion_id")
-    private int discussionID;
-
     @SerializedName("discussion_title")
     private String discussionTitle;
 
-    @SerializedName("description")
+    @SerializedName("discussion")
     private String description;
 
     @SerializedName("user_id")
@@ -25,21 +22,13 @@ public class DiscussionVO {
     private String postPastTime;
 
     @SerializedName("post_datetime")
-    private Date postedTime;
+    private String postedTime;
 
     @SerializedName("like_count")
     private Integer likes;
 
     @SerializedName("replies")
     private List<ReplyVO> replies;
-
-    public int getDiscussionID() {
-        return discussionID;
-    }
-
-    public void setDiscussionID(int discussionID) {
-        this.discussionID = discussionID;
-    }
 
     public String getTitle() {
         return discussionTitle;
@@ -73,11 +62,11 @@ public class DiscussionVO {
         this.postPastTime = postPastTime;
     }
 
-    public Date getPostedTime() {
+    public String getPostedTime() {
         return postedTime;
     }
 
-    public void setPostedTime(Date postedTime) {
+    public void setPostedTime(String postedTime) {
         this.postedTime = postedTime;
     }
 

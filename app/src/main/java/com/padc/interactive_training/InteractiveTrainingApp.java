@@ -8,6 +8,8 @@ import android.content.Context;
  */
 public class InteractiveTrainingApp extends Application {
 
+    public static final String TAG = "InteractiveTrainingApp";
+
     private static Context context;
 
     @Override

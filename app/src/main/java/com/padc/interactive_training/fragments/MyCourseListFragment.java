@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import com.padc.interactive_training.R;
 import com.padc.interactive_training.adapters.MyCourseAdapter;
 import com.padc.interactive_training.animators.RecyclerItemAnimator;
+import com.padc.interactive_training.data.vos.AuthorVO;
+import com.padc.interactive_training.data.vos.CourseCategoryVO;
 import com.padc.interactive_training.data.vos.CourseVO;
 import com.padc.interactive_training.views.holders.MyCourseViewHolder;
 
@@ -82,27 +84,43 @@ public class MyCourseListFragment extends Fragment {
 
         CourseVO courseOne = new CourseVO();
         courseOne.setTitle("UV ေရာင္ျခည္ကို ဘယ္လိုကာကြယ္မလဲ");
-        courseOne.setCategoryName("LifeStyle");
+
+        CourseCategoryVO category = new CourseCategoryVO();
+        category.setCategoryName("LifeStyle");
+        courseOne.setCourseCategory(category);
+
         courseOne.setDurationInMinute(15);
-        courseOne.setAuthorName("Admin Team");
+
+        AuthorVO author = new AuthorVO();
+        author.setAuthorName("Admin Team");
+
+        courseOne.setAuthor(author);
         courseOne.setColorCode("#aed582");
         courseOne.setCoverPhotoUrl("co_terrace.png");
         courseList.add(courseOne);
 
         CourseVO courseTwo = new CourseVO();
         courseTwo.setTitle("အားကစားကို နည္းမွန္လမ္းမွန္ ျပဳလုပ္နည္းမ်ား");
-        courseTwo.setCategoryName("Sports and Fitness");
+
+        CourseCategoryVO category1 = new CourseCategoryVO();
+        category.setCategoryName("Sports and Fitness");
+
+        courseTwo.setCourseCategory(category1);
         courseTwo.setDurationInMinute(15);
-        courseTwo.setAuthorName("Admin Team");
+        courseTwo.setAuthor(author);
         courseTwo.setColorCode("#81c683");
         courseOne.setCoverPhotoUrl("co_runner.png");
         courseList.add(courseTwo);
 
         CourseVO courseThree = new CourseVO();
         courseThree.setTitle("C# အသံုးျပဳ Console Application တစ္ခု ဘယ္လိုတည္ေဆာက္မလဲ");
-        courseThree.setCategoryName("Programming");
+
+        CourseCategoryVO category2 = new CourseCategoryVO();
+        category.setCategoryName("Programming");
+
+        courseThree.setCourseCategory(category2);
         courseThree.setDurationInMinute(10);
-        courseThree.setAuthorName("Admin Team");
+        courseThree.setAuthor(author);
         courseThree.setColorCode("#25c6da");
         courseOne.setCoverPhotoUrl("co_terrace.png");
         courseList.add(courseThree);

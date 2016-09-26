@@ -46,7 +46,4 @@ public class InteractiveTrainingConstants {
     public static final String CUSTOMER_SUPPORT_EMAIL = "customer-support@myanmarattractions.com";
 
     public static final int DIALOG_BUTTON_LABEL_LIMIT = 15;
-
-    public static final String SWITCH_TAB = "switch_tab";
-    public static final String TAB_DISCUSSION = "tab_discussion";
 }

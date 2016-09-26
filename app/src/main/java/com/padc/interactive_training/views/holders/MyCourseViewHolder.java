@@ -96,7 +96,7 @@ public class MyCourseViewHolder extends RecyclerView.ViewHolder {
 
 
         tvCourseTitle.setText(mCourseVO.getTitle());
-        tvCategoryName.setText(mCourseVO.getCategoryName());
+        tvCategoryName.setText(mCourseVO.getCourseCategory().getCategoryName());
         tvCategoryName.setTextColor(Color.parseColor(mCourseVO.getColorCode()));
 
         String durationAndAuthor = mCourseVO.getDurationInMinute().toString() + " mins - Admin Team";

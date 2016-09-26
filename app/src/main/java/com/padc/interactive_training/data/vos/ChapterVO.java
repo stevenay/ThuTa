@@ -1,17 +1,38 @@
 package com.padc.interactive_training.data.vos;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 /**
- * Created by Dell on 9/6/2016.
+ * Created by NayLinAung on 9/6/2016.
  */
 public class ChapterVO {
 
+    @SerializedName("chapter_id")
+    private int chapterId;
+
+    @SerializedName("chapter_number")
     private int chapterNumber;
+
+    @SerializedName("chapter_title")
     private String title;
+
+    @SerializedName("chapter_brief")
     private String chapterBrief;
-    private Integer lessonCount;
-    private Integer questionCount;
+
+    @SerializedName("lesson_cards")
+    private List<LessonCardVO> lessonCards;
+
+    @SerializedName("duration")
     private Integer durationInMins;
+
+    private Integer lessonCount;
+
+    private Integer questionCount;
+
     private boolean locked;
+
     private Integer finishedPercentage;
 
     public int getChapterNumber() {
@@ -76,5 +97,14 @@ public class ChapterVO {
 
     public void setDurationInMins(Integer durationInMins) {
         this.durationInMins = durationInMins;
+    }
+
+    public List<LessonCardVO> getLessonCards() {
+        return lessonCards;
+    }
+
+    public void setLessonCards(List<LessonCardVO> lessonCards) {
+        this.lessonCards = lessonCards;
+        this.lessonCount = lessonCards.size();
     }
 }

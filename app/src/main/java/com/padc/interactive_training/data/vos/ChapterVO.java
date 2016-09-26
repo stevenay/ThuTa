@@ -31,8 +31,10 @@ public class ChapterVO {
 
     private Integer questionCount;
 
+    @SerializedName("locked")
     private boolean locked;
 
+    @SerializedName("finished_percentage")
     private Integer finishedPercentage;
 
     public int getChapterNumber() {

@@ -62,7 +62,6 @@ public class TodoListActivity extends AppCompatActivity {
                 "Choose a universal profile photo."};
         mDataSet = new ArrayList<String>(Arrays.asList(adapterData));
         mAdapter = new TodoAdapter(mDataSet);
-        ((TodoAdapter) mAdapter).setMode(Attributes.Mode.Single);
 
         rvTodoList.setAdapter(mAdapter);
 

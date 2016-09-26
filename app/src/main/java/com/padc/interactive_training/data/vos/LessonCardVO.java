@@ -21,6 +21,9 @@ public class LessonCardVO {
     @SerializedName("bookmarked")
     private boolean bookmarked;
 
+    @SerializedName("finished")
+    private boolean finished;
+
     public Integer getChapterID() {
         return chapterID;
     }
@@ -63,5 +66,13 @@ public class LessonCardVO {
 
     public void setBookmarked(boolean bookmarked) {
         this.bookmarked = bookmarked;
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
     }
 }

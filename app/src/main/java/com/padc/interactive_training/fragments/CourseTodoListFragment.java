@@ -1,6 +1,5 @@
 package com.padc.interactive_training.fragments;
 
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +14,7 @@ import android.widget.Toast;
 import com.daimajia.swipe.util.Attributes;
 import com.padc.interactive_training.R;
 import com.padc.interactive_training.adapters.CourseTodoAdapter;
+import com.padc.interactive_training.adapters.TodosHeadersAdapter;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersTouchListener;
@@ -111,38 +111,5 @@ public class CourseTodoListFragment extends Fragment {
         });
 
         return view;
-    }
-
-    private class TodosHeadersAdapter extends CourseTodoAdapter
-            implements StickyRecyclerHeadersAdapter<RecyclerView.ViewHolder> {
-
-        public TodosHeadersAdapter(ArrayList<String> objects) {
-            super(objects);
-        }
-
-        @Override
-        public CourseTodoAdapter.SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_item_course_todo, parent, false);
-            return new CourseTodoAdapter.SimpleViewHolder(view) {};
-        }
-
-        @Override
-        public long getHeaderId(int position) {
-            return getItem(position).charAt(0);
-        }
-
-        @Override
-        public RecyclerView.ViewHolder onCreateHeaderViewHolder(ViewGroup parent) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.view_header_course_todo, parent, false);
-            return new RecyclerView.ViewHolder(view) {};
-        }
-
-        @Override
-        public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder, int position) {
-            TextView textView = (TextView) holder.itemView;
-            textView.setText("List 1: Install Java into Your Machine");
-            // holder.itemView.setBackgroundColor(getRandomColor());
-        }
     }
 }

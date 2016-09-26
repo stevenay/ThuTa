@@ -26,7 +26,7 @@ public class TodoListActivity extends AppCompatActivity {
     @BindView(R.id.rv_todo_list)
     RecyclerView rvTodoList;
 
-    private RecyclerView.Adapter mAdapter;
+    private TodoAdapter mAdapter;
     private ArrayList<String> mDataSet;
 
     private static final String IE_COURSE_ID = "IE_COURSE_ID";
@@ -45,9 +45,6 @@ public class TodoListActivity extends AppCompatActivity {
 
         // Layout Managers:
         rvTodoList.setLayoutManager(new LinearLayoutManager(this));
-
-        // Item Decorator:
-//        rvTodoList.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.divider)));
         rvTodoList.setItemAnimator(new FadeInLeftAnimator());
 
         // Adapter:
@@ -62,7 +59,6 @@ public class TodoListActivity extends AppCompatActivity {
                 "Choose a universal profile photo."};
         mDataSet = new ArrayList<String>(Arrays.asList(adapterData));
         mAdapter = new TodoAdapter(mDataSet);
-        ((TodoAdapter) mAdapter).setMode(Attributes.Mode.Single);
 
         rvTodoList.setAdapter(mAdapter);
 

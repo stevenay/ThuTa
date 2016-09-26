@@ -17,141 +17,69 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.daimajia.swipe.implments.SwipeItemRecyclerMangerImpl;
 import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.R;
+import com.padc.interactive_training.views.holders.CourseTodoItemViewHolder;
 
 import java.util.ArrayList;
 
 /**
  * Created by NayLinAung on 9/13/2016.
  */
-public class CourseTodoAdapter extends RecyclerSwipeAdapter<CourseTodoAdapter.SimpleViewHolder> {
-
-    public static class SimpleViewHolder extends RecyclerView.ViewHolder {
-        SwipeLayout swipeLayout;
-        TextView textViewData;
-        TextView tvDoneLabel;
-        LinearLayout layoutSave;
-        LinearLayout layoutDelete;
-
-        public SimpleViewHolder(View itemView) {
-            super(itemView);
-
-            swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe_todo);
-            textViewData = (TextView) itemView.findViewById(R.id.text_data);
-            tvDoneLabel = (TextView) itemView.findViewById(R.id.tv_done_label);
-            layoutSave = (LinearLayout) itemView.findViewById(R.id.layout_save);
-            layoutDelete = (LinearLayout) itemView.findViewById(R.id.layout_delete);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.d(getClass().getSimpleName(), "onItemSelected: " + textViewData.getText().toString());
-                    Toast.makeText(view.getContext(), "onItemSelected: " + textViewData.getText().toString(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-    }
+public class CourseTodoAdapter extends RecyclerSwipeAdapter<CourseTodoItemViewHolder>
+    implements CourseTodoItemViewHolder.ControllerTodoItem {
 
     private Context mContext;
-    private ArrayList<String> mDataset;
+    private ArrayList<String> mTodoList;
 
     protected SwipeItemRecyclerMangerImpl mItemManger = new SwipeItemRecyclerMangerImpl(this);
 
     public CourseTodoAdapter(ArrayList<String> objects) {
         this.mContext = InteractiveTrainingApp.getContext();
-        this.mDataset = objects;
+        this.mTodoList = objects;
     }
 
     @Override
-    public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CourseTodoItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_item_course_todo, parent, false);
-        return new SimpleViewHolder(view);
+        return new CourseTodoItemViewHolder(view, this);
     }
 
     @Override
-    public void onBindViewHolder(final SimpleViewHolder viewHolder, final int position) {
-        String item = mDataset.get(position);
-        viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
-        viewHolder.swipeLayout.addSwipeListener(new SimpleSwipeListener() {
-            @Override
-            public void onOpen(SwipeLayout layout) {
-//                YoYo.with(Techniques.Tada).duration(500).delay(100).playOn(layout.findViewById(R.id.iv_save));
-//                YoYo.with(Techniques.Tada).duration(500).delay(100).playOn(layout.findViewById(R.id.iv_trash));
-            }
-        });
-
-        viewHolder.swipeLayout.setOnClickListener(new SwipeLayout.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final SwipeLayout layout = (SwipeLayout) view;
-                layout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        layout.toggle();
-                    }
-                }, 50);
-            }
-        });
-
-        viewHolder.swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
-            @Override
-            public void onDoubleClick(final SwipeLayout layout, boolean surface) {
-//                layout.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        layout.toggle();
-//                    }
-//                }, 50);
-            }
-        });
-
-        viewHolder.layoutDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mItemManger.removeShownLayouts(viewHolder.swipeLayout);
-                mDataset.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, mDataset.size());
-                mItemManger.closeAllItems();
-                // + viewHolder.textViewData.getText().toString() + "!"
-                Toast.makeText(view.getContext(), "Removed 1 item!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        viewHolder.layoutSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mItemManger.closeAllItems();
-                Toast.makeText(view.getContext(), "Done 1 item!", Toast.LENGTH_SHORT).show();
-                viewHolder.layoutSave.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (viewHolder.tvDoneLabel.getText().toString().toLowerCase().equals("done")) {
-                            viewHolder.textViewData.setPaintFlags(viewHolder.textViewData.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                            viewHolder.tvDoneLabel.setText("Undo");
-                        } else {
-                            viewHolder.textViewData.setPaintFlags(viewHolder.textViewData.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-                            viewHolder.tvDoneLabel.setText("Done");
-                        }
-                    }
-                }, 50);
-            }
-        });
-
-        viewHolder.textViewData.setText(item);
+    public void onBindViewHolder(final CourseTodoItemViewHolder viewHolder, final int position) {
+        String item = mTodoList.get(position);
+        viewHolder.bindData(item, position);
         mItemManger.bindView(viewHolder.itemView, position);
     }
 
     public String getItem(int position) {
-        return mDataset.get(position);
+        return mTodoList.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        return mTodoList.size();
     }
 
     @Override
     public int getSwipeLayoutResourceId(int position) {
         return R.id.swipe_todo;
     }
+
+    //region Controller Interface Implementation
+    @Override
+    public void onTapDelete(int positionOfItem, SwipeLayout deletedLayout) {
+        mItemManger.removeShownLayouts(deletedLayout);
+        mTodoList.remove(positionOfItem);
+        notifyItemRemoved(positionOfItem);
+        notifyItemRangeChanged(positionOfItem, mTodoList.size());
+        mItemManger.closeAllItems();
+        // + viewHolder.textViewData.getText().toString() + "!"
+        Toast.makeText(mContext, "Removed 1 item!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onTapDone(int positionOfItem, SwipeLayout doneLayout) {
+        mItemManger.closeAllItems();
+        Toast.makeText(mContext, "Done 1 item!", Toast.LENGTH_SHORT).show();
+    }
+    //endregion
 }

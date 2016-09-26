@@ -105,7 +105,8 @@ public class CourseFlowActivity extends AppCompatActivity
     public void onbtnPreviousPressed(Button view) {
         cardIndex--;
         if (cardIndex >= 0) {
-            navigateToLessonCard(cardIndex, "previous");
+            navigateToTodoActivity();
+//            navigateToLessonCard(cardIndex, "previous");
         } else {
             cardIndex = 0;
             Toast.makeText(getApplicationContext(), "သင္ခန္းစာမ်ား မရွိေတာ့ပါ", Toast.LENGTH_SHORT).show();
@@ -137,6 +138,11 @@ public class CourseFlowActivity extends AppCompatActivity
                 .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left)
                 .replace(R.id.fl_container, fragment)
                 .commit();
+    }
+
+    private void navigateToTodoActivity() {
+        Intent intent = TodoListActivity.newIntent("sampleCourseID");
+        startActivity(intent);
     }
 
     //region ControllerLessonCardItem Implementation

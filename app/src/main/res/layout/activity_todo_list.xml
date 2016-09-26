@@ -61,22 +61,19 @@
                 android:padding="10dp"
                 android:textColor="#ffffff"
                 android:background="@drawable/bg_rounded_corner_background"
-                android:text="Save" />
+                android:text="Continue" />
 
-            <Button
-                android:id="@+id/btn_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_medium"
-                android:padding="10dp"
-                android:textColor="#ffffff"
-                android:background="@drawable/bg_rounded_corner_background"
-                android:text="Cancel" />
+            <!--<Button-->
+                <!--android:id="@+id/btn_cancel"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/margin_medium"-->
+                <!--android:padding="10dp"-->
+                <!--android:textColor="#ffffff"-->
+                <!--android:background="@drawable/bg_rounded_corner_background"-->
+                <!--android:text="Cancel" />-->
 
         </LinearLayout>
-
-
-
 
     </RelativeLayout>
 

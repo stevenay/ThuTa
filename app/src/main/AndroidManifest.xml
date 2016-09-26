@@ -42,7 +42,6 @@
                 android:value="com.padc.interactive_training.activities.ArticlesActivity" />
         </activity>
 
-
         <activity
             android:name=".activities.TestActivity"
             android:label="@string/title_activity_test"
@@ -76,6 +75,11 @@
 
         <activity
             android:name=".activities.PopupQuestionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Base.NoActionBar.FullScreen" />
+
+        <activity
+            android:name=".activities.TodoListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Base.NoActionBar.FullScreen" />
 

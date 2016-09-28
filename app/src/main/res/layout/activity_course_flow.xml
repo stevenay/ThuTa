@@ -79,6 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="38dp"
                 android:layout_alignParentLeft="true"
+                android:visibility="invisible"
                 android:background="@drawable/bg_rounded_corner_background"
                 android:layout_marginRight="@dimen/margin_medium"
                 android:drawableLeft="@drawable/ic_chevron_left_24dp"
@@ -88,14 +89,15 @@
 
             <Button
                 android:id="@+id/btn_next"
-                android:layout_width="126dp"
+                android:layout_width="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_height="38dp"
+                android:visibility="invisible"
                 android:background="@drawable/bg_rounded_corner_background"
                 android:drawableRight="@drawable/ic_chevron_right_black_24dp"
                 android:drawablePadding="-15sp"
                 android:textSize="@dimen/text_small"
-                android:text="1 Question" />
+                android:text="Next" />
 
         </RelativeLayout>
 

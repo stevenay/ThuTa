@@ -1,0 +1,129 @@
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/page_swipe_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/margin_smallest"
+    android:background="@drawable/card_border_color"
+    app:cardCornerRadius="@dimen/margin_small"
+    app:cardElevation="@dimen/margin_small">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/margin_small"
+                android:paddingBottom="@dimen/margin_small"
+                android:clipToPadding="false"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_lesson_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_xlarge"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_door_96" />
+
+                <TextView
+                    android:id="@+id/tv_chapter_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_medium_2"
+                    android:layout_marginTop="@dimen/margin_medium_2"
+                    android:layout_weight="0"
+                    android:gravity="center_horizontal"
+                    android:text="Chapter 1"
+                    android:textColor="@color/course_background_sample"
+                    android:textAllCaps="true"
+                    android:textSize="@dimen/text_regular_2x"
+                    android:textStyle="bold" />
+
+                <com.padc.interactive_training.components.MMTextView
+                    android:id="@+id/tv_chapter_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_xlarge"
+                    android:paddingLeft="@dimen/margin_large"
+                    android:paddingRight="@dimen/margin_large"
+                    android:gravity="center_horizontal"
+                    android:fontFamily="sans-serif-light"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="Everyone should familiar with UX"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_regular_3x" />
+
+                <com.padc.interactive_training.components.MMTextView
+                    android:id="@+id/tv_chapter_brief"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_lesson_image"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:paddingLeft="@dimen/margin_large"
+                    android:paddingRight="@dimen/margin_large"
+                    android:gravity="center_horizontal"
+                    android:fontFamily="sans-serif-light"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="Mobile app UX. Sounds like something only design wizards and tech gurus need to know."
+                    android:textColor="@color/black_overlay"
+                    android:textSize="@dimen/text_regular_2x" />
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:background="@drawable/bg_border_bottom_chapter_intro">
+
+            <com.padc.interactive_training.components.MMTextView
+                android:id="@+id/tv_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/margin_medium_2"
+                android:layout_marginTop="@dimen/margin_medium_2"
+                android:layout_marginBottom="@dimen/margin_medium_2"
+                android:text="5 min"
+                android:drawableLeft="@drawable/ic_query_builder_24dp"
+                android:drawablePadding="@dimen/margin_small"
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/black_overlay_light"
+                />
+
+            <TextView
+                android:id="@+id/tv_card_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/margin_medium_2"
+                android:layout_marginTop="@dimen/margin_medium_2"
+                android:layout_marginBottom="@dimen/margin_medium_2"
+                android:drawableLeft="@drawable/ic_radio_button_checked_24dp"
+                android:drawablePadding="@dimen/margin_small"
+                android:gravity="right"
+                android:text="3 steps"
+                android:textColor="@color/black_overlay_light"
+                android:textSize="@dimen/text_small" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.padc.interactive_training.data.persistence.CoursesContract.AuthorEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.ChapterEntry;
+import com.padc.interactive_training.data.persistence.CoursesContract.LessonCardEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.CourseCategoryEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.CourseEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.CourseTagEntry;
@@ -13,12 +14,12 @@ import com.padc.interactive_training.data.persistence.CoursesContract.TodoItemEn
 import com.padc.interactive_training.data.persistence.CoursesContract.TodoListEntry;
 
 /**
- * Created by aung on 7/9/16.
+ * Created by NayLinAung on 7/9/16.
  */
 public class CourseDBHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "attractions.db";
+    private static final int DATABASE_VERSION = 5;
+    public static final String DATABASE_NAME = "courses.db";
 
     private static final String SQL_CREATE_COURSE_TABLE = "CREATE TABLE " + CourseEntry.TABLE_NAME + " (" +
             CourseEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -71,9 +72,28 @@ public class CourseDBHelper extends SQLiteOpenHelper {
             ChapterEntry.COLUMN_CHAPTER_BRIEF + " TEXT NOT NULL, " +
             ChapterEntry.COLUMN_DURATION + " INTEGER NOT NULL, " +
             ChapterEntry.COLUMN_COURSE_TITLE + " TEXT NOT NULL, " +
+            ChapterEntry.COLUMN_FINISHED_PERCENTAGE + " INT NOT NULL, " +
+            ChapterEntry.COLUMN_LOCKED + " INT NOT NULL, " +
+            ChapterEntry.COLUMN_LESSON_COUNT + " INT NOT NULL, " +
+            ChapterEntry.COLUMN_CHAPTER_ID + " TEXT NOT NULL, " +
 
             " UNIQUE (" + ChapterEntry.COLUMN_CHAPTER_NUMBER + ", " +
             ChapterEntry.COLUMN_COURSE_TITLE + ") ON CONFLICT IGNORE" +
+            " );";
+
+    private static final String SQL_CREATE_LESSON_CARD_TABLE = "CREATE TABLE " + LessonCardEntry.TABLE_NAME + " (" +
+            LessonCardEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            LessonCardEntry.COLUMN_COURSE_TITLE + " TEXT NOT NULL, " +
+            LessonCardEntry.COLUMN_CHAPTER_ID + " TEXT NOT NULL, " +
+            LessonCardEntry.COLUMN_CARD_DESCRIPTION + " TEXT NOT NULL, " +
+            LessonCardEntry.COLUMN_CARD_ORDER_NUMBER + " INTEGER NOT NULL, " +
+            LessonCardEntry.COLUMN_CARD_IMAGE_URL + " INTEGER NOT NULL, " +
+            LessonCardEntry.COLUMN_FINISHED + " INTEGER NOT NULL, " +
+            LessonCardEntry.COLUMN_BOOKMARKED + " INTEGER NOT NULL, " +
+
+            " UNIQUE (" + LessonCardEntry.COLUMN_CHAPTER_ID + ", " +
+            LessonCardEntry.COLUMN_COURSE_TITLE + ", " +
+            LessonCardEntry.COLUMN_CARD_DESCRIPTION + ") ON CONFLICT IGNORE" +
             " );";
 
     private static final String SQL_CREATE_TODO_LIST_TABLE = "CREATE TABLE " + TodoListEntry.TABLE_NAME + " (" +
@@ -103,6 +123,7 @@ public class CourseDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_COURSE_TAG_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_COURSE_CATEGORY_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_CHAPTER_TABLE);
+        sqLiteDatabase.execSQL(SQL_CREATE_LESSON_CARD_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_TODO_LIST_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_TODO_ITEM_TABLE);
     }
@@ -114,6 +135,7 @@ public class CourseDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CourseTagEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CourseCategoryEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ChapterEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + LessonCardEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TodoListEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TodoItemEntry.TABLE_NAME);
 

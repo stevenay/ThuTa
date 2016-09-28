@@ -173,7 +173,7 @@ public class CourseVO {
 
             CourseVO.saveCourseCategory(course.getTitle(), course.getCourseCategory());
             CourseVO.saveAuthor(course.getTitle(), course.getAuthor());
-            CourseVO.saveChapters(course.getTitle(), course.getChapters()); // Bulk insert into chapters
+            ChapterVO.saveChapters(course.getTitle(), course.getChapters()); // Bulk insert into chapters
 //            CourseVO.saveDiscussions(course.getTitle(), course.getDiscussions());
 //            CourseVO.saveTodoLists(course.getTitle(), course.getTodoLists());
         }
@@ -182,31 +182,6 @@ public class CourseVO {
         int insertedCount = context.getContentResolver().bulkInsert(CoursesContract.CourseEntry.CONTENT_URI, courseCVs);
 
         Log.d(InteractiveTrainingApp.TAG, "Bulk inserted into course table : " + insertedCount);
-    }
-
-    private static void saveChapters(String courseTitle, List<ChapterVO> chapters) {
-        Log.d(InteractiveTrainingApp.TAG, "Method: saveChapters. Loaded chapters: " + chapters.size());
-
-        ContentValues[] chapterCVs = new ContentValues[chapters.size()];
-        for (int index = 0; index < chapters.size(); index++) {
-            ChapterVO chapter = chapters.get(index);
-
-            ContentValues cv = new ContentValues();
-            cv.put(CoursesContract.ChapterEntry.COLUMN_CHAPTER_TITLE, chapter.getTitle());
-            cv.put(CoursesContract.ChapterEntry.COLUMN_CHAPTER_NUMBER, chapter.getChapterNumber());
-            cv.put(CoursesContract.ChapterEntry.COLUMN_CHAPTER_BRIEF, chapter.getChapterBrief());
-            cv.put(CoursesContract.ChapterEntry.COLUMN_DURATION, chapter.getDurationInMins());
-            cv.put(CoursesContract.ChapterEntry.COLUMN_COURSE_TITLE, courseTitle);
-
-            Log.d(InteractiveTrainingApp.TAG, "Method: saveChapters. Chapter Title: " + chapter.getTitle());
-
-            chapterCVs[index] = cv;
-        }
-
-        Context context = InteractiveTrainingApp.getContext();
-        int insertCount = context.getContentResolver().bulkInsert(CoursesContract.ChapterEntry.CONTENT_URI, chapterCVs);
-
-        Log.d(InteractiveTrainingApp.TAG, "Bulk inserted into chapters table : " + insertCount);
     }
 
     private static void saveCourseCategory(String courseTitle, CourseCategoryVO courseCategory) {
@@ -271,19 +246,5 @@ public class CourseVO {
         course.categoryName = data.getString(data.getColumnIndex(CoursesContract.CourseEntry.COLUMN_CATEGORY_NAME));
 
         return course;
-    }
-
-    public static AuthorVO loadAuthorByName(String authorName) {
-        Context context = InteractiveTrainingApp.getContext();
-        AuthorVO author = new AuthorVO();
-
-        Cursor cursor = context.getContentResolver().query(CoursesContract.AuthorEntry.buildAuthorUriWithAuthorName(authorName),
-                null, null, null, null);
-
-        if (cursor != null && cursor.moveToFirst()) {
-            author.setAuthorName(cursor.getString(cursor.getColumnIndex(CoursesContract.AuthorEntry.COLUMN_AUTHOR_NAME)));
-        }
-
-        return author;
     }
 }

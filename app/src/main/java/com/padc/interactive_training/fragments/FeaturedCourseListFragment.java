@@ -189,6 +189,7 @@ public class FeaturedCourseListFragment extends Fragment
         Glide.with(ivCourseCoverImage.getContext())
                 .load(featuredCourse.getCoverPhotoUrl())
                 .asBitmap()
+                .fitCenter()
                 .placeholder(R.drawable.misc_09_256)
                 .error(R.drawable.misc_09_256)
                 .into(ivCourseCoverImage);
@@ -239,7 +240,6 @@ public class FeaturedCourseListFragment extends Fragment
         CourseVO featuredCourse = null;
         if (data != null && data.moveToFirst()) {
             featuredCourse = CourseVO.parseFromCursor(data);
-            // featuredCourse.setAuthor(CourseVO.loadAuthorByName(featuredCourse.getAuthorName()));
             this.bindFeaturedCourseData(featuredCourse);
             CourseModel.getInstance().setStoredFeaturedCourseData(featuredCourse);
         }

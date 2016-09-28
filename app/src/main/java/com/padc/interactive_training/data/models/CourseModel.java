@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.padc.interactive_training.InteractiveTrainingApp;
+import com.padc.interactive_training.data.vos.ChapterVO;
 import com.padc.interactive_training.data.vos.CourseVO;
+import com.padc.interactive_training.data.vos.LessonCardVO;
 import com.padc.interactive_training.events.DataEvent;
 
 import java.util.ArrayList;
@@ -22,12 +24,15 @@ public class CourseModel extends BaseModel {
     private static CourseModel objInstance;
 
     private List<CourseVO> mCourseList;
+    private List<LessonCardVO> mCurrentAccessCardList;
+    private List<ChapterVO> mCurrentAccessChapterList;
 
     private CourseVO mFeaturedCourse;
 
     private CourseModel() {
         super();
         mCourseList = new ArrayList<>();
+        mCurrentAccessCardList = new ArrayList<>();
         loadCourses();
     }
 
@@ -67,18 +72,6 @@ public class CourseModel extends BaseModel {
 
     }
 
-//    public String getRandomCourseImage() {
-//        if (mAttractionList == null || mAttractionList.size() == 0) {
-//            return null;
-//        }
-//
-//        Random random = new Random();
-//        int randomInt = random.nextInt(mAttractionList.size());
-//
-//        AttractionVO attraction = mAttractionList.get(randomInt);
-//        return MyanmarAttractionsConstants.IMAGE_ROOT_DIR + attraction.getImages()[attraction.getImages().length - 1];
-//    }
-
     private void broadcastCourseLoadedWithLocalBroadcastManager() {
         Intent intent = new Intent(BROADCAST_DATA_LOADED);
         intent.putExtra("key-for-extra", "extra-in-broadcast");
@@ -97,4 +90,39 @@ public class CourseModel extends BaseModel {
         mCourseList = courseList;
     }
 
+    public void setCardListData(List<LessonCardVO> cardList) {
+        mCurrentAccessCardList = cardList;
+    }
+
+    public LessonCardVO getLessonCardbyIndex(int cardIndex) {
+        return mCurrentAccessCardList.get(cardIndex);
+    }
+
+    public void setChapterListData(List<ChapterVO> chapterList) {
+        mCurrentAccessChapterList = chapterList;
+    }
+
+    public ChapterVO getChapterbyIndex(int chapterIndex) {
+        return mCurrentAccessChapterList.get(chapterIndex);
+    }
+
+    public ChapterVO getChapterbyId(String chapterId) {
+        for(ChapterVO s : mCurrentAccessChapterList) {
+            if(s.getChapterId().equals(chapterId)) {
+                return s;
+            }
+        }
+
+        return null;
+    }
+
+    public int getFirstCardIndexbyChapterId(String chapterId) {
+        for(LessonCardVO s : mCurrentAccessCardList) {
+            if(s.getChapterId().equals(chapterId)) {
+                return mCurrentAccessCardList.indexOf(s);
+            }
+        }
+
+        return 0;
+    }
 }

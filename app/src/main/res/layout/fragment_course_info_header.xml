@@ -18,6 +18,7 @@
         android:src="@drawable/co_terrace" />
 
     <com.padc.interactive_training.components.MMTextView
+        android:id="@+id/tv_course_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_course_cover_image"

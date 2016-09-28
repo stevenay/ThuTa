@@ -1,6 +1,13 @@
 package com.padc.interactive_training.data.vos;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
+import com.padc.interactive_training.InteractiveTrainingApp;
+import com.padc.interactive_training.data.persistence.CoursesContract;
 
 import java.util.List;
 
@@ -107,6 +114,62 @@ public class ChapterVO {
 
     public void setLessonCards(List<LessonCardVO> lessonCards) {
         this.lessonCards = lessonCards;
-        this.lessonCount = lessonCards.size();
+    }
+
+    public String getChapterId() {
+        return chapterId;
+    }
+
+    public void setChapterId(String chapterId) {
+        this.chapterId = chapterId;
+    }
+
+    public static void saveChapters(String courseTitle, List<ChapterVO> chapters) {
+        Log.d(InteractiveTrainingApp.TAG, "Method: saveChapters. Loaded chapters: " + chapters.size());
+
+        ContentValues[] chapterCVs = new ContentValues[chapters.size()];
+        for (int index = 0; index < chapters.size(); index++) {
+            ChapterVO chapter = chapters.get(index);
+            chapterCVs[index] = chapter.parseToContentValues(courseTitle);
+
+            LessonCardVO.saveLessonCards(chapter.getChapterId(), courseTitle, chapter.getLessonCards());
+            Log.d(InteractiveTrainingApp.TAG, "Method: saveChapters. Chapter Title: " + chapter.getTitle());
+        }
+
+        Context context = InteractiveTrainingApp.getContext();
+        int insertCount = context.getContentResolver().bulkInsert(CoursesContract.ChapterEntry.CONTENT_URI, chapterCVs);
+
+        Log.d(InteractiveTrainingApp.TAG, "Bulk inserted into chapters table : " + insertCount);
+    }
+
+    public static ChapterVO parseFromCursor(Cursor data) {
+        ChapterVO chapter = new ChapterVO();
+
+        chapter.chapterId = data.getString(data.getColumnIndex(CoursesContract.ChapterEntry.COLUMN_CHAPTER_ID));
+        chapter.title = data.getString(data.getColumnIndex(CoursesContract.ChapterEntry.COLUMN_CHAPTER_TITLE));
+        chapter.chapterBrief = data.getString(data.getColumnIndex(CoursesContract.ChapterEntry.COLUMN_CHAPTER_BRIEF));
+        chapter.durationInMins = data.getInt(data.getColumnIndex(CoursesContract.ChapterEntry.COLUMN_DURATION));
+        chapter.finishedPercentage = data.getInt(data.getColumnIndex(CoursesContract.ChapterEntry.COLUMN_FINISHED_PERCENTAGE));
+        chapter.chapterNumber = data.getInt(data.getColumnIndex(CoursesContract.ChapterEntry.COLUMN_CHAPTER_NUMBER));
+        chapter.locked = data.getInt(data.getColumnIndex(CoursesContract.ChapterEntry.COLUMN_LOCKED)) == 1 ? true : false;
+        chapter.lessonCount = data.getInt(data.getColumnIndex(CoursesContract.ChapterEntry.COLUMN_LESSON_COUNT));
+
+        return chapter;
+    }
+
+    public ContentValues parseToContentValues(String courseTitle) {
+
+        ContentValues cv = new ContentValues();
+        cv.put(CoursesContract.ChapterEntry.COLUMN_CHAPTER_ID, getChapterId());
+        cv.put(CoursesContract.ChapterEntry.COLUMN_CHAPTER_TITLE, getTitle());
+        cv.put(CoursesContract.ChapterEntry.COLUMN_CHAPTER_NUMBER, getChapterNumber());
+        cv.put(CoursesContract.ChapterEntry.COLUMN_CHAPTER_BRIEF, getChapterBrief());
+        cv.put(CoursesContract.ChapterEntry.COLUMN_DURATION, getDurationInMins());
+        cv.put(CoursesContract.ChapterEntry.COLUMN_COURSE_TITLE, courseTitle);
+        cv.put(CoursesContract.ChapterEntry.COLUMN_FINISHED_PERCENTAGE, getFinishedPercentage());
+        cv.put(CoursesContract.ChapterEntry.COLUMN_LOCKED, isLocked() ? 1 : 0);
+        cv.put(CoursesContract.ChapterEntry.COLUMN_LESSON_COUNT, lessonCards.size());
+
+        return cv;
     }
 }

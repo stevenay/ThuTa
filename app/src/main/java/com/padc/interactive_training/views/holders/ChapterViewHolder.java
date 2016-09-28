@@ -77,7 +77,7 @@ public class ChapterViewHolder extends RecyclerView.ViewHolder {
         );
         tvDuration.setText(durtionInMinute);
 
-        String cardsCount = tvDuration.getResources().getQuantityString(
+        String cardsCount = mContext.getResources().getQuantityString(
                 R.plurals.cards_count, chapter.getLessonCount(), chapter.getLessonCount()
         );
         tvCardCount.setText(cardsCount);

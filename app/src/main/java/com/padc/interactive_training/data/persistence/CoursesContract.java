@@ -19,6 +19,7 @@ public class CoursesContract {
     public static final String PATH_AUTHOR = "course_authors";
     public static final String PATH_COURSE_TAGS = "course_tags";
     public static final String PATH_COURSE_CHAPTERS = "chapters";
+    public static final String PATH_LESSON_CARDS = "lesson_cards";
     public static final String PATH_COURSE_CATEGORIES = "course_categories";
     public static final String PATH_COURSE_DISCUSSIONS = "discussions";
     public static final String PATH_COURSE_TODOLIST = "todolists";
@@ -186,11 +187,15 @@ public class CoursesContract {
 
         public static final String TABLE_NAME = "chapters";
 
+        public static final String COLUMN_CHAPTER_ID = "chapter_id";
         public static final String COLUMN_COURSE_TITLE = "course_id";
         public static final String COLUMN_CHAPTER_NUMBER = "chapter_number";
         public static final String COLUMN_CHAPTER_TITLE = "chapter_title";
         public static final String COLUMN_CHAPTER_BRIEF = "chapter_brief";
         public static final String COLUMN_DURATION = "duration";
+        public static final String COLUMN_FINISHED_PERCENTAGE = "finished_percentage";
+        public static final String COLUMN_LOCKED = "locked";
+        public static final String COLUMN_LESSON_COUNT = "lesson_count";
 
         public static Uri buildChapterUri(long id) {
             //content://xyz.aungpyaephyo.padc.myanmarattractions/attraction_images/1
@@ -204,7 +209,55 @@ public class CoursesContract {
                     .build();
         }
 
-        public static String getCourseIdFromParam(Uri uri) {
+        public static String getCourseTitleFromParam(Uri uri) {
+            return uri.getQueryParameter(COLUMN_COURSE_TITLE);
+        }
+    }
+
+    public static final class LessonCardEntry implements BaseColumns {
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_LESSON_CARDS).build();
+
+        public static final String DIR_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_LESSON_CARDS;
+
+        public static final String ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_LESSON_CARDS;
+
+        public static final String TABLE_NAME = "lesson_cards";
+
+        public static final String COLUMN_COURSE_TITLE = "course_title";
+        public static final String COLUMN_CHAPTER_ID = "chapter_id";
+        public static final String COLUMN_CARD_DESCRIPTION = "card_description";
+        public static final String COLUMN_CARD_IMAGE_URL = "card_image_url";
+        public static final String COLUMN_CARD_ORDER_NUMBER = "card_order_number";
+        public static final String COLUMN_FINISHED = "finished";
+        public static final String COLUMN_BOOKMARKED = "bookmarked";
+
+        public static Uri buildLessonCardUri(long id) {
+            //content://xyz.aungpyaephyo.padc.myanmarattractions/attraction_images/1
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+
+        public static Uri buildLessonCardUriWithChapterId(String chapterId) {
+            //content://xyz.aungpyaephyo.padc.myanmarattractions/attraction_images?attraction_title=Yangon
+            return CONTENT_URI.buildUpon()
+                    .appendQueryParameter(COLUMN_CHAPTER_ID, chapterId)
+                    .build();
+        }
+
+        public static String getChapterIdFromParam(Uri uri) {
+            return uri.getQueryParameter(COLUMN_CHAPTER_ID);
+        }
+
+        public static Uri buildLessonCardUriWithCourseTitle(String courseTitle) {
+            //content://xyz.aungpyaephyo.padc.myanmarattractions/attraction_images?attraction_title=Yangon
+            return CONTENT_URI.buildUpon()
+                    .appendQueryParameter(COLUMN_COURSE_TITLE, courseTitle)
+                    .build();
+        }
+
+        public static String getCourseTitleFromParam(Uri uri) {
             return uri.getQueryParameter(COLUMN_COURSE_TITLE);
         }
     }

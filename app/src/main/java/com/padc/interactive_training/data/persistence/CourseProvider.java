@@ -20,12 +20,16 @@ public class CourseProvider extends ContentProvider {
     public static final int AUTHOR = 200;
     public static final int COURSE_TAG = 300;
     public static final int COURSE_CHAPTER = 400;
-    public static final int COURSE_CATEGORY = 500;
-    public static final int COURSE_TODOLIST = 600;
-    public static final int COURSE_TODOITEM = 700;
+    public static final int LESSON_CARD = 500;
+    public static final int COURSE_CATEGORY = 600;
+    public static final int COURSE_TODOLIST = 700;
+    public static final int COURSE_TODOITEM = 800;
 
     private static final String sCourseTitleSelection = CoursesContract.CourseEntry.COLUMN_TITLE + " = ?";
     private static final String sAuthorNameSelection = CoursesContract.AuthorEntry.COLUMN_AUTHOR_NAME + " = ?";
+    private static final String sChapterSelection = CoursesContract.ChapterEntry.COLUMN_COURSE_TITLE + " = ?";
+    private static final String sLessonCardSelection = CoursesContract.LessonCardEntry.COLUMN_CHAPTER_ID + " = ?";
+    private static final String sLessonCardSelectionWithCourseTitle = CoursesContract.LessonCardEntry.COLUMN_COURSE_TITLE + " = ?";
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private CourseDBHelper mCourseDBHelper;
@@ -64,6 +68,40 @@ public class CourseProvider extends ContentProvider {
                     selectionArgs = new String[]{authorName};
                 }
                 queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.AuthorEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null, //group_by
+                        null, //having
+                        sortOrder);
+                break;
+            case COURSE_CHAPTER:
+                String chaperCourseTitle = CoursesContract.ChapterEntry.getCourseTitleFromParam(uri);
+                if (!TextUtils.isEmpty(chaperCourseTitle)) {
+                    selection = sChapterSelection;
+                    selectionArgs = new String[]{chaperCourseTitle};
+                }
+                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.ChapterEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null, //group_by
+                        null, //having
+                        sortOrder);
+                break;
+            case LESSON_CARD:
+                String chapterId = CoursesContract.LessonCardEntry.getChapterIdFromParam(uri);
+                String cardCourseTitle = CoursesContract.LessonCardEntry.getCourseTitleFromParam(uri);
+
+                if (!TextUtils.isEmpty(chapterId)) {
+                    selection = sLessonCardSelection;
+                    selectionArgs = new String[]{chapterId};
+                } else if (!TextUtils.isEmpty(cardCourseTitle)) {
+                    selection = sLessonCardSelectionWithCourseTitle;
+                    selectionArgs = new String[]{cardCourseTitle};
+                }
+
+                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.LessonCardEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -205,6 +243,7 @@ public class CourseProvider extends ContentProvider {
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_AUTHOR, AUTHOR);
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_TAGS, COURSE_TAG);
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_CHAPTERS, COURSE_CHAPTER);
+        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_LESSON_CARDS, LESSON_CARD);
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_CATEGORIES, COURSE_CATEGORY);
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_TODOLIST, COURSE_TODOLIST);
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_TODOITEM, COURSE_TODOITEM);
@@ -224,6 +263,8 @@ public class CourseProvider extends ContentProvider {
                 return CoursesContract.CourseTagEntry.TABLE_NAME;
             case COURSE_CHAPTER:
                 return CoursesContract.ChapterEntry.TABLE_NAME;
+            case LESSON_CARD:
+                return CoursesContract.LessonCardEntry.TABLE_NAME;
             case COURSE_CATEGORY:
                 return CoursesContract.CourseCategoryEntry.TABLE_NAME;
             default:

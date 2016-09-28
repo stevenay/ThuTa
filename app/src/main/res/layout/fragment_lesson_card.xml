@@ -62,7 +62,7 @@
                     android:paddingRight="@dimen/margin_medium_2"
                     android:text="ွေနပူဒဏ္ခံနိုင္ရန္ SunScreen ကို တစ္ၿကိမ္လိမ္းထားရုံျဖင့္ မလံုေလာက္ပါ။ တစ္ေန႔လံုး ပံုမွန္ျပန္လည္ ျဖည့္တင္းေပးဖို႔ လိုအပ္ပါတယ္။ Broad-spectrum sunscreen ဆိုရင္ေတာ့ ပိုေကာင္းပါတယ္။ သူက radiation ေတြကိုပါ ကာကြယ္နိုင္စြမ္းရွိပါတယ္။"
                     android:textColor="@color/primary_text"
-                    android:textSize="@dimen/text_regular_2x" />
+                    android:textSize="@dimen/text_regular_2.5x" />
 
             </LinearLayout>
 

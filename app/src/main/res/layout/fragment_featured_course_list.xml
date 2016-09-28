@@ -114,7 +114,7 @@
                     <ImageView
                         android:id="@+id/iv_course_cover_image"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="162dp"
                         android:layout_marginTop="@dimen/margin_medium"
                         android:background="#aed582"
                         android:paddingBottom="32dp"
@@ -291,7 +291,7 @@
                 android:foreground="@color/primary"
                 android:src="@drawable/ic_receipt_white_24dp" />
 
-            <TextView
+            <com.padc.interactive_training.components.MMTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -466,7 +466,7 @@
                 android:layout_marginTop="@dimen/margin_medium"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.padc.interactive_training.components.MMTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -514,7 +514,7 @@
                 android:foreground="@color/primary"
                 android:src="@drawable/ic_receipt_white_24dp" />
 
-            <TextView
+            <com.padc.interactive_training.components.MMTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -689,7 +689,7 @@
                 android:layout_marginTop="@dimen/margin_medium"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.padc.interactive_training.components.MMTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -726,7 +726,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
+            <com.padc.interactive_training.components.MMTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_medium_2"

@@ -31,7 +31,7 @@
             android:layout_marginRight="@dimen/margin_medium"
             android:layout_weight="1"
             android:max="100"
-            android:progress="45"
+            android:progress="0"
             android:progressBackgroundTint="@color/course_background_progress_bar"
             android:progressTint="@color/text_white_ish" />
 

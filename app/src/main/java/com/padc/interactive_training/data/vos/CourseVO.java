@@ -60,6 +60,16 @@ public class CourseVO {
     @SerializedName("last_accessed_card_id")
     private String lastAccessedCardId;
 
+    private int lastAccessCardIndex;
+
+    public int getLastAccessCardIndex() {
+        return lastAccessCardIndex;
+    }
+
+    public void setLastAccessCardIndex(int lastAccessCardIndex) {
+        this.lastAccessCardIndex = lastAccessCardIndex;
+    }
+
     public String getTitle() {
         return courseTitle;
     }

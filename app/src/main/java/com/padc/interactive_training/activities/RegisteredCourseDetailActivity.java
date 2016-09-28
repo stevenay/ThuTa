@@ -75,17 +75,29 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
     @BindView(R.id.pi_course_header_pager)
     PageIndicatorView piCourseHeaderPager;
 
+    protected static final int RC_COURSE_FLOW = 1236;
     private static final String IE_COURSE_TITLE = "IE_COURSE_TITLE";
 
     private CoursePagerAdapter mCoursePagerAdapter;
     private String mCourseTitle;
     private CourseVO mCourse;
+    private ChapterListFragment chapterListFragment;
 
     public static Intent newIntent(String courseTitle) {
         Intent intent = new Intent(InteractiveTrainingApp.getContext(), RegisteredCourseDetailActivity.class);
         intent.putExtra(IE_COURSE_TITLE, courseTitle);
         return intent;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_COURSE_FLOW) {
+            chapterListFragment.chapterAdapter.setNewData(CourseModel.getInstance().getChapterListData());
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +111,8 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
 
         mCoursePagerAdapter = new CoursePagerAdapter(getSupportFragmentManager());
 
-        mCoursePagerAdapter.addTab(ChapterListFragment.newInstance(mCourseTitle), "CHAPTERS");
+        chapterListFragment = ChapterListFragment.newInstance(mCourseTitle);
+        mCoursePagerAdapter.addTab(chapterListFragment, "CHAPTERS");
         mCoursePagerAdapter.addTab(DiscussionListFragment.newInstance(), "DISCUSSION");
         mCoursePagerAdapter.addTab(CourseTodoListFragment.newInstance(), "TODO-List (3)");
 
@@ -233,9 +246,8 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
     //region ClickEvents
     @OnClick(R.id.fab_play_course)
     public void onClickFabPlayCourse(View view) {
-        this.navigateToCourseFlow(mCourseTitle, "");
+        this.navigateToCourseFlow(mCourseTitle, "", CourseModel.getInstance().getLastAccessCardIndex());
     }
-
 
     @OnClick(R.id.fab_add_discussion)
     public void onClickFabAddDiscussion(View view) {
@@ -244,12 +256,12 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
     //endregion
 
     //region NavigationMethods
-    private void navigateToCourseFlow(String courseTitle, String chapterId) {
-        Intent intent = CourseFlowActivity.newIntent(courseTitle, chapterId);
+    private void navigateToCourseFlow(String courseTitle, String chapterId, int lastAccessCard) {
+        Intent intent = CourseFlowActivity.newIntent(courseTitle, chapterId, lastAccessCard);
 
         final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(this, true);
         ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this, pairs);
-        startActivity(intent);
+        startActivityForResult(intent, RC_COURSE_FLOW);
     }
 
     private void navigateToNewDiscussion(Integer courseID)
@@ -263,7 +275,7 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
     @Override
     public void onTapChapter(ChapterVO chapter) {
         if (!chapter.isLocked())
-            navigateToCourseFlow(mCourse.getTitle(), chapter.getChapterId());
+            navigateToCourseFlow(mCourse.getTitle(), chapter.getChapterId(), -1);
         else {
             Toast.makeText(getApplicationContext(), "ေရွ႕မွ အခန္းမ်ားကို အရင္ၿပီးေအာင္ ဖတ္ေပးပါ။", Toast.LENGTH_SHORT).show();
         }

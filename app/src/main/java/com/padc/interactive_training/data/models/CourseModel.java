@@ -90,6 +90,14 @@ public class CourseModel extends BaseModel {
         mCourseList = courseList;
     }
 
+    public void setLastAccessCardIndex(int cardIndex) {
+        mFeaturedCourse.setLastAccessCardIndex(cardIndex);
+    }
+
+    public int getLastAccessCardIndex() {
+        return mFeaturedCourse.getLastAccessCardIndex();
+    }
+
     public void setCardListData(List<LessonCardVO> cardList) {
         mCurrentAccessCardList = cardList;
     }
@@ -102,13 +110,17 @@ public class CourseModel extends BaseModel {
         mCurrentAccessChapterList = chapterList;
     }
 
+    public List<ChapterVO> getChapterListData() {
+        return mCurrentAccessChapterList;
+    }
+
     public ChapterVO getChapterbyIndex(int chapterIndex) {
         return mCurrentAccessChapterList.get(chapterIndex);
     }
 
     public ChapterVO getChapterbyId(String chapterId) {
-        for(ChapterVO s : mCurrentAccessChapterList) {
-            if(s.getChapterId().equals(chapterId)) {
+        for (ChapterVO s : mCurrentAccessChapterList) {
+            if (s.getChapterId().equals(chapterId)) {
                 return s;
             }
         }
@@ -116,13 +128,36 @@ public class CourseModel extends BaseModel {
         return null;
     }
 
+    public void setChapterFinishPercentage(String chapterId, int finishPercentage) {
+        ChapterVO chapter = getChapterbyId(chapterId);
+        if (chapter.getFinishedPercentage() < finishPercentage)
+            chapter.setFinishedPercentage(finishPercentage);
+    }
+
+    public void setChapterUnLock(String chapterId) {
+        ChapterVO chapter = getChapterbyId(chapterId);
+        if (chapter.isLocked())
+            chapter.setLocked(false);
+    }
+
     public int getFirstCardIndexbyChapterId(String chapterId) {
-        for(LessonCardVO s : mCurrentAccessCardList) {
-            if(s.getChapterId().equals(chapterId)) {
+        for (LessonCardVO s : mCurrentAccessCardList) {
+            if (s.getChapterId().equals(chapterId)) {
                 return mCurrentAccessCardList.indexOf(s);
             }
         }
 
         return 0;
+    }
+
+    public int getCardCountbyChapterId(String chapterId) {
+        int count = 0;
+        for (LessonCardVO s : mCurrentAccessCardList) {
+            if (s.getChapterId().equals(chapterId)) {
+                count++;
+            }
+        }
+
+        return count;
     }
 }

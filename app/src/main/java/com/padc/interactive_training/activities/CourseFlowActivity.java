@@ -55,17 +55,20 @@ public class CourseFlowActivity extends AppCompatActivity
     private boolean chapterIntroFromPrev;
     private String currentChapterId = "";
     private String mFirstChapterId = "";
+    private int mLastAccessCardIndex = -1;
 
     private static final String IE_CHAPTER_ID = "IE_CHAPTER_ID";
     private static final String IE_COURSE_TITLE = "IE_COURSE_TITLE";
+    private static final String IE_LAST_ACCESS_CARDINDEX = "IE_LAST_ACCESS_CARDINDEX";
     private String mChapterId;
     private String mCourseTitle;
     private static final int navigateToLessonCard = 1;
 
-    public static Intent newIntent(String courseTitle, String chapterId) {
+    public static Intent newIntent(String courseTitle, String chapterId, int lastAccessCardIndex) {
         Intent intent = new Intent(InteractiveTrainingApp.getContext(), CourseFlowActivity.class);
         intent.putExtra(IE_COURSE_TITLE, courseTitle);
         intent.putExtra(IE_CHAPTER_ID, chapterId);
+        intent.putExtra(IE_LAST_ACCESS_CARDINDEX, lastAccessCardIndex);
         return intent;
     }
 
@@ -77,8 +80,9 @@ public class CourseFlowActivity extends AppCompatActivity
 
         mChapterId = getIntent().getStringExtra(IE_CHAPTER_ID);
         mCourseTitle = getIntent().getStringExtra(IE_COURSE_TITLE);
-        mFirstChapterId = CourseModel.getInstance().getChapterbyIndex(0).getChapterId();
+        mLastAccessCardIndex = getIntent().getIntExtra(IE_LAST_ACCESS_CARDINDEX, -1);
 
+        mFirstChapterId = CourseModel.getInstance().getChapterbyIndex(0).getChapterId();
         pbCourseFlow.setScaleY(1.5f);
 
         getSupportLoaderManager().initLoader(InteractiveTrainingConstants.COURSE_FLOW_LOADER, null, this);
@@ -92,7 +96,7 @@ public class CourseFlowActivity extends AppCompatActivity
 
     @OnClick(R.id.btn_share)
     public void onbtnSharePressed(ImageButton view) {
-        Intent intent = PopupQuestionActivity.newIntent("SampleLessonCardID");
+        Intent intent = TodoListActivity.newIntent("SampleLessonCardID");
         startActivity(intent);
     }
 
@@ -107,12 +111,21 @@ public class CourseFlowActivity extends AppCompatActivity
             } else if (!currentChapterId.isEmpty() && !this.currentChapterId.equals(tempChapterId)) {
                 chapterIntro = true;
                 currentChapterId = tempChapterId;
+                CourseModel.getInstance().setChapterUnLock(currentChapterId);
                 navigateToNewChapterIntro(currentChapterId, "next");
                 return;
             }
 
             if (!chapterIntroFromPrev) {
                 cardIndex++;
+                CourseModel.getInstance().setLastAccessCardIndex(cardIndex);
+
+                int cardCountinChapter = CourseModel.getInstance().getCardCountbyChapterId(currentChapterId);
+                int firstCardIndex = CourseModel.getInstance().getFirstCardIndexbyChapterId(currentChapterId);
+
+                int chapterFinished = (((cardIndex+1) - firstCardIndex) * 100) / cardCountinChapter;
+                CourseModel.getInstance().setChapterFinishPercentage(currentChapterId, chapterFinished);
+                this.setProgressBar(cardIndex);
             } else {
                 chapterIntroFromPrev = false;
             }
@@ -138,12 +151,14 @@ public class CourseFlowActivity extends AppCompatActivity
                 }
 
                 cardIndex--;
+                this.setProgressBar(cardIndex);
             } else {
                 chapterIntro = false;
             }
 
             if (chapterIntroFromPrev) {
                 cardIndex--;
+                this.setProgressBar(cardIndex);
                 chapterIntroFromPrev = false;
             }
 
@@ -151,6 +166,7 @@ public class CourseFlowActivity extends AppCompatActivity
             navigateToLessonCard(cardIndex, "prev");
         } else {
             cardIndex = -1;
+            this.setProgressBar(cardIndex);
             if (!chapterIntro) {
                 navigateToNewChapterIntro(mFirstChapterId, "prev");
                 chapterIntro = true;
@@ -231,11 +247,20 @@ public class CourseFlowActivity extends AppCompatActivity
             @Override
             public void handleMessage(Message msg) {
                 if (msg.what == navigateToLessonCard) {
-                    if (mChapterId.isEmpty())
+                    if (mLastAccessCardIndex > 0) {
+                        cardIndex = mLastAccessCardIndex;
+                        currentChapterId = CourseModel.getInstance().getLessonCardbyIndex(cardIndex).getChapterId();
+                        navigateToLessonCard(mLastAccessCardIndex, "none");
+                    }
+                    else if (mChapterId.isEmpty()) {
                         navigateToNewChapterIntro(mFirstChapterId, "next");
+                        currentChapterId = mFirstChapterId;
+                    }
                     else {
                         navigateToNewChapterIntro(mChapterId, "next");
+                        currentChapterId = mChapterId;
                         cardIndex = CourseModel.getInstance().getFirstCardIndexbyChapterId(mChapterId) - 1;
+                        setProgressBar(cardIndex);
                     }
                 }
             }
@@ -247,6 +272,15 @@ public class CourseFlowActivity extends AppCompatActivity
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
+    }
+    //endregion
+
+    //region helperFunction
+    private void setProgressBar(int currentIndex)
+    {
+        // has to plus one because it's based on Zero value.
+        int overallFinish = (currentIndex+1) * 100 / totalCardNumber;
+        pbCourseFlow.setProgress(overallFinish);
     }
     //endregion
 

@@ -88,6 +88,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Base.NoActionBar.FullScreen" />
 
+        <activity
+            android:name=".activities.TodoListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Base.NoActionBar.FullScreen" />
+
+
     </application>
 
 </manifest>

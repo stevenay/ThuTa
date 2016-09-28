@@ -45,7 +45,7 @@ public class ChapterListFragment extends Fragment
     private static final String BK_COURSE_TITLE = "BK_COURSE_TITLE";
     private String mCourseTitle;
 
-    private ChapterAdapter chapterAdapter;
+    public ChapterAdapter chapterAdapter;
     private ChapterViewHolder.ControllerChapterItem controllerChapterItem;
 
     public static ChapterListFragment newInstance(String courseTitle) {
@@ -108,20 +108,24 @@ public class ChapterListFragment extends Fragment
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        List<ChapterVO> chapterList = new ArrayList<>();
-        if (data != null && data.moveToFirst()) {
-            do {
-                ChapterVO chapter = ChapterVO.parseFromCursor(data);
-                chapter.setLessonCards(LessonCardVO.loadLessonCardsByChapterId(chapter.getChapterId()));
-                chapterList.add(chapter);
-            } while (data.moveToNext());
+        List<ChapterVO> chapterList = CourseModel.getInstance().getChapterListData();
+
+        if (chapterList == null || chapterList.size() <= 0) {
+            if (data != null && data.moveToFirst()) {
+                chapterList = new ArrayList<>();
+
+                do {
+                    ChapterVO chapter = ChapterVO.parseFromCursor(data);
+                    chapter.setLessonCards(LessonCardVO.loadLessonCardsByChapterId(chapter.getChapterId()));
+                    chapterList.add(chapter);
+                } while (data.moveToNext());
+
+                CourseModel.getInstance().setChapterListData(chapterList);
+                Log.d(InteractiveTrainingApp.TAG, "Retrieved chapters DESC : " + chapterList.size());
+            }
         }
 
-        CourseModel.getInstance().setChapterListData(chapterList);
-        Log.d(InteractiveTrainingApp.TAG, "Retrieved chapters DESC : " + chapterList.size());
         chapterAdapter.setNewData(chapterList);
-
-//        AttractionModel.getInstance().setStoredData(attractionList);
     }
 
     @Override

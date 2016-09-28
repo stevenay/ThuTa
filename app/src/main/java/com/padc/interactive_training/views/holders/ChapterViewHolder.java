@@ -1,6 +1,7 @@
 package com.padc.interactive_training.views.holders;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,6 +103,16 @@ public class ChapterViewHolder extends RecyclerView.ViewHolder {
                     ViewGroup.LayoutParams.MATCH_PARENT, 0));
 
         } else {
+            // Show Duration and Cards Count
+            tvDuration.setVisibility(View.VISIBLE);
+            tvCardCount.setVisibility(View.VISIBLE);
+
+            // Redefine Color for Enabled State
+            vFinished.setBackgroundColor(Color.parseColor("#FFF6FAF2"));
+            tvChapterNumber.setTextColor(mContext.getResources().getColor(R.color.course_background_dark_sample));
+            tvChapterTitle.setTextColor(mContext.getResources().getColor(R.color.primary_text));
+            tvChapterBrief.setTextColor(mContext.getResources().getColor(R.color.black_overlay));
+
             ivLock.setVisibility(View.GONE);
             tvLock.setVisibility(View.GONE);
 

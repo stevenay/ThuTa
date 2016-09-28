@@ -182,15 +182,13 @@ public class CourseVO {
             courseCVs[index] = course.parseToContentValues();
 
             CourseVO.saveCourseCategory(course.getTitle(), course.getCourseCategory());
-            CourseVO.saveAuthor(course.getTitle(), course.getAuthor());
-            ChapterVO.saveChapters(course.getTitle(), course.getChapters()); // Bulk insert into chapters
-//            CourseVO.saveDiscussions(course.getTitle(), course.getDiscussions());
-//            CourseVO.saveTodoLists(course.getTitle(), course.getTodoLists());
+            AuthorVO.saveAuthor(course.getTitle(), course.getAuthor());
+            ChapterVO.saveChapters(course.getTitle(), course.getChapters());
+            DiscussionVO.saveDiscussions(course.getTitle(), course.getDiscussions());
         }
 
         //Bulk insert into attractions.
         int insertedCount = context.getContentResolver().bulkInsert(CoursesContract.CourseEntry.CONTENT_URI, courseCVs);
-
         Log.d(InteractiveTrainingApp.TAG, "Bulk inserted into course table : " + insertedCount);
     }
 
@@ -206,22 +204,6 @@ public class CourseVO {
 
         if (insertedRow != null)
             Log.d(InteractiveTrainingApp.TAG, "OneRow inserted into category table : " + insertedRow.toString());
-    }
-
-    private static void saveAuthor(String courseTitle, AuthorVO author) {
-        ContentValues cv = new ContentValues();
-        cv.put(CoursesContract.AuthorEntry.COLUMN_AUTHOR_NAME, author.getAuthorName());
-        cv.put(CoursesContract.AuthorEntry.COLUMN_DESCRIPTION, author.getDescription());
-        cv.put(CoursesContract.AuthorEntry.COLUMN_EMAIL, author.getEmail());
-        cv.put(CoursesContract.AuthorEntry.COLUMN_PROFILE_PHOTO_URL, author.getProfilePhotoUrl());
-
-        Log.d(InteractiveTrainingApp.TAG, "Method: saveCategories. Author Name: " + author.getAuthorName());
-
-        Context context = InteractiveTrainingApp.getContext();
-        Uri insertedRow = context.getContentResolver().insert(CoursesContract.AuthorEntry.CONTENT_URI, cv);
-
-        if (insertedRow != null)
-            Log.d(InteractiveTrainingApp.TAG, "OneRow inserted into author table : " + insertedRow.toString());
     }
 
     private ContentValues parseToContentValues() {

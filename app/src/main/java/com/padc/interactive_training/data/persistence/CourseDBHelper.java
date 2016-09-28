@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.padc.interactive_training.data.persistence.CoursesContract.AuthorEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.ChapterEntry;
+import com.padc.interactive_training.data.persistence.CoursesContract.DiscussionEntry;
+import com.padc.interactive_training.data.persistence.CoursesContract.ReplyEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.LessonCardEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.CourseCategoryEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.CourseEntry;
@@ -18,7 +20,7 @@ import com.padc.interactive_training.data.persistence.CoursesContract.TodoListEn
  */
 public class CourseDBHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 8;
     public static final String DATABASE_NAME = "courses.db";
 
     private static final String SQL_CREATE_COURSE_TABLE = "CREATE TABLE " + CourseEntry.TABLE_NAME + " (" +
@@ -77,8 +79,33 @@ public class CourseDBHelper extends SQLiteOpenHelper {
             ChapterEntry.COLUMN_LESSON_COUNT + " INT NOT NULL, " +
             ChapterEntry.COLUMN_CHAPTER_ID + " TEXT NOT NULL, " +
 
-            " UNIQUE (" + ChapterEntry.COLUMN_CHAPTER_NUMBER + ", " +
+            " UNIQUE (" + ChapterEntry.COLUMN_CHAPTER_ID + ", " +
             ChapterEntry.COLUMN_COURSE_TITLE + ") ON CONFLICT IGNORE" +
+            " );";
+
+    private static final String SQL_CREATE_DISCUSSION_TABLE = "CREATE TABLE " + DiscussionEntry.TABLE_NAME + " (" +
+            DiscussionEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            DiscussionEntry.COLUMN_DISCUSSION_ID + " TEXT NOT NULL, " +
+            DiscussionEntry.COLUMN_DISCUSSION_TITLE + " TEXT NOT NULL, " +
+            DiscussionEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
+            DiscussionEntry.COLUMN_USER_ID + " TEXT NOT NULL, " +
+            DiscussionEntry.COLUMN_POST_DATETIME + " TEXT NOT NULL, " +
+            DiscussionEntry.COLUMN_LIKE_COUNT + " INTEGER NOT NULL, " +
+            DiscussionEntry.COLUMN_COURSE_TITLE + " TEXT NOT NULL, " +
+
+            " UNIQUE (" + DiscussionEntry.COLUMN_DISCUSSION_ID + ") ON CONFLICT IGNORE" +
+            " );";
+
+    private static final String SQL_CREATE_REPLY_TABLE = "CREATE TABLE " + ReplyEntry.TABLE_NAME + " (" +
+            ReplyEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            ReplyEntry.COLUMN_DISCUSSION_ID + " TEXT NOT NULL, " +
+            ReplyEntry.COLUMN_REPLY + " TEXT NOT NULL, " +
+            ReplyEntry.COLUMN_USER_ID + " TEXT NOT NULL, " +
+            ReplyEntry.COLUMN_REPLY_DATETIME + " TEXT NOT NULL, " +
+            ReplyEntry.COLUMN_LIKE_COUNT + " INTEGER NOT NULL, " +
+
+            " UNIQUE (" + ReplyEntry.COLUMN_DISCUSSION_ID + ", " +
+            ReplyEntry.COLUMN_REPLY + ") ON CONFLICT IGNORE" +
             " );";
 
     private static final String SQL_CREATE_LESSON_CARD_TABLE = "CREATE TABLE " + LessonCardEntry.TABLE_NAME + " (" +
@@ -124,6 +151,8 @@ public class CourseDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_COURSE_CATEGORY_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_CHAPTER_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_LESSON_CARD_TABLE);
+        sqLiteDatabase.execSQL(SQL_CREATE_DISCUSSION_TABLE);
+        sqLiteDatabase.execSQL(SQL_CREATE_REPLY_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_TODO_LIST_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_TODO_ITEM_TABLE);
     }
@@ -136,6 +165,8 @@ public class CourseDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CourseCategoryEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ChapterEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + LessonCardEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + DiscussionEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ReplyEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TodoListEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TodoItemEntry.TABLE_NAME);
 

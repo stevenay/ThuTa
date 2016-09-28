@@ -22,6 +22,7 @@ public class CoursesContract {
     public static final String PATH_LESSON_CARDS = "lesson_cards";
     public static final String PATH_COURSE_CATEGORIES = "course_categories";
     public static final String PATH_COURSE_DISCUSSIONS = "discussions";
+    public static final String PATH_COURSE_REPLIES = "replies";
     public static final String PATH_COURSE_TODOLIST = "todolists";
     public static final String PATH_COURSE_TODOITEM = "todoitems";
     public static final String PATH_LOGIN_USER = "login_user";
@@ -259,6 +260,78 @@ public class CoursesContract {
 
         public static String getCourseTitleFromParam(Uri uri) {
             return uri.getQueryParameter(COLUMN_COURSE_TITLE);
+        }
+    }
+
+    public static final class DiscussionEntry implements BaseColumns {
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_COURSE_DISCUSSIONS).build();
+
+        public static final String DIR_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_COURSE_DISCUSSIONS;
+
+        public static final String ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_COURSE_DISCUSSIONS;
+
+        public static final String TABLE_NAME = "discussions";
+
+        public static final String COLUMN_COURSE_TITLE = "course_title";
+        public static final String COLUMN_DISCUSSION_ID = "discussion_id";
+        public static final String COLUMN_DISCUSSION_TITLE = "discussion_title";
+        public static final String COLUMN_DESCRIPTION = "description";
+        public static final String COLUMN_USER_ID = "user_id";
+        public static final String COLUMN_POST_DATETIME = "post_datetime";
+        public static final String COLUMN_LIKE_COUNT = "like_count";
+
+        public static Uri buildDiscussionUri(long id) {
+            //content://xyz.aungpyaephyo.padc.myanmarattractions/attraction_images/1
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+
+        public static Uri buildDiscussionUriWithCourseTitle(String courseTitle) {
+            //content://xyz.aungpyaephyo.padc.myanmarattractions/attraction_images?attraction_title=Yangon
+            return CONTENT_URI.buildUpon()
+                    .appendQueryParameter(COLUMN_COURSE_TITLE, courseTitle)
+                    .build();
+        }
+
+        public static String getCourseTitleFromParam(Uri uri) {
+            return uri.getQueryParameter(COLUMN_COURSE_TITLE);
+        }
+    }
+
+    public static final class ReplyEntry implements BaseColumns {
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_COURSE_REPLIES).build();
+
+        public static final String DIR_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_COURSE_REPLIES;
+
+        public static final String ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_COURSE_REPLIES;
+
+        public static final String TABLE_NAME = "replies";
+
+        public static final String COLUMN_DISCUSSION_ID = "discussion_id";
+        public static final String COLUMN_USER_ID = "user_id";
+        public static final String COLUMN_REPLY = "reply";
+        public static final String COLUMN_REPLY_DATETIME = "reply_datetime";
+        public static final String COLUMN_LIKE_COUNT = "like_count";
+
+        public static Uri buildReplyUri(long id) {
+            //content://xyz.aungpyaephyo.padc.myanmarattractions/attraction_images/1
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+
+        public static Uri buildReplyUriWithDiscussionId(String discussionId) {
+            //content://xyz.aungpyaephyo.padc.myanmarattractions/attraction_images?attraction_title=Yangon
+            return CONTENT_URI.buildUpon()
+                    .appendQueryParameter(COLUMN_DISCUSSION_ID, discussionId)
+                    .build();
+        }
+
+        public static String getDiscussionIdFromParam(Uri uri) {
+            return uri.getQueryParameter(COLUMN_DISCUSSION_ID);
         }
     }
 

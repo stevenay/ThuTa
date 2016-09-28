@@ -1,7 +1,10 @@
 package com.padc.interactive_training.data.vos;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
+import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 import com.padc.interactive_training.InteractiveTrainingApp;
@@ -68,5 +71,21 @@ public class AuthorVO {
         }
 
         return author;
+    }
+
+    public static void saveAuthor(String courseTitle, AuthorVO author) {
+        ContentValues cv = new ContentValues();
+        cv.put(CoursesContract.AuthorEntry.COLUMN_AUTHOR_NAME, author.getAuthorName());
+        cv.put(CoursesContract.AuthorEntry.COLUMN_DESCRIPTION, author.getDescription());
+        cv.put(CoursesContract.AuthorEntry.COLUMN_EMAIL, author.getEmail());
+        cv.put(CoursesContract.AuthorEntry.COLUMN_PROFILE_PHOTO_URL, author.getProfilePhotoUrl());
+
+        Log.d(InteractiveTrainingApp.TAG, "Method: saveCategories. Author Name: " + author.getAuthorName());
+
+        Context context = InteractiveTrainingApp.getContext();
+        Uri insertedRow = context.getContentResolver().insert(CoursesContract.AuthorEntry.CONTENT_URI, cv);
+
+        if (insertedRow != null)
+            Log.d(InteractiveTrainingApp.TAG, "OneRow inserted into author table : " + insertedRow.toString());
     }
 }

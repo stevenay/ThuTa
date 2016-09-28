@@ -113,7 +113,7 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
 
         chapterListFragment = ChapterListFragment.newInstance(mCourseTitle);
         mCoursePagerAdapter.addTab(chapterListFragment, "CHAPTERS");
-        mCoursePagerAdapter.addTab(DiscussionListFragment.newInstance(), "DISCUSSION");
+        mCoursePagerAdapter.addTab(DiscussionListFragment.newInstance(mCourseTitle), "DISCUSSION");
         mCoursePagerAdapter.addTab(CourseTodoListFragment.newInstance(), "TODO-List (3)");
 
         pagerNavigations.setAdapter(mCoursePagerAdapter);

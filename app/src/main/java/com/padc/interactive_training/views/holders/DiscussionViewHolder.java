@@ -8,10 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.R;
 import com.padc.interactive_training.data.vos.DiscussionVO;
+
+import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +30,21 @@ public class DiscussionViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.iv_profile)
     ImageView ivProfile;
 
+    @BindView(R.id.tv_user_name)
+    TextView tvUserName;
+
+    @BindView(R.id.tv_discussion_title)
+    TextView tvDiscussionTitle;
+
+    @BindView(R.id.tv_description)
+    TextView tvDescription;
+
+    @BindView(R.id.tv_likes_count)
+    TextView tvLikesCount;
+
+    @BindView(R.id.tv_reply_count)
+    TextView tvReplyCount;
+
     private Context mContext;
     private DiscussionVO mDiscussionVO;
     private ControllerDiscussionItem mController;
@@ -39,13 +57,6 @@ public class DiscussionViewHolder extends RecyclerView.ViewHolder {
         this.mContext = InteractiveTrainingApp.getContext();
         this.mController = controller;
         this.mSelfView = itemView;
-
-        Drawable mDrawable = mContext.getResources().getDrawable(R.drawable.ic_face_24dp);
-        mDrawable.setColorFilter(new
-                PorterDuffColorFilter(0xFF9BBE74, PorterDuff.Mode.SRC_IN));
-        this.ivProfile.setImageDrawable(mDrawable);
-
-        setupClickableViews(mSelfView, mController);
     }
 
     private void setupClickableViews(View selfView, final ControllerDiscussionItem controller) {
@@ -67,6 +78,18 @@ public class DiscussionViewHolder extends RecyclerView.ViewHolder {
     public void bindData(DiscussionVO discussion) {
         this.mDiscussionVO = discussion;
 
+        Drawable mDrawable = mContext.getResources().getDrawable(R.drawable.ic_face_24dp);
+        mDrawable.setColorFilter(new
+                PorterDuffColorFilter(0xFF9BBE74, PorterDuff.Mode.SRC_IN));
+        this.ivProfile.setImageDrawable(mDrawable);
+
+        tvUserName.setText(discussion.getUser().getFullName());
+        tvDiscussionTitle.setText(discussion.getTitle());
+        tvDescription.setText(discussion.getDescription());
+        tvLikesCount.setText("Like (" + String.valueOf(discussion.getLikes()) + ")");
+        tvReplyCount.setText("Replies (" + String.valueOf(discussion.getReplies().size()) + ")");
+
+        setupClickableViews(mSelfView, mController);
     }
 
     public interface ControllerDiscussionItem {

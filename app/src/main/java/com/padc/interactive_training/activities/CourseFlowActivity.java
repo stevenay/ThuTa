@@ -249,7 +249,9 @@ public class CourseFlowActivity extends AppCompatActivity
                 if (msg.what == navigateToLessonCard) {
                     if (mLastAccessCardIndex > 0) {
                         cardIndex = mLastAccessCardIndex;
+                        Toast.makeText(getApplicationContext(), String.valueOf(cardIndex), Toast.LENGTH_LONG).show();
                         currentChapterId = CourseModel.getInstance().getLessonCardbyIndex(cardIndex).getChapterId();
+                        chapterIntro = false;
                         navigateToLessonCard(mLastAccessCardIndex, "none");
                     }
                     else if (mChapterId.isEmpty()) {

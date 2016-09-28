@@ -6,6 +6,7 @@ import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.data.agents.CourseDataAgent;
 import com.padc.interactive_training.data.models.CourseModel;
 import com.padc.interactive_training.data.responses.CourseListResponse;
+import com.padc.interactive_training.data.responses.UserListResponse;
 import com.padc.interactive_training.utils.CommonInstances;
 import com.padc.interactive_training.utils.InteractiveTrainingConstants;
 
@@ -67,6 +68,29 @@ public class RetrofitDataAgent implements CourseDataAgent {
 
             @Override
             public void onFailure(Call<CourseListResponse> call, Throwable throwable) {
+                Log.d(InteractiveTrainingApp.TAG, "OnFailure " + throwable.getMessage());
+                CourseModel.getInstance().notifyErrorInLoadingCourses(throwable.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void loadUsers() {
+        Call<UserListResponse> loadUserCall = theApi.loadUsers(InteractiveTrainingConstants.ACCESS_TOKEN);
+        loadUserCall.enqueue(new Callback<UserListResponse>() {
+            @Override
+            public void onResponse(Call<UserListResponse> call, Response<UserListResponse> response) {
+                Log.d(InteractiveTrainingApp.TAG, "OnResponse");
+                UserListResponse userListResponse = response.body();
+                if (userListResponse == null) {
+                    CourseModel.getInstance().notifyErrorInLoadingUsers(response.message());
+                } else {
+                    CourseModel.getInstance().notifyUsersLoaded(userListResponse.getUserList());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserListResponse> call, Throwable throwable) {
                 Log.d(InteractiveTrainingApp.TAG, "OnFailure " + throwable.getMessage());
                 CourseModel.getInstance().notifyErrorInLoadingCourses(throwable.getMessage());
             }

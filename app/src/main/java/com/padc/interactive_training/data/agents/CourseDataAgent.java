@@ -5,6 +5,7 @@ package com.padc.interactive_training.data.agents;
  */
 public interface CourseDataAgent {
     void loadCourses();
+    void loadUsers();
 
 //    void register(String name, String email, String password, String dateOfBirth, String countryOfOrigin);
 //    void registerWithFacebook(UserVO registeringUser, String password);

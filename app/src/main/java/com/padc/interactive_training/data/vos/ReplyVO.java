@@ -2,12 +2,14 @@ package com.padc.interactive_training.data.vos;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.data.persistence.CoursesContract;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +17,8 @@ import java.util.List;
  * Created by NayLinAung on 9/16/2016.
  */
 public class ReplyVO {
+
+    private String discussionId;
 
     @SerializedName("user_id")
     private String userId;
@@ -60,6 +64,14 @@ public class ReplyVO {
         this.likeCount = likeCount;
     }
 
+    public String getDiscussionId() {
+        return discussionId;
+    }
+
+    public void setDiscussionId(String discussionId) {
+        this.discussionId = discussionId;
+    }
+
     public static void saveReplies(String discussionId, List<ReplyVO> replies) {
         Log.d(InteractiveTrainingApp.TAG, "Method: reply. Loaded replies: " + replies.size());
 
@@ -87,5 +99,29 @@ public class ReplyVO {
         cv.put(CoursesContract.ReplyEntry.COLUMN_LIKE_COUNT, likeCount);
 
         return cv;
+    }
+
+    public static List<ReplyVO> loadRepliesbyDiscussionId(String discussionId) {
+        Context context = InteractiveTrainingApp.getContext();
+        List<ReplyVO> replies = new ArrayList<>();
+        Cursor cursor = context.getContentResolver().query(CoursesContract.ReplyEntry.buildReplyUriWithDiscussionId(discussionId),
+                null, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                ReplyVO reply = new ReplyVO();
+                reply.setDiscussionId(cursor.getString(cursor.getColumnIndex(CoursesContract.ReplyEntry.COLUMN_DISCUSSION_ID)));
+                reply.setUserId(cursor.getString(cursor.getColumnIndex(CoursesContract.ReplyEntry.COLUMN_USER_ID)));
+                reply.setReply(cursor.getString(cursor.getColumnIndex(CoursesContract.ReplyEntry.COLUMN_REPLY)));
+                reply.setLikeCount(cursor.getInt(cursor.getColumnIndex(CoursesContract.ReplyEntry.COLUMN_LIKE_COUNT)));
+                reply.setReplyDateTime(cursor.getString(cursor.getColumnIndex(CoursesContract.ReplyEntry.COLUMN_REPLY_DATETIME)));
+
+                Log.d(InteractiveTrainingApp.TAG, "Load Replies by DiscussionId " + reply.getReply());
+
+                replies.add(reply);
+            } while (cursor.moveToNext());
+        }
+
+        return replies;
     }
 }

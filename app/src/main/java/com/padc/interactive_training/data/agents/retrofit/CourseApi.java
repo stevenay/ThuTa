@@ -1,6 +1,7 @@
 package com.padc.interactive_training.data.agents.retrofit;
 
 import com.padc.interactive_training.data.responses.CourseListResponse;
+import com.padc.interactive_training.data.responses.UserListResponse;
 import com.padc.interactive_training.utils.InteractiveTrainingConstants;
 
 import retrofit2.Call;
@@ -18,5 +19,8 @@ public interface CourseApi {
     Call<CourseListResponse> loadCourses(
             @Field(InteractiveTrainingConstants.PARAM_ACCESS_TOKEN) String param);
 
-
+    @FormUrlEncoded
+    @POST(InteractiveTrainingConstants.API_GET_USER_LIST)
+    Call<UserListResponse> loadUsers(
+            @Field(InteractiveTrainingConstants.PARAM_ACCESS_TOKEN) String param);
 }

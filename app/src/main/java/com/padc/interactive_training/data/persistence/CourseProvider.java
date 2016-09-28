@@ -26,6 +26,7 @@ public class CourseProvider extends ContentProvider {
     public static final int COURSE_CATEGORY = 800;
     public static final int COURSE_TODOLIST = 900;
     public static final int COURSE_TODOITEM = 1000;
+    public static final int USER = 1100;
 
     private static final String sCourseTitleSelection = CoursesContract.CourseEntry.COLUMN_TITLE + " = ?";
     private static final String sAuthorNameSelection = CoursesContract.AuthorEntry.COLUMN_AUTHOR_NAME + " = ?";
@@ -34,6 +35,7 @@ public class CourseProvider extends ContentProvider {
     private static final String sReplySelection = CoursesContract.ReplyEntry.COLUMN_DISCUSSION_ID + " = ?";
     private static final String sLessonCardSelection = CoursesContract.LessonCardEntry.COLUMN_CHAPTER_ID + " = ?";
     private static final String sLessonCardSelectionWithCourseTitle = CoursesContract.LessonCardEntry.COLUMN_COURSE_TITLE + " = ?";
+    private static final String sUserSelection = CoursesContract.UserEntry.COLUMN_USER_ID + " = ?";
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private CourseDBHelper mCourseDBHelper;
@@ -116,7 +118,7 @@ public class CourseProvider extends ContentProvider {
             case COURSE_DISCUSSION:
                 String discussCourseTitle = CoursesContract.DiscussionEntry.getCourseTitleFromParam(uri);
                 if (!TextUtils.isEmpty(discussCourseTitle)) {
-                    selection = sChapterSelection;
+                    selection = sDiscussionSelection;
                     selectionArgs = new String[]{discussCourseTitle};
                 }
                 queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.DiscussionEntry.TABLE_NAME,
@@ -130,10 +132,24 @@ public class CourseProvider extends ContentProvider {
             case COURSE_REPLY:
                 String discussionId = CoursesContract.ReplyEntry.getDiscussionIdFromParam(uri);
                 if (!TextUtils.isEmpty(discussionId)) {
-                    selection = sChapterSelection;
+                    selection = sReplySelection;
                     selectionArgs = new String[]{discussionId};
                 }
                 queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.ReplyEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null, //group_by
+                        null, //having
+                        sortOrder);
+                break;
+            case USER:
+                String userId = CoursesContract.UserEntry.getUserIdFromParam(uri);
+                if (!TextUtils.isEmpty(userId)) {
+                    selection = sUserSelection;
+                    selectionArgs = new String[]{userId};
+                }
+                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.UserEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -281,6 +297,7 @@ public class CourseProvider extends ContentProvider {
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_CATEGORIES, COURSE_CATEGORY);
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_TODOLIST, COURSE_TODOLIST);
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_TODOITEM, COURSE_TODOITEM);
+        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_USER, USER);
 
         return uriMatcher;
     }
@@ -305,6 +322,8 @@ public class CourseProvider extends ContentProvider {
                 return CoursesContract.DiscussionEntry.TABLE_NAME;
             case COURSE_REPLY:
                 return CoursesContract.ReplyEntry.TABLE_NAME;
+            case USER:
+                return CoursesContract.UserEntry.TABLE_NAME;
             default:
                 throw new UnsupportedOperationException("Unknown uri : " + uri);
         }

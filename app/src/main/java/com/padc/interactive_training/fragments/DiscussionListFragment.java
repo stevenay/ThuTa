@@ -25,6 +25,7 @@ import com.padc.interactive_training.data.vos.ChapterVO;
 import com.padc.interactive_training.data.vos.DiscussionVO;
 import com.padc.interactive_training.data.vos.LessonCardVO;
 import com.padc.interactive_training.data.vos.ReplyVO;
+import com.padc.interactive_training.data.vos.UserVO;
 import com.padc.interactive_training.utils.InteractiveTrainingConstants;
 import com.padc.interactive_training.views.holders.DiscussionViewHolder;
 
@@ -116,7 +117,8 @@ public class DiscussionListFragment extends Fragment
 
                 do {
                     DiscussionVO discussion = DiscussionVO.parseFromCursor(data);
-                    discussion.setReplies(ReplyVO.loadLessonCardsByChapterId(discussion.getDiscussionId()));
+                    discussion.setReplies(ReplyVO.loadRepliesbyDiscussionId(discussion.getDiscussionId()));
+                    discussion.setUser(UserVO.loadUserbyUserId(discussion.getUserId()));
                     discussionList.add(discussion);
                 } while (data.moveToNext());
 

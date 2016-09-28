@@ -122,16 +122,6 @@ public class HomeActivity extends AppCompatActivity
         tvScreenTitle.setTranslationY(-ACTION_BAR_SIZE);
     }
 
-//    private void showFeedLoadingItemDelayed() {
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                rvMyCourse.smoothScrollToPosition(0);
-//                myCourseAdapter.showLoadingView();
-//            }
-//        }, 500);
-//    }
-
     private void startIntroAnimation() {
 
         inboxMenuItem.getActionView().setTranslationY(-ACTION_BAR_SIZE);
@@ -302,11 +292,11 @@ public class HomeActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction()
                     .setCustomAnimations(R.anim.slide_up_fragment, R.anim.slide_up_out_fragment)
                     .replace(R.id.fl_container, FeaturedCourseListFragment.newInstance())
-                    .commit();
+                    .commitAllowingStateLoss();
         else
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fl_container, FeaturedCourseListFragment.newInstance())
-                    .commit();
+                    .commitAllowingStateLoss();
     }
 
     //endregion

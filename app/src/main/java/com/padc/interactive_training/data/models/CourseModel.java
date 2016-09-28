@@ -8,6 +8,7 @@ import com.padc.interactive_training.data.vos.ChapterVO;
 import com.padc.interactive_training.data.vos.CourseVO;
 import com.padc.interactive_training.data.vos.DiscussionVO;
 import com.padc.interactive_training.data.vos.LessonCardVO;
+import com.padc.interactive_training.data.vos.UserVO;
 import com.padc.interactive_training.events.DataEvent;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class CourseModel extends BaseModel {
     private static CourseModel objInstance;
 
     private List<CourseVO> mCourseList;
+    private List<UserVO> mUserList;
     private List<LessonCardVO> mCurrentAccessCardList;
     private List<ChapterVO> mCurrentAccessChapterList;
     private List<DiscussionVO> mCurrentAccessDiscussionList;
@@ -36,6 +38,7 @@ public class CourseModel extends BaseModel {
         mCourseList = new ArrayList<>();
         mCurrentAccessCardList = new ArrayList<>();
         loadCourses();
+        loadUsers();
     }
 
     public static CourseModel getInstance() {
@@ -48,6 +51,8 @@ public class CourseModel extends BaseModel {
     public void loadCourses() {
         dataAgent.loadCourses();
     }
+
+    public void loadUsers() { dataAgent.loadUsers(); }
 
     public List<CourseVO> getCourseList() {
         return mCourseList;
@@ -71,6 +76,18 @@ public class CourseModel extends BaseModel {
     }
 
     public void notifyErrorInLoadingCourses(String message) {
+
+    }
+
+    public void notifyUsersLoaded(List<UserVO> userList) {
+        //Notify that the data is ready - using LocalBroadcast
+        mUserList = userList;
+
+        //keep the data in persistent layer.
+        UserVO.saveUsers(mUserList);
+    }
+
+    public void notifyErrorInLoadingUsers(String message) {
 
     }
 

@@ -25,7 +25,7 @@ public class CoursesContract {
     public static final String PATH_COURSE_REPLIES = "replies";
     public static final String PATH_COURSE_TODOLIST = "todolists";
     public static final String PATH_COURSE_TODOITEM = "todoitems";
-    public static final String PATH_LOGIN_USER = "login_user";
+    public static final String PATH_USER = "user";
 
     public static final class CourseEntry implements BaseColumns {
         public static final Uri CONTENT_URI =
@@ -399,32 +399,37 @@ public class CoursesContract {
         }
     }
 
-    public static final class LoginUserEntry implements BaseColumns {
+    public static final class UserEntry implements BaseColumns {
         public static final Uri CONTENT_URI =
-                BASE_CONTENT_URI.buildUpon().appendPath(PATH_LOGIN_USER).build();
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_USER).build();
 
         public static final String DIR_TYPE =
-                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_LOGIN_USER;
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_USER;
 
         public static final String ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_LOGIN_USER;
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_USER;
 
         public static final String TABLE_NAME = "login_user";
 
+        public static final String COLUMN_USER_ID = "user_id";
         public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_PROFILE_PICTURE_URL = "profile_picture_url";
         public static final String COLUMN_EMAIL = "email";
-        public static final String COLUMN_ACCESS_TOKEN = "access_token";
-        public static final String COLUMN_DATE_OF_BIRTH = "date_of_birth";
-        public static final String COLUMN_COUNTRY = "country";
-        public static final String COLUMN_REGISTERED_DATE = "registered_date";
-        public static final String COLUMN_LAST_USED_DATE = "last_use_date";
-        public static final String COLUMN_PROFILE_PICTURE = "profile_picture";
-        public static final String COLUMN_COVER_PICTURE = "cover_picture";
-        public static final String COLUMN_FACEBOOK_ID = "facebook_id";
 
-        public static Uri buildLoginUserUri(long id) {
+        public static Uri buildUserUri(long id) {
             //content://xyz.aungpyaephyo.padc.myanmarattractions/login_user/1
             return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+
+        public static Uri buildUserUriWithUserId(String userId) {
+            //content://xyz.aungpyaephyo.padc.myanmarattractions/attraction_images?attraction_title=Yangon
+            return CONTENT_URI.buildUpon()
+                    .appendQueryParameter(COLUMN_USER_ID, userId)
+                    .build();
+        }
+
+        public static String getUserIdFromParam(Uri uri) {
+            return uri.getQueryParameter(COLUMN_USER_ID);
         }
     }
 }

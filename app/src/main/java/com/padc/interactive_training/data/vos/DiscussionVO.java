@@ -2,6 +2,7 @@ package com.padc.interactive_training.data.vos;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
@@ -27,6 +28,8 @@ public class DiscussionVO {
 
     @SerializedName("user_id")
     private String userId;
+
+    private UserVO user;
 
     private String postPastTime;
 
@@ -61,6 +64,14 @@ public class DiscussionVO {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public UserVO getUser() {
+        return user;
+    }
+
+    public void setUser(UserVO user) {
+        this.user = user;
     }
 
     public String getPostPastTime() {
@@ -133,5 +144,18 @@ public class DiscussionVO {
         cv.put(CoursesContract.DiscussionEntry.COLUMN_LIKE_COUNT, likes);
 
         return cv;
+    }
+
+    public static DiscussionVO parseFromCursor(Cursor data) {
+        DiscussionVO discussion = new DiscussionVO();
+
+        discussion.discussionId = data.getString(data.getColumnIndex(CoursesContract.DiscussionEntry.COLUMN_DISCUSSION_ID));
+        discussion.discussionTitle = data.getString(data.getColumnIndex(CoursesContract.DiscussionEntry.COLUMN_DISCUSSION_TITLE));
+        discussion.description = data.getString(data.getColumnIndex(CoursesContract.DiscussionEntry.COLUMN_DESCRIPTION));
+        discussion.userId = data.getString(data.getColumnIndex(CoursesContract.DiscussionEntry.COLUMN_USER_ID));
+        discussion.postDateTime = data.getString(data.getColumnIndex(CoursesContract.DiscussionEntry.COLUMN_POST_DATETIME));
+        discussion.likes = data.getInt(data.getColumnIndex(CoursesContract.DiscussionEntry.COLUMN_LIKE_COUNT));
+
+        return discussion;
     }
 }

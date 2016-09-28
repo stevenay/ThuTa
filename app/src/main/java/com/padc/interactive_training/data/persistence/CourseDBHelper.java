@@ -14,13 +14,14 @@ import com.padc.interactive_training.data.persistence.CoursesContract.CourseEntr
 import com.padc.interactive_training.data.persistence.CoursesContract.CourseTagEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.TodoItemEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.TodoListEntry;
+import com.padc.interactive_training.data.persistence.CoursesContract.UserEntry;
 
 /**
  * Created by NayLinAung on 7/9/16.
  */
 public class CourseDBHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 9;
     public static final String DATABASE_NAME = "courses.db";
 
     private static final String SQL_CREATE_COURSE_TABLE = "CREATE TABLE " + CourseEntry.TABLE_NAME + " (" +
@@ -139,6 +140,16 @@ public class CourseDBHelper extends SQLiteOpenHelper {
             " UNIQUE (" + TodoItemEntry.COLUMN_DESCRIPTION + ") ON CONFLICT IGNORE" +
             " );";
 
+    private static final String SQL_CREATE_USER_TABLE = "CREATE TABLE " + UserEntry.TABLE_NAME + " (" +
+            UserEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            UserEntry.COLUMN_USER_ID + " TEXT NOT NULL, " +
+            UserEntry.COLUMN_NAME + " TEXT NOT NULL, " +
+            UserEntry.COLUMN_EMAIL + " TEXT NOT NULL, " +
+            UserEntry.COLUMN_PROFILE_PICTURE_URL + " TEXT NOT NULL, " +
+
+            " UNIQUE (" + UserEntry.COLUMN_USER_ID + ") ON CONFLICT IGNORE" +
+            " );";
+
     public CourseDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -155,6 +166,7 @@ public class CourseDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_REPLY_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_TODO_LIST_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_TODO_ITEM_TABLE);
+        sqLiteDatabase.execSQL(SQL_CREATE_USER_TABLE);
     }
 
     @Override
@@ -169,6 +181,7 @@ public class CourseDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ReplyEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TodoListEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TodoItemEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + UserEntry.TABLE_NAME);
 
         onCreate(sqLiteDatabase);
     }

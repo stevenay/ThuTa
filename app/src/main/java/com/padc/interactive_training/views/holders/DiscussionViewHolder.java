@@ -13,8 +13,11 @@ import android.widget.TextView;
 import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.R;
 import com.padc.interactive_training.data.vos.DiscussionVO;
+import com.padc.interactive_training.utils.DateTimeUtils;
 
 import org.w3c.dom.Text;
+
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +47,12 @@ public class DiscussionViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.tv_reply_count)
     TextView tvReplyCount;
+
+    @BindView(R.id.tv_post_past_time)
+    TextView tvPostPastTime;
+
+    @BindView(R.id.tv_post_time)
+    TextView tvPostTime;
 
     private Context mContext;
     private DiscussionVO mDiscussionVO;
@@ -82,6 +91,12 @@ public class DiscussionViewHolder extends RecyclerView.ViewHolder {
         mDrawable.setColorFilter(new
                 PorterDuffColorFilter(0xFF9BBE74, PorterDuff.Mode.SRC_IN));
         this.ivProfile.setImageDrawable(mDrawable);
+
+        Date today = new Date();
+        Date postDate = DateTimeUtils.parseStringToDateTime(discussion.getPostDateTime());
+
+        tvPostPastTime.setText(DateTimeUtils.formattedDateDifference(postDate, today));
+        tvPostTime.setText(DateTimeUtils.parseDateToString("hh:mm a", postDate));
 
         tvUserName.setText(discussion.getUser().getFullName());
         tvDiscussionTitle.setText(discussion.getTitle());

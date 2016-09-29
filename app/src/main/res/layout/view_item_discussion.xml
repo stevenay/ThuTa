@@ -58,7 +58,7 @@
                 android:textSize="@dimen/text_small" />
 
             <com.padc.interactive_training.components.MMTextView
-                android:id="@+id/tv_post_time"
+                android:id="@+id/tv_comma"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_user_name"
@@ -69,7 +69,23 @@
                 android:fontFamily="sans-serif-light"
                 android:lineSpacingMultiplier="1.2"
                 android:maxLines="4"
-                android:text=", 12:46 PM"
+                android:text=","
+                android:textColor="@color/black_overlay"
+                android:textSize="@dimen/text_small" />
+
+            <com.padc.interactive_training.components.MMTextView
+                android:id="@+id/tv_post_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_user_name"
+                android:layout_toRightOf="@id/tv_comma"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_small"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-light"
+                android:lineSpacingMultiplier="1.2"
+                android:maxLines="4"
+                android:text="12:46 PM"
                 android:textColor="@color/black_overlay"
                 android:textSize="@dimen/text_small" />
 

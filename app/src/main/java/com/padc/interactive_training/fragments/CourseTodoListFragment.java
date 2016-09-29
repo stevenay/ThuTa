@@ -15,12 +15,14 @@ import com.daimajia.swipe.util.Attributes;
 import com.padc.interactive_training.R;
 import com.padc.interactive_training.adapters.CourseTodoAdapter;
 import com.padc.interactive_training.adapters.TodosHeadersAdapter;
+import com.padc.interactive_training.data.vos.TodoItemVO;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersTouchListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,14 +36,11 @@ public class CourseTodoListFragment extends Fragment {
 
     private TodosHeadersAdapter mAdapter;
     private ArrayList<String> mDataSet;
+    private List<TodoItemVO> mTodoItems;
 
     public static CourseTodoListFragment newInstance() {
         CourseTodoListFragment fragment = new CourseTodoListFragment();
         return fragment;
-    }
-
-    public CourseTodoListFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -57,28 +56,12 @@ public class CourseTodoListFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         // Item Decorator:
-        // rvTodoList.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.divider)));
         rvTodoList.setItemAnimator(new FadeInLeftAnimator());
 
-        // Adapter:
-        String[] adapterData = new String[]{
-                "Write down my skills/expertise in this field.",
-                "Write down how I'm different from other experts in the field.",
-                "Write down how others will benefit from my opinions and advice.",
-                "Write down my target audience's interests that are related to my field.",
-                "Write a short website bio and a shorter social media bio.",
-                "Define my personal branding target audience.",
-                "Define and create a personal branding website.",
-                "Define and Choose a universal profile photo.",
-                "Define and Choose a universal profile photo.",
-                "Define and Choose a universal profile photo.",
-                "Define and Choose a universal profile photo.",
-                "Define and Choose a universal profile photo."};
-        mDataSet = new ArrayList<String>(Arrays.asList(adapterData));
-
-        mAdapter = new TodosHeadersAdapter(mDataSet);
+        // Adapter
+        mAdapter = new TodosHeadersAdapter(mTodoItems);
         mAdapter.setMode(Attributes.Mode.Single);
-        rvTodoList.setAdapter(mAdapter);
+        rvTodoList.setAdapter(mTodoItems);
 
         // Layout Managers:
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);

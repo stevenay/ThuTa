@@ -90,5 +90,11 @@
     <!-- Development Package, dir, path, notation start-->
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
     <string name="txt_multiple_choice">Multiple Choice</string>
+    <string name="past_time">လြန္ခဲ့ေသာ</string>
+    <string name="now_myanmar">ယခုေလးတင္</string>
+    <string name="month_myanmar">လ</string>
+    <string name="day_myanmar">ရက္</string>
+    <string name="hour_myanmar">နာရီ</string>
+    <string name="minute_myanmar">မိနစ္</string>
     <!-- Development Package, dir, path, notation finish-->
 </resources>

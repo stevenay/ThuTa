@@ -57,6 +57,9 @@ public class CourseVO {
     @SerializedName("discussions")
     private List<DiscussionVO> discussions;
 
+    @SerializedName("to_do_list")
+    private TodoListVO todoList;
+
     @SerializedName("last_accessed_card_id")
     private String lastAccessedCardId;
 
@@ -174,6 +177,14 @@ public class CourseVO {
         this.discussions = discussions;
     }
 
+    public TodoListVO getTodoList() {
+        return todoList;
+    }
+
+    public void setTodoList(TodoListVO todoList) {
+        this.todoList = todoList;
+    }
+
     public static void saveCourses(List<CourseVO> courseList) {
         Context context = InteractiveTrainingApp.getContext();
         ContentValues[] courseCVs = new ContentValues[courseList.size()];
@@ -185,6 +196,7 @@ public class CourseVO {
             AuthorVO.saveAuthor(course.getTitle(), course.getAuthor());
             ChapterVO.saveChapters(course.getTitle(), course.getChapters());
             DiscussionVO.saveDiscussions(course.getTitle(), course.getDiscussions());
+            TodoListVO.saveTodoList(course.getTitle(), course.getTodoList());
         }
 
         //Bulk insert into attractions.

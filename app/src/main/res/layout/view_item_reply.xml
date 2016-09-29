@@ -54,7 +54,7 @@
             android:textSize="@dimen/text_small" />
 
         <com.padc.interactive_training.components.MMTextView
-            android:id="@+id/tv_post_time"
+            android:id="@+id/tv_comma"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_user_name"
@@ -65,14 +65,30 @@
             android:fontFamily="sans-serif-light"
             android:lineSpacingMultiplier="1.2"
             android:maxLines="4"
-            android:text=", 11:14 PM"
+            android:text=","
+            android:textColor="@color/black_overlay"
+            android:textSize="@dimen/text_small" />
+
+        <com.padc.interactive_training.components.MMTextView
+            android:id="@+id/tv_post_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_user_name"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_toRightOf="@id/tv_comma"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:lineSpacingMultiplier="1.2"
+            android:maxLines="4"
+            android:text="11:14 PM"
             android:textColor="@color/black_overlay"
             android:textSize="@dimen/text_small" />
 
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/tv_chapter_brief"
+        android:id="@+id/tv_reply"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/layout_user"
@@ -93,7 +109,7 @@
         android:id="@+id/layout_like_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_chapter_brief"
+        android:layout_below="@id/tv_reply"
         android:layout_alignParentRight="true"
         android:layout_weight="1"
         android:layout_marginTop="@dimen/margin_medium"
@@ -115,6 +131,7 @@
             android:outAnimation="@anim/slide_out_likes_counter">
 
             <TextView
+                android:id="@+id/tv_likes_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Like (123)"

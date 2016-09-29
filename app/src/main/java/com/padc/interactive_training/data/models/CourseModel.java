@@ -114,7 +114,10 @@ public class CourseModel extends BaseModel {
     }
 
     public int getLastAccessCardIndex() {
-        return mFeaturedCourse.getLastAccessCardIndex();
+        if (mFeaturedCourse != null)
+            return mFeaturedCourse.getLastAccessCardIndex();
+        else
+            return -1;
     }
 
     public void setCardListData(List<LessonCardVO> cardList) {
@@ -141,6 +144,16 @@ public class CourseModel extends BaseModel {
         return mCurrentAccessDiscussionList;
     }
 
+    public DiscussionVO getDiscussionbyId(String discussionId)
+    {
+        for (DiscussionVO s : mCurrentAccessDiscussionList) {
+            if (s.getDiscussionId().equals(discussionId)) {
+                return s;
+            }
+        }
+
+        return null;
+    }
 
     public ChapterVO getChapterbyIndex(int chapterIndex) {
         return mCurrentAccessChapterList.get(chapterIndex);

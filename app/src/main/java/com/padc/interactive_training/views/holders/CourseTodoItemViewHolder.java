@@ -10,29 +10,37 @@ import android.widget.Toast;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.padc.interactive_training.R;
+import com.padc.interactive_training.data.vos.TodoItemVO;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by NayLinAung on 9/26/2016.
  */
 public class CourseTodoItemViewHolder extends RecyclerView.ViewHolder {
 
+    @BindView(R.id.swipe_todo)
     SwipeLayout swipeLayout;
+
+    @BindView(R.id.text_data)
     TextView textViewData;
+
+    @BindView(R.id.tv_done_label)
     TextView tvDoneLabel;
+
+    @BindView(R.id.layout_save)
     LinearLayout layoutSave;
+
+    @BindView(R.id.layout_delete)
     LinearLayout layoutDelete;
 
     private ControllerTodoItem mController;
 
     public CourseTodoItemViewHolder(View itemView, ControllerTodoItem controllerTodoItem) {
         super(itemView);
+        ButterKnife.bind(this, itemView);
         this.mController = controllerTodoItem;
-
-        swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe_todo);
-        textViewData = (TextView) itemView.findViewById(R.id.text_data);
-        tvDoneLabel = (TextView) itemView.findViewById(R.id.tv_done_label);
-        layoutSave = (LinearLayout) itemView.findViewById(R.id.layout_save);
-        layoutDelete = (LinearLayout) itemView.findViewById(R.id.layout_delete);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +51,7 @@ public class CourseTodoItemViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    public void bindData(String item, final int position)
+    public void bindData(TodoItemVO item, final int position)
     {
         this.layoutDelete.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -216,6 +216,15 @@ public class CourseProvider extends ContentProvider {
                 }
                 break;
             }
+            case COURSE_TODOLIST: {
+                long _id = db.insert(CoursesContract.TodoListEntry.TABLE_NAME, null, contentValues);
+                if (_id > 0) {
+                    insertedUri = CoursesContract.TodoListEntry.buildTodoListUri(_id);
+                } else {
+                    // throw new SQLException("Failed to insert row into " + uri);
+                }
+                break;
+            }
             default:
                 throw new UnsupportedOperationException("Unknown uri from insert method : " + uri);
         }
@@ -322,6 +331,10 @@ public class CourseProvider extends ContentProvider {
                 return CoursesContract.DiscussionEntry.TABLE_NAME;
             case COURSE_REPLY:
                 return CoursesContract.ReplyEntry.TABLE_NAME;
+            case COURSE_TODOLIST:
+                return CoursesContract.TodoListEntry.TABLE_NAME;
+            case COURSE_TODOITEM:
+                return CoursesContract.TodoItemEntry.TABLE_NAME;
             case USER:
                 return CoursesContract.UserEntry.TABLE_NAME;
             default:

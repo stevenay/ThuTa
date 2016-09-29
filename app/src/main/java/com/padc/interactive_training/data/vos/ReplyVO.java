@@ -23,6 +23,8 @@ public class ReplyVO {
     @SerializedName("user_id")
     private String userId;
 
+    private UserVO user;
+
     @SerializedName("reply")
     private String reply;
 
@@ -70,6 +72,14 @@ public class ReplyVO {
 
     public void setDiscussionId(String discussionId) {
         this.discussionId = discussionId;
+    }
+
+    public UserVO getUser() {
+        return user;
+    }
+
+    public void setUser(UserVO user) {
+        this.user = user;
     }
 
     public static void saveReplies(String discussionId, List<ReplyVO> replies) {
@@ -124,4 +134,17 @@ public class ReplyVO {
 
         return replies;
     }
+
+    public static ReplyVO parseFromCursor(Cursor data) {
+        ReplyVO reply = new ReplyVO();
+
+        reply.userId = data.getString(data.getColumnIndex(CoursesContract.ReplyEntry.COLUMN_USER_ID));
+        reply.reply = data.getString(data.getColumnIndex(CoursesContract.ReplyEntry.COLUMN_REPLY));
+        reply.discussionId = data.getString(data.getColumnIndex(CoursesContract.ReplyEntry.COLUMN_DISCUSSION_ID));
+        reply.replyDateTime = data.getString(data.getColumnIndex(CoursesContract.ReplyEntry.COLUMN_REPLY_DATETIME));
+        reply.likeCount = data.getInt(data.getColumnIndex(CoursesContract.ReplyEntry.COLUMN_LIKE_COUNT));
+
+        return reply;
+    }
+
 }

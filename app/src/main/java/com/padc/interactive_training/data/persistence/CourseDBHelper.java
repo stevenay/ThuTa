@@ -126,9 +126,13 @@ public class CourseDBHelper extends SQLiteOpenHelper {
 
     private static final String SQL_CREATE_TODO_LIST_TABLE = "CREATE TABLE " + TodoListEntry.TABLE_NAME + " (" +
             TodoListEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            TodoListEntry.COLUMN_TODO_LIST_ID + " TEXT NOT NULL, " +
             TodoListEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
+            TodoListEntry.COLUMN_CARD_ID + " TEXT NOT NULL, " +
+            TodoListEntry.COLUMN_COURSE_TITLE + " TEXT NOT NULL, " +
 
-            " UNIQUE (" + TodoListEntry.COLUMN_TITLE + ") ON CONFLICT IGNORE" +
+            " UNIQUE (" + TodoListEntry.COLUMN_TITLE + ", " +
+            TodoListEntry.COLUMN_COURSE_TITLE + ") ON CONFLICT IGNORE" +
             " );";
 
     private static final String SQL_CREATE_TODO_ITEM_TABLE = "CREATE TABLE " + TodoItemEntry.TABLE_NAME + " (" +
@@ -137,7 +141,8 @@ public class CourseDBHelper extends SQLiteOpenHelper {
             TodoItemEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
             TodoItemEntry.COLUMN_CHECKED + " INTEGER NOT NULL, " +
 
-            " UNIQUE (" + TodoItemEntry.COLUMN_DESCRIPTION + ") ON CONFLICT IGNORE" +
+            " UNIQUE (" + TodoItemEntry.COLUMN_DESCRIPTION + ", " +
+            TodoItemEntry.COLUMN_TODO_LIST_ID + ") ON CONFLICT IGNORE" +
             " );";
 
     private static final String SQL_CREATE_USER_TABLE = "CREATE TABLE " + UserEntry.TABLE_NAME + " (" +

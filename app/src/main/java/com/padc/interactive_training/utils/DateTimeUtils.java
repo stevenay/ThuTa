@@ -1,5 +1,10 @@
 package com.padc.interactive_training.utils;
 
+import android.content.Context;
+
+import com.padc.interactive_training.InteractiveTrainingApp;
+import com.padc.interactive_training.R;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,8 +23,8 @@ public class DateTimeUtils {
     *
     * =>To change from string date in any java supported date format to object date
     * Use two arguments method,
-    *   - 1st arg for date format in string
-    *   - 2nd arg for date input in string
+    *   - 1st arg for date or date/time format in string
+    *   - 2nd arg for date or date/time input in string
     *
     *
     * Contribution for improvement of this utility will be accepted with proper working.
@@ -30,6 +35,10 @@ public class DateTimeUtils {
 
     public static Date parseStringToDate(String strDateToParse) {
         return parseStringToDate("yyyy-MM-dd", strDateToParse);
+    }
+
+    public static Date parseStringToDateTime(String strDateTimeToParse) {
+        return parseStringToDate("yyyy-MM-dd HH:mm:ss", strDateTimeToParse);
     }
 
     public static Date parseStringToDate(String strInputDF, String strDateToParse) { // DF = Date Format
@@ -45,17 +54,56 @@ public class DateTimeUtils {
         return outputDate;
     }
 
-    public static String parseDateToString(Date inputDate){
+    public static String parseDateToString(Date inputDate) {
         return parseDateToString("yyyy-MM-dd", inputDate);
     }
 
-    public static String parseDateToString(String strOutputDateFormat, Date inputDate){
-        String strOutputDate = "";
+    public static String parseDateToString(String strOutputDateFormat, Date inputDate) {
         SimpleDateFormat outputDateFormatter = new SimpleDateFormat(strOutputDateFormat);
-        strOutputDate = outputDateFormatter.format(inputDate);
-        return strOutputDate;
+        return outputDateFormatter.format(inputDate);
     }
 
+    public static String formattedDateDifference(Date startDate, Date endDate) {
+        String outputString = "";
 
+        //milliseconds
+        long different = endDate.getTime() - startDate.getTime();
+
+        long secondsInMilli = 1000;
+        long minutesInMilli = secondsInMilli * 60;
+        long hoursInMilli = minutesInMilli * 60;
+        long daysInMilli = hoursInMilli * 24;
+        long monthsInMilli = daysInMilli * 30;
+
+        long elapsedMonths = different / monthsInMilli;
+        different = different % monthsInMilli;
+
+        long elapsedDays = different / daysInMilli;
+        different = different % daysInMilli;
+
+        long elapsedHours = different / hoursInMilli;
+        different = different % hoursInMilli;
+
+        long elapsedMinutes = different / minutesInMilli;
+        different = different % minutesInMilli;
+
+        long elapsedSeconds = different / secondsInMilli;
+
+        Context context = InteractiveTrainingApp.getContext();
+
+        if (elapsedMonths > 0){
+            outputString = context.getString(R.string.past_time) + " " + String.valueOf(elapsedMonths) + context.getString(R.string.month_myanmar);
+        } else if (elapsedDays > 0) {
+            outputString = context.getString(R.string.past_time) + " " + String.valueOf(elapsedDays) + context.getString(R.string.day_myanmar);
+        } else if (elapsedHours > 0) {
+            outputString = context.getString(R.string.past_time) + " " + String.valueOf(elapsedHours) + context.getString(R.string.hour_myanmar);
+        } else if (elapsedMinutes > 0) {
+            outputString = context.getString(R.string.past_time) + " " + String.valueOf(elapsedMinutes) + context.getString(R.string.minute_myanmar);
+        } else if (elapsedSeconds > 0) {
+            outputString = context.getString(R.string.now_myanmar);
+        }
+
+        return outputString;
+    }
 
 }

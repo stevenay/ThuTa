@@ -17,9 +17,11 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.daimajia.swipe.implments.SwipeItemRecyclerMangerImpl;
 import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.R;
+import com.padc.interactive_training.data.vos.TodoItemVO;
 import com.padc.interactive_training.views.holders.CourseTodoItemViewHolder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by NayLinAung on 9/13/2016.
@@ -28,13 +30,13 @@ public class CourseTodoAdapter extends RecyclerSwipeAdapter<CourseTodoItemViewHo
     implements CourseTodoItemViewHolder.ControllerTodoItem {
 
     private Context mContext;
-    private ArrayList<String> mTodoList;
+    private List<TodoItemVO> mTodoItemList;
 
     protected SwipeItemRecyclerMangerImpl mItemManger = new SwipeItemRecyclerMangerImpl(this);
 
-    public CourseTodoAdapter(ArrayList<String> objects) {
+    public CourseTodoAdapter(List<TodoItemVO> todoItemList) {
         this.mContext = InteractiveTrainingApp.getContext();
-        this.mTodoList = objects;
+        this.mTodoItemList = todoItemList;
     }
 
     @Override
@@ -45,7 +47,7 @@ public class CourseTodoAdapter extends RecyclerSwipeAdapter<CourseTodoItemViewHo
 
     @Override
     public void onBindViewHolder(final CourseTodoItemViewHolder viewHolder, final int position) {
-        String item = mTodoList.get(position);
+        TodoItemVO item = mTodoItemList.get(position);
         viewHolder.bindData(item, position);
         mItemManger.bindView(viewHolder.itemView, position);
     }

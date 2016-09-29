@@ -35,12 +35,12 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyViewHolder> {
 
     @Override
     public void onBindViewHolder(ReplyViewHolder holder, int position) {
-        // holder.bindData(mDiscussionList.get(position));
+        holder.bindData(mReplyList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 15;
+        return mReplyList.size();
     }
 
     public void setNewData(List<ReplyVO> newReplyList) {

@@ -63,9 +63,9 @@
                         android:id="@+id/tv_post_past_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/tv_user_name"
                         android:layout_marginLeft="@dimen/margin_small"
                         android:layout_marginTop="@dimen/margin_small"
+                        android:layout_below="@id/tv_user_name"
                         android:layout_toRightOf="@id/iv_profile"
                         android:ellipsize="end"
                         android:fontFamily="sans-serif-light"
@@ -76,25 +76,41 @@
                         android:textSize="@dimen/text_small" />
 
                     <com.padc.interactive_training.components.MMTextView
-                        android:id="@+id/tv_post_time"
+                        android:id="@+id/tv_comma"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/tv_user_name"
                         android:layout_marginLeft="@dimen/margin_small"
                         android:layout_marginTop="@dimen/margin_small"
+                        android:layout_below="@id/tv_user_name"
                         android:layout_toRightOf="@id/tv_post_past_time"
                         android:ellipsize="end"
                         android:fontFamily="sans-serif-light"
                         android:lineSpacingMultiplier="1.2"
                         android:maxLines="4"
-                        android:text=", 12:46 PM"
+                        android:text=","
+                        android:textColor="@color/black_overlay"
+                        android:textSize="@dimen/text_small" />
+
+                    <com.padc.interactive_training.components.MMTextView
+                        android:id="@+id/tv_post_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_below="@id/tv_user_name"
+                        android:layout_toRightOf="@id/tv_comma"
+                        android:ellipsize="end"
+                        android:fontFamily="sans-serif-light"
+                        android:lineSpacingMultiplier="1.2"
+                        android:maxLines="4"
+                        android:text="12:46 PM"
                         android:textColor="@color/black_overlay"
                         android:textSize="@dimen/text_small" />
 
                 </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/tv_chapter_title"
+                    android:id="@+id/tv_discussion_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/layout_user"
@@ -110,10 +126,10 @@
                     android:textStyle="normal" />
 
                 <TextView
-                    android:id="@+id/tv_chapter_brief"
+                    android:id="@+id/tv_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_chapter_title"
+                    android:layout_below="@id/tv_discussion_title"
                     android:layout_marginLeft="@dimen/margin_medium_2"
                     android:layout_marginRight="@dimen/margin_medium_2"
                     android:layout_marginTop="@dimen/margin_medium"
@@ -130,7 +146,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_chapter_brief"
+                    android:layout_below="@id/tv_description"
                     android:layout_marginTop="@dimen/margin_medium"
                     android:paddingBottom="@dimen/margin_medium_2"
                     android:paddingLeft="@dimen/margin_medium_2"
@@ -146,7 +162,7 @@
                         android:src="@drawable/ic_chat_bubble_outline_24dp" />
 
                     <TextView
-                        android:id="@+id/tv_reply"
+                        android:id="@+id/tv_reply_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_small"
@@ -180,6 +196,7 @@
                             android:outAnimation="@anim/slide_out_likes_counter">
 
                             <TextView
+                                android:id="@+id/tv_likes_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Like (123)"

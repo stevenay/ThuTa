@@ -269,6 +269,11 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
         Intent intent = NewDiscussionActivity.newIntent(courseID);
         startActivity(intent);
     }
+
+    private void navigateToDiscussionDetail(String discussionId) {
+        Intent intent = DiscussionDetailActivity.newIntent(discussionId);
+        startActivity(intent);
+    }
     //endregion
 
     //region ChapterController
@@ -286,8 +291,7 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
     //region DiscussionController
     @Override
     public void onTapDiscussion(DiscussionVO discussion) {
-        Intent intent = DiscussionDetailActivity.newIntent("Sample Disucssion ID");
-        startActivity(intent);
+        navigateToDiscussionDetail(discussion.getDiscussionId());
     }
 
     @Override

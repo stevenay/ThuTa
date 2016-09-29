@@ -7,10 +7,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.padc.interactive_training.R;
+import com.padc.interactive_training.data.vos.TodoItemVO;
 import com.padc.interactive_training.views.holders.CourseTodoItemViewHolder;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by NayLinAung on 9/26/2016.
@@ -18,8 +20,8 @@ import java.util.ArrayList;
 public class TodosHeadersAdapter extends CourseTodoAdapter
         implements StickyRecyclerHeadersAdapter<RecyclerView.ViewHolder> {
 
-    public TodosHeadersAdapter(ArrayList<String> objects) {
-        super(objects);
+    public TodosHeadersAdapter(List<TodoItemVO> todoItem) {
+        super(todoItem);
     }
 
     @Override

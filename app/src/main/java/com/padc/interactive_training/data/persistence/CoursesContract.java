@@ -347,22 +347,25 @@ public class CoursesContract {
 
         public static final String TABLE_NAME = "todo_list";
 
+        public static final String COLUMN_TODO_LIST_ID = "todo_list_id";
         public static final String COLUMN_TITLE = "title";
+        public static final String COLUMN_CARD_ID = "card_id";
+        public static final String COLUMN_COURSE_TITLE = "course_title";
 
         public static Uri buildTodoListUri(long id) {
             //content://xyz.aungpyaephyo.padc.myanmarattractions/attraction_images/1
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
 
-        public static Uri buildTodoListWithTitle(String title) {
+        public static Uri buildTodoListWithCourseTitle(String courseTitle) {
             //content://xyz.aungpyaephyo.padc.myanmarattractions/attraction_images?attraction_title=Yangon
             return CONTENT_URI.buildUpon()
-                    .appendQueryParameter(COLUMN_TITLE, title)
+                    .appendQueryParameter(COLUMN_COURSE_TITLE, courseTitle)
                     .build();
         }
 
-        public static String getTitleFromParam(Uri uri) {
-            return uri.getQueryParameter(COLUMN_TITLE);
+        public static String getCourseTitleFromParam(Uri uri) {
+            return uri.getQueryParameter(COLUMN_COURSE_TITLE);
         }
     }
 

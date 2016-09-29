@@ -123,7 +123,7 @@ public class DiscussionListFragment extends Fragment
                 } while (data.moveToNext());
 
                 CourseModel.getInstance().setDiscussionListData(discussionList);
-                Log.d(InteractiveTrainingApp.TAG, "Retrieved chapters DESC : " + discussionList.size());
+                Log.d(InteractiveTrainingApp.TAG, "Retrieved discussion DESC : " + discussionList.size());
             }
         }
 

@@ -2,6 +2,7 @@ package com.padc.interactive_training.data.vos;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
@@ -75,5 +76,30 @@ public class TodoListVO {
         if (insertedRow != null)
             Log.d(InteractiveTrainingApp.TAG, "OneRow inserted into todolist table : " + insertedRow.toString());
     }
+
+    public static TodoListVO parseFromCursor(Cursor data) {
+        TodoListVO todoList = new TodoListVO();
+
+        todoList.title = data.getString(data.getColumnIndex(CoursesContract.TodoListEntry.COLUMN_TITLE));
+        todoList.cardId = data.getString(data.getColumnIndex(CoursesContract.TodoListEntry.COLUMN_CARD_ID));
+        todoList.todoListId = data.getString(data.getColumnIndex(CoursesContract.TodoListEntry.COLUMN_TODO_LIST_ID));
+
+        return todoList;
+    }
+
+//    public static UserVO loadTodoListbyListId(String listId) {
+//        Context context = InteractiveTrainingApp.getContext();
+//        TodoListVO todoList = new TodoListVO();
+//        Cursor cursor = context.getContentResolver().query(CoursesContract.TodoListEntry.buildTodoListWithListId(listId),
+//                null, null, null, null);
+//
+//        if (cursor != null && cursor.moveToFirst()) {
+//            todoList.t
+//
+//            Log.d(InteractiveTrainingApp.TAG, "Load Users by UserId " + user.getFullName());
+//        }
+//
+//        return user;
+//    }
 
 }

@@ -44,8 +44,9 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionViewHolder
     }
 
     public void setNewData(List<DiscussionVO> newDisucssionList) {
-        mDiscussionList = newDisucssionList;
-        notifyDataSetChanged();
+        if (newDisucssionList != null) {
+            mDiscussionList = newDisucssionList;
+            notifyDataSetChanged();
+        }
     }
-
 }

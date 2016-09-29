@@ -9,6 +9,7 @@ import com.google.gson.annotations.SerializedName;
 import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.data.persistence.CoursesContract;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +21,8 @@ public class TodoItemVO {
     private String todoItemId;
 
     private String todoListId;
+
+    private String todoListName;
 
     @SerializedName("description")
     private String description;
@@ -59,6 +62,14 @@ public class TodoItemVO {
         this.todoListId = todoListId;
     }
 
+    public String getTodoListName() {
+        return todoListName;
+    }
+
+    public void setTodoListName(String todoListName) {
+        this.todoListName = todoListName;
+    }
+
     public static void saveTodoItems(String todoListId, List<TodoItemVO> todoItems) {
         Log.d(InteractiveTrainingApp.TAG, "Method: TodoItem. Loaded items: " + todoItems.size());
 
@@ -95,4 +106,23 @@ public class TodoItemVO {
 
         return todoItem;
     }
+
+    public static List<TodoItemVO> loadItemsbyListId(String todoListId, String todoListName) {
+        Context context = InteractiveTrainingApp.getContext();
+        List<TodoItemVO> todoItems = new ArrayList<>();
+        Cursor cursor = context.getContentResolver().query(CoursesContract.TodoItemEntry.buildTodoItemWithTodoListId(todoListId),
+                null, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                TodoItemVO todoItem = TodoItemVO.parseFromCursor(cursor);
+                todoItem.setTodoListName(todoListName);
+                Log.d(InteractiveTrainingApp.TAG, "Load Items by TodoListId " + todoItem.getDescription());
+                todoItems.add(todoItem);
+            } while (cursor.moveToNext());
+        }
+
+        return todoItems;
+    }
+
 }

@@ -36,6 +36,8 @@ public class CourseProvider extends ContentProvider {
     private static final String sLessonCardSelection = CoursesContract.LessonCardEntry.COLUMN_CHAPTER_ID + " = ?";
     private static final String sLessonCardSelectionWithCourseTitle = CoursesContract.LessonCardEntry.COLUMN_COURSE_TITLE + " = ?";
     private static final String sUserSelection = CoursesContract.UserEntry.COLUMN_USER_ID + " = ?";
+    private static final String sTodoListSelection = CoursesContract.TodoListEntry.COLUMN_COURSE_TITLE + " = ?";
+    private static final String sTodoItemSelection = CoursesContract.TodoItemEntry.COLUMN_TODO_LIST_ID + " = ?";
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private CourseDBHelper mCourseDBHelper;
@@ -150,6 +152,34 @@ public class CourseProvider extends ContentProvider {
                     selectionArgs = new String[]{userId};
                 }
                 queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.UserEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null, //group_by
+                        null, //having
+                        sortOrder);
+                break;
+            case COURSE_TODOLIST:
+                String todoCourseTitle = CoursesContract.TodoListEntry.getCourseTitleFromParam(uri);
+                if (!TextUtils.isEmpty(todoCourseTitle)) {
+                    selection = sTodoListSelection;
+                    selectionArgs = new String[]{todoCourseTitle};
+                }
+                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.TodoListEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null, //group_by
+                        null, //having
+                        sortOrder);
+                break;
+            case COURSE_TODOITEM:
+                String todoListId = CoursesContract.TodoItemEntry.getTodoListIdFromParam(uri);
+                if (!TextUtils.isEmpty(todoListId)) {
+                    selection = sTodoItemSelection;
+                    selectionArgs = new String[]{todoListId};
+                }
+                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.TodoItemEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,

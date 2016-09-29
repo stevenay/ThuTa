@@ -8,6 +8,8 @@ import com.padc.interactive_training.data.vos.ChapterVO;
 import com.padc.interactive_training.data.vos.CourseVO;
 import com.padc.interactive_training.data.vos.DiscussionVO;
 import com.padc.interactive_training.data.vos.LessonCardVO;
+import com.padc.interactive_training.data.vos.TodoItemVO;
+import com.padc.interactive_training.data.vos.TodoListVO;
 import com.padc.interactive_training.data.vos.UserVO;
 import com.padc.interactive_training.events.DataEvent;
 
@@ -30,6 +32,8 @@ public class CourseModel extends BaseModel {
     private List<LessonCardVO> mCurrentAccessCardList;
     private List<ChapterVO> mCurrentAccessChapterList;
     private List<DiscussionVO> mCurrentAccessDiscussionList;
+    private List<TodoListVO> mCurrentTodoList;
+    private List<TodoItemVO> mCurrentTodoItemList;
 
     private CourseVO mFeaturedCourse;
 
@@ -142,6 +146,22 @@ public class CourseModel extends BaseModel {
 
     public List<DiscussionVO> getDiscussionListData() {
         return mCurrentAccessDiscussionList;
+    }
+
+    public void setTodomListData(List<TodoListVO> itemList) {
+        mCurrentTodoList = itemList;
+    }
+
+    public List<TodoListVO> getTodoListData() {
+        return mCurrentTodoList;
+    }
+
+    public void setTodoItemListData(List<TodoItemVO> itemList) {
+        mCurrentTodoItemList = itemList;
+    }
+
+    public List<TodoItemVO> getTodoItemListData() {
+        return mCurrentTodoItemList;
     }
 
     public DiscussionVO getDiscussionbyId(String discussionId)

@@ -367,6 +367,17 @@ public class CoursesContract {
         public static String getCourseTitleFromParam(Uri uri) {
             return uri.getQueryParameter(COLUMN_COURSE_TITLE);
         }
+
+        public static Uri buildTodoListWithListId(String todoListId) {
+            //content://xyz.aungpyaephyo.padc.myanmarattractions/attraction_images?attraction_title=Yangon
+            return CONTENT_URI.buildUpon()
+                    .appendQueryParameter(COLUMN_TODO_LIST_ID, todoListId)
+                    .build();
+        }
+
+        public static String getListIdFromParam(Uri uri) {
+            return uri.getQueryParameter(COLUMN_TODO_LIST_ID);
+        }
     }
 
     public static final class TodoItemEntry implements BaseColumns {

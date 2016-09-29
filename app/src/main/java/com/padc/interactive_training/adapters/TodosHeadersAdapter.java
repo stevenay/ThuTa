@@ -32,7 +32,7 @@ public class TodosHeadersAdapter extends CourseTodoAdapter
 
     @Override
     public long getHeaderId(int position) {
-        return getItem(position).charAt(0);
+        return Long.parseLong(getItem(position).getTodoListId());
     }
 
     @Override
@@ -45,7 +45,6 @@ public class TodosHeadersAdapter extends CourseTodoAdapter
     @Override
     public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder, int position) {
         TextView textView = (TextView) holder.itemView;
-        textView.setText("List 1: Install Java into Your Machine");
-        // holder.itemView.setBackgroundColor(getRandomColor());
+        textView.setText(getItem(position).getTodoListName());
     }
 }

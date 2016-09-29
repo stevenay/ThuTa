@@ -64,8 +64,10 @@ public class FeaturedCourseAdapter extends RecyclerView.Adapter<FeaturedCourseVi
     }
 
     public void setNewData(List<CourseVO> newCourseList) {
-        mCourseList = newCourseList;
-        notifyDataSetChanged();
+        if (newCourseList != null) {
+            mCourseList = newCourseList;
+            notifyDataSetChanged();
+        }
     }
 
 }

@@ -17,6 +17,7 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.daimajia.swipe.implments.SwipeItemRecyclerMangerImpl;
 import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.R;
+import com.padc.interactive_training.data.vos.DiscussionVO;
 import com.padc.interactive_training.data.vos.TodoItemVO;
 import com.padc.interactive_training.views.holders.CourseTodoItemViewHolder;
 
@@ -52,13 +53,20 @@ public class CourseTodoAdapter extends RecyclerSwipeAdapter<CourseTodoItemViewHo
         mItemManger.bindView(viewHolder.itemView, position);
     }
 
-    public String getItem(int position) {
-        return mTodoList.get(position);
+    public TodoItemVO getItem(int position) {
+        return mTodoItemList.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return mTodoList.size();
+        return mTodoItemList.size();
+    }
+
+    public void setNewData(List<TodoItemVO> newList) {
+        if (newList != null) {
+            mTodoItemList = newList;
+            notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -70,11 +78,10 @@ public class CourseTodoAdapter extends RecyclerSwipeAdapter<CourseTodoItemViewHo
     @Override
     public void onTapDelete(int positionOfItem, SwipeLayout deletedLayout) {
         mItemManger.removeShownLayouts(deletedLayout);
-        mTodoList.remove(positionOfItem);
+        mTodoItemList.remove(positionOfItem);
         notifyItemRemoved(positionOfItem);
-        notifyItemRangeChanged(positionOfItem, mTodoList.size());
+        notifyItemRangeChanged(positionOfItem, mTodoItemList.size());
         mItemManger.closeAllItems();
-        // + viewHolder.textViewData.getText().toString() + "!"
         Toast.makeText(mContext, "Removed 1 item!", Toast.LENGTH_SHORT).show();
     }
 

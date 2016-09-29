@@ -1,10 +1,15 @@
 package com.padc.interactive_training.fragments;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +17,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daimajia.swipe.util.Attributes;
+import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.R;
 import com.padc.interactive_training.adapters.CourseTodoAdapter;
 import com.padc.interactive_training.adapters.TodosHeadersAdapter;
+import com.padc.interactive_training.data.models.CourseModel;
+import com.padc.interactive_training.data.persistence.CoursesContract;
+import com.padc.interactive_training.data.vos.DiscussionVO;
+import com.padc.interactive_training.data.vos.ReplyVO;
 import com.padc.interactive_training.data.vos.TodoItemVO;
+import com.padc.interactive_training.data.vos.TodoListVO;
+import com.padc.interactive_training.data.vos.UserVO;
+import com.padc.interactive_training.utils.InteractiveTrainingConstants;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersTouchListener;
@@ -29,7 +42,8 @@ import butterknife.ButterKnife;
 import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
 
 // This fragment is for todolists shown in the Course Detail Activity
-public class CourseTodoListFragment extends Fragment {
+public class CourseTodoListFragment extends Fragment
+        implements LoaderManager.LoaderCallbacks<Cursor> {
 
     @BindView(R.id.rv_todo_list)
     RecyclerView rvTodoList;
@@ -38,9 +52,21 @@ public class CourseTodoListFragment extends Fragment {
     private ArrayList<String> mDataSet;
     private List<TodoItemVO> mTodoItems;
 
-    public static CourseTodoListFragment newInstance() {
+    private static final String BK_COURSE_TITLE = "BK_COURSE_TITLE";
+    private String mCourseTitle;
+
+    public static CourseTodoListFragment newInstance(String courseTitle) {
         CourseTodoListFragment fragment = new CourseTodoListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(BK_COURSE_TITLE, courseTitle);
+        fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getActivity().getSupportLoaderManager().initLoader(InteractiveTrainingConstants.TODO_LIST_LOADER, null, this);
     }
 
     @Override
@@ -55,13 +81,22 @@ public class CourseTodoListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_course_todo_list, container, false);
         ButterKnife.bind(this, view);
 
+        Bundle bundle = this.getArguments();
+        mCourseTitle = bundle.getString(BK_COURSE_TITLE, "Course title");
+
+        bindTodoListData();
+
+        return view;
+    }
+
+    private void bindTodoListData() {
         // Item Decorator:
         rvTodoList.setItemAnimator(new FadeInLeftAnimator());
 
         // Adapter
-        mAdapter = new TodosHeadersAdapter(mTodoItems);
+        mAdapter = new TodosHeadersAdapter(new ArrayList<TodoItemVO>());
         mAdapter.setMode(Attributes.Mode.Single);
-        rvTodoList.setAdapter(mTodoItems);
+        rvTodoList.setAdapter(mAdapter);
 
         // Layout Managers:
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -92,7 +127,44 @@ public class CourseTodoListFragment extends Fragment {
                 headersDecor.invalidateHeaders();
             }
         });
+    }
 
-        return view;
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(getContext(),
+                CoursesContract.TodoListEntry.buildTodoListWithCourseTitle(mCourseTitle),
+                null,
+                null,
+                null,
+                null
+        );
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        List<TodoListVO> todoList = CourseModel.getInstance().getTodoListData();
+
+        if (todoList == null || todoList.size() <= 0) {
+            if (data != null && data.moveToFirst()) {
+                todoList = new ArrayList<>();
+
+                do {
+                    TodoListVO list = TodoListVO.parseFromCursor(data);
+                    list.setTodoItems(TodoItemVO.loadItemsbyListId(list.getTodoListId(), list.getTitle()));
+                    todoList.add(list);
+                } while (data.moveToNext());
+
+                CourseModel.getInstance().setTodomListData(todoList);
+                Log.d(InteractiveTrainingApp.TAG, "Retrieved todoLists DESC : " + todoList.size());
+            }
+        }
+
+        mAdapter.setNewData(todoList.get(0).getTodoItems());
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 }

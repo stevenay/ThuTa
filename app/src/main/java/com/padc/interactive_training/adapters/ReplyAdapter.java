@@ -44,8 +44,10 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyViewHolder> {
     }
 
     public void setNewData(List<ReplyVO> newReplyList) {
-        mReplyList = newReplyList;
-        notifyDataSetChanged();
+        if (newReplyList != null) {
+            mReplyList = newReplyList;
+            notifyDataSetChanged();
+        }
     }
 
 }

@@ -44,8 +44,11 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterViewHolder> {
     }
 
     public void setNewData(List<ChapterVO> newChapterList) {
-        mChapterList = newChapterList;
-        notifyDataSetChanged();
+        if (newChapterList != null) {
+            mChapterList = newChapterList;
+            notifyDataSetChanged();
+        }
+
     }
 
 }

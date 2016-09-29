@@ -114,7 +114,7 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
         chapterListFragment = ChapterListFragment.newInstance(mCourseTitle);
         mCoursePagerAdapter.addTab(chapterListFragment, "CHAPTERS");
         mCoursePagerAdapter.addTab(DiscussionListFragment.newInstance(mCourseTitle), "DISCUSSION");
-        mCoursePagerAdapter.addTab(CourseTodoListFragment.newInstance(), "TODO-List (3)");
+        mCoursePagerAdapter.addTab(CourseTodoListFragment.newInstance(mCourseTitle), "TODO-List (3)");
 
         pagerNavigations.setAdapter(mCoursePagerAdapter);
         pagerNavigations.setOffscreenPageLimit(mCoursePagerAdapter.getCount());

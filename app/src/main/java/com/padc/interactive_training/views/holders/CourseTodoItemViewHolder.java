@@ -79,7 +79,10 @@ public class CourseTodoItemViewHolder extends RecyclerView.ViewHolder {
             }
         });
 
-        this.textViewData.setText(item);
+        if (item.getChecked())
+            this.layoutSave.performClick();
+
+        this.textViewData.setText(item.getDescription());
     }
 
     public interface ControllerTodoItem {

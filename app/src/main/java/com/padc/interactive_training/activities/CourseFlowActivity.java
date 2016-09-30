@@ -267,7 +267,7 @@ public class CourseFlowActivity extends AppCompatActivity
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        List<LessonCardVO> cardList = new ArrayList<>();
+        final List<LessonCardVO> cardList = new ArrayList<>();
         if (data != null && data.moveToFirst()) {
             do {
                 LessonCardVO lessonCard = LessonCardVO.parseFromCursor(data);
@@ -290,10 +290,12 @@ public class CourseFlowActivity extends AppCompatActivity
                         currentChapterId = CourseModel.getInstance().getLessonCardbyIndex(cardIndex).getChapterId();
                         chapterIntro = false;
                         navigateToLessonCard(mLastAccessCardIndex, "none");
+                        setProgressBar(cardIndex);
                     }
                     else if (mChapterId.isEmpty()) {
                         navigateToNewChapterIntro(mFirstChapterId, "next");
                         currentChapterId = mFirstChapterId;
+                        setProgressBar(0);
                     }
                     else {
                         navigateToNewChapterIntro(mChapterId, "next");

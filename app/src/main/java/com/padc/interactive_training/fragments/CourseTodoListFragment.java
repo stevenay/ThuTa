@@ -155,7 +155,7 @@ public class CourseTodoListFragment extends Fragment
                     todoList.add(list);
                 } while (data.moveToNext());
 
-                CourseModel.getInstance().setTodomListData(todoList);
+                CourseModel.getInstance().setTodoListData(todoList);
                 Log.d(InteractiveTrainingApp.TAG, "Retrieved todoLists DESC : " + todoList.size());
             }
         }

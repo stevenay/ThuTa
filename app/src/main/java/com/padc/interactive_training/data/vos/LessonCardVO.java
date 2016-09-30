@@ -20,6 +20,12 @@ public class LessonCardVO {
     private String chapterId;
     private String courseTitle;
 
+    @SerializedName("card_id")
+    private String cardId;
+
+    @SerializedName("card-id")
+    private String cardIdWrongName;
+
     @SerializedName("card_image_url")
     private String lessonImageUrl;
 
@@ -83,6 +89,14 @@ public class LessonCardVO {
         this.finished = finished;
     }
 
+    public String getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
+    }
+
     public static void saveLessonCards(String chapterId, String courseTitle, List<LessonCardVO> lessonCards) {
         Log.d(InteractiveTrainingApp.TAG, "Method: saveLessonCards. Loaded cards: " + lessonCards.size());
 
@@ -105,6 +119,7 @@ public class LessonCardVO {
 
         cv.put(CoursesContract.LessonCardEntry.COLUMN_CHAPTER_ID, cardChapterId);
         cv.put(CoursesContract.LessonCardEntry.COLUMN_COURSE_TITLE, courseTitle);
+        cv.put(CoursesContract.LessonCardEntry.COLUMN_CARD_ID, cardId == null ? cardIdWrongName : cardId);
         cv.put(CoursesContract.LessonCardEntry.COLUMN_CARD_DESCRIPTION, lessonDescription);
         cv.put(CoursesContract.LessonCardEntry.COLUMN_CARD_IMAGE_URL, lessonImageUrl);
         cv.put(CoursesContract.LessonCardEntry.COLUMN_CARD_ORDER_NUMBER, cardOrderNumber);
@@ -117,6 +132,7 @@ public class LessonCardVO {
     public static LessonCardVO parseFromCursor(Cursor data) {
         LessonCardVO card = new LessonCardVO();
 
+        card.cardId = data.getString(data.getColumnIndex(CoursesContract.LessonCardEntry.COLUMN_CARD_ID));
         card.chapterId = data.getString(data.getColumnIndex(CoursesContract.LessonCardEntry.COLUMN_CHAPTER_ID));
         card.courseTitle = data.getString(data.getColumnIndex(CoursesContract.LessonCardEntry.COLUMN_COURSE_TITLE));
         card.cardOrderNumber = data.getInt(data.getColumnIndex(CoursesContract.LessonCardEntry.COLUMN_CARD_ORDER_NUMBER));

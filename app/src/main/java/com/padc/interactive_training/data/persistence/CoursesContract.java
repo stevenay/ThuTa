@@ -227,6 +227,7 @@ public class CoursesContract {
 
         public static final String TABLE_NAME = "lesson_cards";
 
+        public static final String COLUMN_CARD_ID = "card_id";
         public static final String COLUMN_COURSE_TITLE = "course_title";
         public static final String COLUMN_CHAPTER_ID = "chapter_id";
         public static final String COLUMN_CARD_DESCRIPTION = "card_description";

@@ -98,7 +98,6 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
         }
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,7 +113,7 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
         chapterListFragment = ChapterListFragment.newInstance(mCourseTitle);
         mCoursePagerAdapter.addTab(chapterListFragment, "CHAPTERS");
         mCoursePagerAdapter.addTab(DiscussionListFragment.newInstance(mCourseTitle), "DISCUSSION");
-        mCoursePagerAdapter.addTab(CourseTodoListFragment.newInstance(mCourseTitle), "TODO-List (3)");
+        mCoursePagerAdapter.addTab(CourseTodoListFragment.newInstance(mCourseTitle), "TODO-List (1)");
 
         pagerNavigations.setAdapter(mCoursePagerAdapter);
         pagerNavigations.setOffscreenPageLimit(mCoursePagerAdapter.getCount());

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.padc.interactive_training.R;
+import com.padc.interactive_training.data.vos.TodoItemVO;
 
 /**
  * Created by NayLinAung on 9/26/2016.
@@ -19,8 +20,8 @@ public class TodoItemViewHolder extends RecyclerView.ViewHolder {
         textViewData = (TextView) itemView.findViewById(R.id.text_data);
     }
 
-    public void bindData(String item)
+    public void bindData(TodoItemVO item)
     {
-        this.textViewData.setText(item);
+        this.textViewData.setText(item.getDescription());
     }
 }

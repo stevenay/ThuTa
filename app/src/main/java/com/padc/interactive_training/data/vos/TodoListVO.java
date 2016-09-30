@@ -29,6 +29,8 @@ public class TodoListVO {
     @SerializedName("items")
     private List<TodoItemVO> todoItems;
 
+    private boolean isFinishAccess = false;
+
     public String getTodoListId() {
         return todoListId;
     }
@@ -59,6 +61,14 @@ public class TodoListVO {
 
     public void setTodoItems(List<TodoItemVO> todoItems) {
         this.todoItems = todoItems;
+    }
+
+    public boolean isFinishAccess() {
+        return isFinishAccess;
+    }
+
+    public void setFinishAccess(boolean finishAccess) {
+        isFinishAccess = finishAccess;
     }
 
     public static void saveTodoList(String courseTitle, TodoListVO todoList) {

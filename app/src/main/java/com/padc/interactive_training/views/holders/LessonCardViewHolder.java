@@ -22,8 +22,8 @@ public class LessonCardViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.btn_pin)
     ImageButton btnPin;
 
-    @BindView(R.id.btn_request_article)
-    ImageButton btnRequestArticle;
+//    @BindView(R.id.btn_request_article)
+//    ImageButton btnRequestArticle;
 
 
     private ControllerLessonCardItem mController;
@@ -55,12 +55,12 @@ public class LessonCardViewHolder extends RecyclerView.ViewHolder {
             }
         });
 
-        this.btnRequestArticle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                controller.onTapRequestButton();
-            }
-        });
+//        this.btnRequestArticle.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                controller.onTapRequestButton();
+//            }
+//        });
     }
 
     public interface ControllerLessonCardItem {

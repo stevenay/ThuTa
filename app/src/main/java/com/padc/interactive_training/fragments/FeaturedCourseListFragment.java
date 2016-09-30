@@ -194,7 +194,7 @@ public class FeaturedCourseListFragment extends Fragment
                 .error(R.drawable.misc_09_256)
                 .into(ivCourseCoverImage);
 
-        tvLikesCount.setText(String.valueOf(featuredCourse.getLikesCount()));
+        tvLikesCount.setText(String.valueOf(featuredCourse.getLikesCount()) + " likes");
 
         setupClickableViews(featuredCourse.getTitle());
     }

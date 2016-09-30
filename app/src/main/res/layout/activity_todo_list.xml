@@ -42,7 +42,7 @@
             android:paddingLeft="@dimen/margin_large"
             android:layout_marginBottom="@dimen/margin_medium"
             android:gravity="center_horizontal"
-            android:text="This is todo list for install Java into your machine."
+            android:text="This is todo list for Evaluate the UX of your app."
             android:textColor="@color/white_full"
             android:textSize="@dimen/text_regular_3x" />
 
@@ -55,28 +55,18 @@
             android:layout_marginBottom="@dimen/margin_medium_2">
 
             <Button
-                android:id="@+id/btn_save"
+                android:id="@+id/btn_continue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:textColor="#ffffff"
                 android:background="@drawable/bg_rounded_corner_background"
-                android:text="Save" />
-
-            <Button
-                android:id="@+id/btn_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_medium"
-                android:padding="10dp"
-                android:textColor="#ffffff"
-                android:background="@drawable/bg_rounded_corner_background"
-                android:text="Cancel" />
+                android:text="Continue" />
 
         </LinearLayout>
-
-
-
 
     </RelativeLayout>
 

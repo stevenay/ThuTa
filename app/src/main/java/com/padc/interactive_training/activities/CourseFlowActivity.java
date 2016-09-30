@@ -18,12 +18,10 @@ import android.widget.Toast;
 
 import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.R;
-import com.padc.interactive_training.adapters.LessonCardAdapter;
 import com.padc.interactive_training.data.models.CourseModel;
 import com.padc.interactive_training.data.persistence.CoursesContract;
-import com.padc.interactive_training.data.vos.ChapterVO;
 import com.padc.interactive_training.data.vos.LessonCardVO;
-import com.padc.interactive_training.fragments.ChapterEndFragment;
+import com.padc.interactive_training.data.vos.TodoListVO;
 import com.padc.interactive_training.fragments.ChapterIntroFragment;
 import com.padc.interactive_training.fragments.LessonCardFragment;
 import com.padc.interactive_training.utils.InteractiveTrainingConstants;
@@ -38,7 +36,8 @@ import butterknife.OnClick;
 
 public class CourseFlowActivity extends AppCompatActivity
         implements LessonCardViewHolder.ControllerLessonCardItem,
-        LoaderManager.LoaderCallbacks<Cursor> {
+        LoaderManager.LoaderCallbacks<Cursor>,
+        LessonCardFragment.ControllerLessonCard {
 
     @BindView(R.id.pb_course_flow)
     ProgressBar pbCourseFlow;
@@ -49,6 +48,9 @@ public class CourseFlowActivity extends AppCompatActivity
     @BindView(R.id.btn_next)
     Button btnNext;
 
+    @BindView(R.id.btn_todo_list)
+    Button btnTodoList;
+
     private int cardIndex = -1;
     private int totalCardNumber;
     private boolean chapterIntro = true;
@@ -56,6 +58,7 @@ public class CourseFlowActivity extends AppCompatActivity
     private String currentChapterId = "";
     private String mFirstChapterId = "";
     private int mLastAccessCardIndex = -1;
+    private TodoListVO mAccessTodoList;
 
     private static final String IE_CHAPTER_ID = "IE_CHAPTER_ID";
     private static final String IE_COURSE_TITLE = "IE_COURSE_TITLE";
@@ -63,6 +66,7 @@ public class CourseFlowActivity extends AppCompatActivity
     private String mChapterId;
     private String mCourseTitle;
     private static final int navigateToLessonCard = 1;
+    protected static final int RC_TODO_LIST = 1236;
 
     public static Intent newIntent(String courseTitle, String chapterId, int lastAccessCardIndex) {
         Intent intent = new Intent(InteractiveTrainingApp.getContext(), CourseFlowActivity.class);
@@ -70,6 +74,15 @@ public class CourseFlowActivity extends AppCompatActivity
         intent.putExtra(IE_CHAPTER_ID, chapterId);
         intent.putExtra(IE_LAST_ACCESS_CARDINDEX, lastAccessCardIndex);
         return intent;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_TODO_LIST) {
+            this.onAccessTodoList();
+        }
     }
 
     @Override
@@ -96,13 +109,19 @@ public class CourseFlowActivity extends AppCompatActivity
 
     @OnClick(R.id.btn_share)
     public void onbtnSharePressed(ImageButton view) {
-        Intent intent = TodoListActivity.newIntent("SampleLessonCardID");
-        startActivity(intent);
     }
 
     @OnClick(R.id.btn_next)
     public void onbtnNextPressed(Button view) {
         if ((cardIndex+1) < totalCardNumber) {
+
+            String cardId = CourseModel.getInstance().getLessonCardbyIndex(cardIndex+1).getCardId();
+            TodoListVO todoList = CourseModel.getInstance().getTodoListbyCardId(cardId);
+            if (todoList != null && !todoList.isFinishAccess()) {
+                mAccessTodoList = todoList;
+                btnNext.setVisibility(View.GONE);
+                btnTodoList.setVisibility(View.VISIBLE);
+            }
 
             String tempChapterId = CourseModel.getInstance().getLessonCardbyIndex(cardIndex+1).getChapterId();
 
@@ -139,6 +158,11 @@ public class CourseFlowActivity extends AppCompatActivity
 
     @OnClick(R.id.btn_previous)
     public void onbtnPreviousPressed(Button view) {
+        if (btnTodoList.getVisibility() == View.VISIBLE) {
+            btnTodoList.setVisibility(View.INVISIBLE);
+            btnNext.setVisibility(View.VISIBLE);
+        }
+
         if ((cardIndex-1) >= 0) {
             String tempChapterId = CourseModel.getInstance().getLessonCardbyIndex(cardIndex-1).getChapterId();
 
@@ -174,8 +198,14 @@ public class CourseFlowActivity extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "သင္ခန္းစာမ်ား မရွိေတာ့ပါ", Toast.LENGTH_SHORT).show();
         }
     }
+
+    @OnClick(R.id.btn_todo_list)
+    public void onbtnTodoList(Button view) {
+        navigateToTodoList();
+    }
     //endregion
 
+    //region NavigationMethods
     private void navigateToLessonCard(int cardIndex, String direction) {
 
         if (direction == "next") {
@@ -215,6 +245,14 @@ public class CourseFlowActivity extends AppCompatActivity
         }
     }
 
+    private void navigateToTodoList() {
+        if (mAccessTodoList != null) {
+            Intent intent = TodoListActivity.newIntent(mAccessTodoList.getTodoListId());
+            startActivityForResult(intent, RC_TODO_LIST);
+        }
+    }
+    //endregion
+
     //region LoaderPattern
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -249,7 +287,6 @@ public class CourseFlowActivity extends AppCompatActivity
                 if (msg.what == navigateToLessonCard) {
                     if (mLastAccessCardIndex > 0) {
                         cardIndex = mLastAccessCardIndex;
-                        Toast.makeText(getApplicationContext(), String.valueOf(cardIndex), Toast.LENGTH_LONG).show();
                         currentChapterId = CourseModel.getInstance().getLessonCardbyIndex(cardIndex).getChapterId();
                         chapterIntro = false;
                         navigateToLessonCard(mLastAccessCardIndex, "none");
@@ -277,7 +314,7 @@ public class CourseFlowActivity extends AppCompatActivity
     }
     //endregion
 
-    //region helperFunction
+    //region HelperFunction
     private void setProgressBar(int currentIndex)
     {
         // has to plus one because it's based on Zero value.
@@ -300,6 +337,16 @@ public class CourseFlowActivity extends AppCompatActivity
     public void onTapRequestButton() {
         Intent intent = TodoListActivity.newIntent("Sample CourseID");
         startActivity(intent);
+    }
+
+    @Override
+    public void onAccessTodoList() {
+        if (mAccessTodoList != null) {
+            mAccessTodoList.setFinishAccess(true);
+            mAccessTodoList = null;
+        }
+        btnTodoList.setVisibility(View.GONE);
+        btnNext.setVisibility(View.VISIBLE);
     }
     //endregion
 }

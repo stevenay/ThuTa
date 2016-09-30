@@ -44,7 +44,10 @@ public class TodosHeadersAdapter extends CourseTodoAdapter
 
     @Override
     public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder, int position) {
-        TextView textView = (TextView) holder.itemView;
-        textView.setText(getItem(position).getTodoListName());
+        TextView tvListTitle = (TextView) holder.itemView.findViewById(R.id.tv_list_title);
+        TextView tvFromChapter = (TextView) holder.itemView.findViewById(R.id.tv_from_chapter);
+
+        tvListTitle.setText(getItem(position).getTodoListName());
+        tvFromChapter.setText("(From Chapter 3 - Be true to brand identity)");
     }
 }

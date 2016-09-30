@@ -99,6 +99,18 @@
                 android:textSize="@dimen/text_small"
                 android:text="Next" />
 
+            <Button
+                android:id="@+id/btn_todo_list"
+                android:layout_width="128dp"
+                android:layout_alignParentRight="true"
+                android:layout_height="38dp"
+                android:visibility="invisible"
+                android:background="@drawable/bg_rounded_corner_background"
+                android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+                android:drawablePadding="-15sp"
+                android:textSize="@dimen/text_small"
+                android:text="1 Todo List" />
+
         </RelativeLayout>
 
     </LinearLayout>

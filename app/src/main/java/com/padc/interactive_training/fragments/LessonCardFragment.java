@@ -1,21 +1,28 @@
 package com.padc.interactive_training.fragments;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.padc.interactive_training.R;
+import com.padc.interactive_training.activities.TodoListActivity;
 import com.padc.interactive_training.data.models.CourseModel;
+import com.padc.interactive_training.data.vos.ChapterVO;
 import com.padc.interactive_training.data.vos.CourseVO;
 import com.padc.interactive_training.data.vos.LessonCardVO;
+import com.padc.interactive_training.data.vos.TodoListVO;
+import com.padc.interactive_training.views.holders.ChapterViewHolder;
 
 import org.w3c.dom.Text;
 
@@ -31,6 +38,9 @@ public class LessonCardFragment extends Fragment {
     @BindView(R.id.btn_pin)
     ImageButton btnPin;
 
+    @BindView(R.id.btn_todo_lists)
+    Button btnTodoLists;
+
     @BindView(R.id.iv_lesson_image)
     ImageView ivLessonImage;
 
@@ -41,11 +51,14 @@ public class LessonCardFragment extends Fragment {
     TextView tvPageNumberTop;
 
     private LessonCardVO mLessonCard;
+    private ControllerLessonCard mController;
+    protected static final int RC_TODO_LIST = 1237;
 
     private static final String BK_CARD_INDEX = "BK_CARD_INDEX";
     private static final String BK_CARD_COUNT = "BK_CARD_COUNT";
     private int mCardIndex;
     private int mTotalCardinChapter;
+    private TodoListVO mCurrentTodoList;
 
     public static LessonCardFragment newInstance(int cardIndex, int totalCardinChapter) {
         LessonCardFragment fragment = new LessonCardFragment();
@@ -54,6 +67,19 @@ public class LessonCardFragment extends Fragment {
         bundle.putInt(BK_CARD_COUNT, totalCardinChapter);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mController = (ControllerLessonCard) context;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if( requestCode == RC_TODO_LIST ) {
+            mController.onAccessTodoList();
+        }
     }
 
     @Override
@@ -100,6 +126,12 @@ public class LessonCardFragment extends Fragment {
             btnPin.setImageResource(R.drawable.ic_pin_green_48);
         else
             btnPin.setImageResource(R.drawable.ic_pin_48);
+
+        TodoListVO todoList = CourseModel.getInstance().getTodoListbyCardId(mLessonCard.getCardId());
+        if (todoList != null) {
+            mCurrentTodoList = todoList;
+            btnTodoLists.setVisibility(View.VISIBLE);
+        }
     }
 
     @OnClick(R.id.btn_pin)
@@ -111,5 +143,17 @@ public class LessonCardFragment extends Fragment {
             mLessonCard.setBookmarked(true);
             btnPin.setImageResource(R.drawable.ic_pin_green_48);
         }
+    }
+
+    @OnClick(R.id.btn_todo_lists)
+    public void onbtnTodoLists(View button) {
+        if (mCurrentTodoList != null) {
+            Intent intent = TodoListActivity.newIntent(mCurrentTodoList.getTodoListId());
+            startActivityForResult(intent, RC_TODO_LIST);
+        }
+    }
+
+    public interface ControllerLessonCard {
+        void onAccessTodoList();
     }
 }

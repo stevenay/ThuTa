@@ -51,7 +51,7 @@ public class CourseTodoItemViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    public void bindData(TodoItemVO item, final int position)
+    public void bindData(final TodoItemVO item, final int position)
     {
         this.layoutDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,9 +68,11 @@ public class CourseTodoItemViewHolder extends RecyclerView.ViewHolder {
                     @Override
                     public void run() {
                         if (tvDoneLabel.getText().toString().toLowerCase().equals("done")) {
+                            item.setChecked(true);
                             textViewData.setPaintFlags(textViewData.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                             tvDoneLabel.setText("Undo");
                         } else {
+                            item.setChecked(false);
                             textViewData.setPaintFlags(textViewData.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
                             tvDoneLabel.setText("Done");
                         }

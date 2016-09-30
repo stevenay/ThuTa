@@ -48,7 +48,5 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterViewHolder> {
             mChapterList = newChapterList;
             notifyDataSetChanged();
         }
-
     }
-
 }

@@ -21,7 +21,7 @@ import com.padc.interactive_training.data.persistence.CoursesContract.UserEntry;
  */
 public class CourseDBHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 11;
     public static final String DATABASE_NAME = "courses.db";
 
     private static final String SQL_CREATE_COURSE_TABLE = "CREATE TABLE " + CourseEntry.TABLE_NAME + " (" +
@@ -113,6 +113,7 @@ public class CourseDBHelper extends SQLiteOpenHelper {
             LessonCardEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             LessonCardEntry.COLUMN_COURSE_TITLE + " TEXT NOT NULL, " +
             LessonCardEntry.COLUMN_CHAPTER_ID + " TEXT NOT NULL, " +
+            LessonCardEntry.COLUMN_CARD_ID + " TEXT NOT NULL, " +
             LessonCardEntry.COLUMN_CARD_DESCRIPTION + " TEXT NOT NULL, " +
             LessonCardEntry.COLUMN_CARD_ORDER_NUMBER + " INTEGER NOT NULL, " +
             LessonCardEntry.COLUMN_CARD_IMAGE_URL + " INTEGER NOT NULL, " +

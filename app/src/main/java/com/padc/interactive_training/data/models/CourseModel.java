@@ -148,12 +148,32 @@ public class CourseModel extends BaseModel {
         return mCurrentAccessDiscussionList;
     }
 
-    public void setTodomListData(List<TodoListVO> itemList) {
+    public void setTodoListData(List<TodoListVO> itemList) {
         mCurrentTodoList = itemList;
     }
 
     public List<TodoListVO> getTodoListData() {
         return mCurrentTodoList;
+    }
+
+    public TodoListVO getTodoListbyListId(String listId) {
+        for (TodoListVO s : mCurrentTodoList) {
+            if (s.getTodoListId().equals(listId)) {
+                return s;
+            }
+        }
+
+        return null;
+    }
+
+    public TodoListVO getTodoListbyCardId(String cardId) {
+        for (TodoListVO s : mCurrentTodoList) {
+            if (s.getCardId().equals(cardId)) {
+                return s;
+            }
+        }
+
+        return null;
     }
 
     public void setTodoItemListData(List<TodoItemVO> itemList) {

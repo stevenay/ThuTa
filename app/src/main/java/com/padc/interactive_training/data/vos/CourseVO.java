@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 import com.padc.interactive_training.InteractiveTrainingApp;
+import com.padc.interactive_training.data.models.CourseModel;
 import com.padc.interactive_training.data.persistence.CoursesContract;
 
 import java.util.ArrayList;
@@ -202,6 +203,19 @@ public class CourseVO {
         //Bulk insert into attractions.
         int insertedCount = context.getContentResolver().bulkInsert(CoursesContract.CourseEntry.CONTENT_URI, courseCVs);
         Log.d(InteractiveTrainingApp.TAG, "Bulk inserted into course table : " + insertedCount);
+    }
+
+    public static CourseVO loadFeaturedCourse() {
+        Context context = InteractiveTrainingApp.getContext();
+        CourseVO featuredCourse = new CourseVO();
+        Cursor cursor = context.getContentResolver().query(CoursesContract.CourseEntry.CONTENT_URI,
+                null, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            featuredCourse = CourseVO.parseFromCursor(cursor);
+        }
+
+        return featuredCourse;
     }
 
     private static void saveCourseCategory(String courseTitle, CourseCategoryVO courseCategory) {

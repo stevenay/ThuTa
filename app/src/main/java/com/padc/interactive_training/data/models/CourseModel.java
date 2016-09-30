@@ -109,17 +109,25 @@ public class CourseModel extends BaseModel {
         mFeaturedCourse = featuredCourse;
     }
 
+    public CourseVO getStoredFeaturedCourseData() {
+        if (mFeaturedCourse == null) {
+            mFeaturedCourse = CourseVO.loadFeaturedCourse();
+        }
+
+        return mFeaturedCourse;
+    }
+
     public void setStoredData(List<CourseVO> courseList) {
         mCourseList = courseList;
     }
 
     public void setLastAccessCardIndex(int cardIndex) {
-        mFeaturedCourse.setLastAccessCardIndex(cardIndex);
+        getStoredFeaturedCourseData().setLastAccessCardIndex(cardIndex);
     }
 
     public int getLastAccessCardIndex() {
-        if (mFeaturedCourse != null)
-            return mFeaturedCourse.getLastAccessCardIndex();
+        if (getStoredFeaturedCourseData() != null)
+            return getStoredFeaturedCourseData().getLastAccessCardIndex();
         else
             return -1;
     }

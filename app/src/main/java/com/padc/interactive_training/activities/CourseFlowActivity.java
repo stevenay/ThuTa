@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -50,6 +51,9 @@ public class CourseFlowActivity extends AppCompatActivity
 
     @BindView(R.id.btn_todo_list)
     Button btnTodoList;
+
+    @BindView(R.id.fl_container)
+    FrameLayout flContainer;
 
     private int cardIndex = -1;
     private int totalCardNumber;

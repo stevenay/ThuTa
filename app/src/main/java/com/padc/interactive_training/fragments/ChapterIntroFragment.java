@@ -1,10 +1,14 @@
 package com.padc.interactive_training.fragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -34,10 +38,14 @@ public class ChapterIntroFragment extends Fragment {
     @BindView(R.id.tv_card_count)
     TextView tvCardCount;
 
+    @BindView(R.id.viewChapter)
+    NestedScrollView viewChapter;
+
     private static final String BK_CHAPTER_ID = "BK_CHAPTER_ID";
 
     private String mChapterId = "";
     private ChapterVO mChapter;
+    private ControllerChapterIntro mController;
 
     public static ChapterIntroFragment newInstance(String chapterId)
     {
@@ -46,6 +54,12 @@ public class ChapterIntroFragment extends Fragment {
         bundle.putString(BK_CHAPTER_ID, chapterId);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mController = (ControllerChapterIntro) context;
     }
 
     @Override
@@ -66,6 +80,44 @@ public class ChapterIntroFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_chapter_intro, container, false);
         ButterKnife.bind(this, view);
         bindData();
+
+        final GestureDetector gesture = new GestureDetector(getActivity(),
+                new GestureDetector.SimpleOnGestureListener() {
+
+//                    @Override
+//                    public boolean onDown(MotionEvent e) {
+//                        return true;
+//                    }
+
+                    @Override
+                    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+                                           float velocityY) {
+                        final int SWIPE_MIN_DISTANCE = 120;
+                        final int SWIPE_MAX_OFF_PATH = 250;
+                        final int SWIPE_THRESHOLD_VELOCITY = 200;
+                        try {
+                            if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
+                                return false;
+                            if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE
+                                    && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                                mController.onNextChapter();
+                            } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE
+                                    && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                                mController.onPreviousChapter();
+                            }
+                        } catch (Exception e) {
+                            // nothing
+                        }
+                        return super.onFling(e1, e2, velocityX, velocityY);
+                    }
+                });
+
+        viewChapter.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gesture.onTouchEvent(event);
+            }
+        });
 
         return view;
     }
@@ -94,8 +146,10 @@ public class ChapterIntroFragment extends Fragment {
                 R.plurals.cards_count, mChapter.getLessonCount(), mChapter.getLessonCount()
         );
         tvCardCount.setText(cardsCount);
-
     }
 
-
+    public interface ControllerChapterIntro {
+        void onNextChapter();
+        void onPreviousChapter();
+    }
 }

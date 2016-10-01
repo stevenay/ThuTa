@@ -137,10 +137,10 @@ public class LessonCardFragment extends Fragment {
                                 return false;
                             if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE
                                     && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                                Toast.makeText(getContext(), "Right", Toast.LENGTH_SHORT).show();
+                                mController.onNextCard();
                             } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE
                                     && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                                Toast.makeText(getContext(), "Left", Toast.LENGTH_SHORT).show();
+                                mController.onPreviousCard();
                             }
                         } catch (Exception e) {
                             // nothing
@@ -216,5 +216,7 @@ public class LessonCardFragment extends Fragment {
 
     public interface ControllerLessonCard {
         void onAccessTodoList();
+        void onNextCard();
+        void onPreviousCard();
     }
 }

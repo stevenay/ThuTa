@@ -38,7 +38,8 @@ import butterknife.OnClick;
 public class CourseFlowActivity extends AppCompatActivity
         implements LessonCardViewHolder.ControllerLessonCardItem,
         LoaderManager.LoaderCallbacks<Cursor>,
-        LessonCardFragment.ControllerLessonCard {
+        LessonCardFragment.ControllerLessonCard,
+        ChapterIntroFragment.ControllerChapterIntro {
 
     @BindView(R.id.pb_course_flow)
     ProgressBar pbCourseFlow;
@@ -117,9 +118,9 @@ public class CourseFlowActivity extends AppCompatActivity
 
     @OnClick(R.id.btn_next)
     public void onbtnNextPressed(Button view) {
-        if ((cardIndex+1) < totalCardNumber) {
+        if ((cardIndex + 1) < totalCardNumber) {
 
-            String cardId = CourseModel.getInstance().getLessonCardbyIndex(cardIndex+1).getCardId();
+            String cardId = CourseModel.getInstance().getLessonCardbyIndex(cardIndex + 1).getCardId();
             TodoListVO todoList = CourseModel.getInstance().getTodoListbyCardId(cardId);
             if (todoList != null && !todoList.isFinishAccess()) {
                 mAccessTodoList = todoList;
@@ -127,7 +128,7 @@ public class CourseFlowActivity extends AppCompatActivity
                 btnTodoList.setVisibility(View.VISIBLE);
             }
 
-            String tempChapterId = CourseModel.getInstance().getLessonCardbyIndex(cardIndex+1).getChapterId();
+            String tempChapterId = CourseModel.getInstance().getLessonCardbyIndex(cardIndex + 1).getChapterId();
 
             if (chapterIntro) {
                 chapterIntro = false;
@@ -146,7 +147,7 @@ public class CourseFlowActivity extends AppCompatActivity
                 int cardCountinChapter = CourseModel.getInstance().getCardCountbyChapterId(currentChapterId);
                 int firstCardIndex = CourseModel.getInstance().getFirstCardIndexbyChapterId(currentChapterId);
 
-                int chapterFinished = (((cardIndex+1) - firstCardIndex) * 100) / cardCountinChapter;
+                int chapterFinished = (((cardIndex + 1) - firstCardIndex) * 100) / cardCountinChapter;
                 CourseModel.getInstance().setChapterFinishPercentage(currentChapterId, chapterFinished);
                 this.setProgressBar(cardIndex);
             } else {
@@ -167,8 +168,8 @@ public class CourseFlowActivity extends AppCompatActivity
             btnNext.setVisibility(View.VISIBLE);
         }
 
-        if ((cardIndex-1) >= 0) {
-            String tempChapterId = CourseModel.getInstance().getLessonCardbyIndex(cardIndex-1).getChapterId();
+        if ((cardIndex - 1) >= 0) {
+            String tempChapterId = CourseModel.getInstance().getLessonCardbyIndex(cardIndex - 1).getChapterId();
 
             if (!chapterIntro) {
                 if (!currentChapterId.isEmpty() && !this.currentChapterId.equals(tempChapterId)) {
@@ -295,13 +296,11 @@ public class CourseFlowActivity extends AppCompatActivity
                         chapterIntro = false;
                         navigateToLessonCard(mLastAccessCardIndex, "none");
                         setProgressBar(cardIndex);
-                    }
-                    else if (mChapterId.isEmpty()) {
+                    } else if (mChapterId.isEmpty()) {
                         navigateToNewChapterIntro(mFirstChapterId, "next");
                         currentChapterId = mFirstChapterId;
                         setProgressBar(0);
-                    }
-                    else {
+                    } else {
                         navigateToNewChapterIntro(mChapterId, "next");
                         currentChapterId = mChapterId;
                         cardIndex = CourseModel.getInstance().getFirstCardIndexbyChapterId(mChapterId) - 1;
@@ -321,10 +320,9 @@ public class CourseFlowActivity extends AppCompatActivity
     //endregion
 
     //region HelperFunction
-    private void setProgressBar(int currentIndex)
-    {
+    private void setProgressBar(int currentIndex) {
         // has to plus one because it's based on Zero value.
-        int overallFinish = (currentIndex+1) * 100 / totalCardNumber;
+        int overallFinish = (currentIndex + 1) * 100 / totalCardNumber;
         pbCourseFlow.setProgress(overallFinish);
     }
     //endregion
@@ -344,7 +342,9 @@ public class CourseFlowActivity extends AppCompatActivity
         Intent intent = TodoListActivity.newIntent("Sample CourseID");
         startActivity(intent);
     }
+    //endregion
 
+    //region ControllerLessonCardFragment
     @Override
     public void onAccessTodoList() {
         if (mAccessTodoList != null) {
@@ -353,6 +353,28 @@ public class CourseFlowActivity extends AppCompatActivity
         }
         btnTodoList.setVisibility(View.GONE);
         btnNext.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onNextCard() {
+        this.btnNext.performClick();
+    }
+
+    @Override
+    public void onPreviousCard() {
+        this.btnPrevious.performClick();
+    }
+    //endregion
+
+    //region ControllerChapterIntroFragment
+    @Override
+    public void onNextChapter() {
+        this.btnNext.performClick();
+    }
+
+    @Override
+    public void onPreviousChapter() {
+        this.btnPrevious.performClick();
     }
     //endregion
 }

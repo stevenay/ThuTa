@@ -82,13 +82,13 @@ public class CourseTodoAdapter extends RecyclerSwipeAdapter<CourseTodoItemViewHo
         notifyItemRemoved(positionOfItem);
         notifyItemRangeChanged(positionOfItem, mTodoItemList.size());
         mItemManger.closeAllItems();
-        Toast.makeText(mContext, "Removed 1 item!", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mContext, "Removed 1 item!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onTapDone(int positionOfItem, SwipeLayout doneLayout) {
         mItemManger.closeAllItems();
-        Toast.makeText(mContext, "Done 1 item!", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mContext, "Done 1 item!", Toast.LENGTH_SHORT).show();
     }
     //endregion
 }

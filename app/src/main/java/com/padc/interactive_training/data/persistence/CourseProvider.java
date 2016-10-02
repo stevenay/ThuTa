@@ -27,6 +27,7 @@ public class CourseProvider extends ContentProvider {
     public static final int COURSE_TODOLIST = 900;
     public static final int COURSE_TODOITEM = 1000;
     public static final int USER = 1100;
+    public static final int ARTICLE = 1200;
 
     private static final String sCourseTitleSelection = CoursesContract.CourseEntry.COLUMN_TITLE + " = ?";
     private static final String sAuthorNameSelection = CoursesContract.AuthorEntry.COLUMN_AUTHOR_NAME + " = ?";
@@ -38,6 +39,7 @@ public class CourseProvider extends ContentProvider {
     private static final String sUserSelection = CoursesContract.UserEntry.COLUMN_USER_ID + " = ?";
     private static final String sTodoListSelection = CoursesContract.TodoListEntry.COLUMN_COURSE_TITLE + " = ?";
     private static final String sTodoItemSelection = CoursesContract.TodoItemEntry.COLUMN_TODO_LIST_ID + " = ?";
+    private static final String sArticleSelection = CoursesContract.ArticleEntry.COLUMN_ARTICLE_ID + " = ?";
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private CourseDBHelper mCourseDBHelper;
@@ -180,6 +182,20 @@ public class CourseProvider extends ContentProvider {
                     selectionArgs = new String[]{todoListId};
                 }
                 queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.TodoItemEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null, //group_by
+                        null, //having
+                        sortOrder);
+                break;
+            case ARTICLE:
+                String articleId = CoursesContract.ArticleEntry.getArticleIdFromParam(uri);
+                if (!TextUtils.isEmpty(articleId)) {
+                    selection = sTodoItemSelection;
+                    selectionArgs = new String[]{articleId};
+                }
+                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.ArticleEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -337,6 +353,7 @@ public class CourseProvider extends ContentProvider {
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_TODOLIST, COURSE_TODOLIST);
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_TODOITEM, COURSE_TODOITEM);
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_USER, USER);
+        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_ARTICLES, ARTICLE);
 
         return uriMatcher;
     }
@@ -367,6 +384,8 @@ public class CourseProvider extends ContentProvider {
                 return CoursesContract.TodoItemEntry.TABLE_NAME;
             case USER:
                 return CoursesContract.UserEntry.TABLE_NAME;
+            case ARTICLE:
+                return CoursesContract.AuthorEntry.TABLE_NAME;
             default:
                 throw new UnsupportedOperationException("Unknown uri : " + uri);
         }

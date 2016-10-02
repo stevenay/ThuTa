@@ -9,6 +9,7 @@ public class InteractiveTrainingConstants {
     public static final String COURSE_BASE_URL = "http://www.aungpyaephyo.xyz/padc-fp/interactive-trainings/";
     public static final String API_GET_COURSE_LIST = "GetCourses.php";
     public static final String API_GET_USER_LIST = "GetUsers.php";
+    public static final String API_GET_ARTICLE_LIST = "GetArticles.php";
     public static final String API_REGISTER = "register.php";
     public static final String API_REGISTER_WITH_FACEBOOK = "registerWithFacebook.php";
     public static final String API_REGISTER_WITH_GOOGLE = "registerWithGoogle.php";

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.padc.interactive_training.InteractiveTrainingApp;
+import com.padc.interactive_training.data.vos.ArticleVO;
 import com.padc.interactive_training.data.vos.ChapterVO;
 import com.padc.interactive_training.data.vos.CourseVO;
 import com.padc.interactive_training.data.vos.DiscussionVO;
@@ -34,6 +35,7 @@ public class CourseModel extends BaseModel {
     private List<DiscussionVO> mCurrentAccessDiscussionList;
     private List<TodoListVO> mCurrentTodoList;
     private List<TodoItemVO> mCurrentTodoItemList;
+    private List<ArticleVO> mArticleList;
 
     private CourseVO mFeaturedCourse;
 
@@ -208,11 +210,12 @@ public class CourseModel extends BaseModel {
     }
 
     public ChapterVO getChapterbyId(String chapterId) {
-        for (ChapterVO s : mCurrentAccessChapterList) {
-            if (s.getChapterId().equals(chapterId)) {
-                return s;
+        if (mCurrentAccessCardList != null)
+            for (ChapterVO s : mCurrentAccessChapterList) {
+                if (s.getChapterId().equals(chapterId)) {
+                    return s;
+                }
             }
-        }
 
         return null;
     }

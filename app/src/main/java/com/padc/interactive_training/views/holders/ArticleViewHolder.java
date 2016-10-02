@@ -69,15 +69,15 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder implements View.O
     public void bindData(ArticleVO articleVO){
         mArticleVO = articleVO;
 
-        Date publishedDate = mArticleVO.getPublishedDate();
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        String strPublishedDate = df.format(publishedDate);
-
-        tvArticleTilte.setText(mArticleVO.getTitle());
-        tvPublishedDate.setText(strPublishedDate);
-        tvCategoryName.setText(mArticleVO.getCategoryName());
-        tvArticleBriefDescription.setText(mArticleVO.getBriefDescription());
-        ivArticle.setImageResource(mArticleVO.getImageURL());
+//        Date publishedDate = mArticleVO.getPublishedDate();
+//        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+//        String strPublishedDate = df.format(publishedDate);
+//
+//        tvArticleTilte.setText(mArticleVO.getTitle());
+//        tvPublishedDate.setText(strPublishedDate);
+//        tvCategoryName.setText(mArticleVO.getCategoryName());
+//        tvArticleBriefDescription.setText(mArticleVO.getBriefDescription());
+//        ivArticle.setImageResource(mArticleVO.getImageURL());
 
     }
 

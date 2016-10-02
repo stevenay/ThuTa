@@ -114,7 +114,7 @@ public class LessonCardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_lesson_card, null, false);
+        View view = inflater.inflate(R.layout.fragment_lesson_card, container, false);
         ButterKnife.bind(this, view);
         bindData();
 

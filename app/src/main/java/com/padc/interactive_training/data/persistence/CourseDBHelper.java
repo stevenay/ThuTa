@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.padc.interactive_training.data.models.ArticleModel;
 import com.padc.interactive_training.data.persistence.CoursesContract.AuthorEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.ChapterEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.DiscussionEntry;
@@ -15,6 +16,7 @@ import com.padc.interactive_training.data.persistence.CoursesContract.CourseTagE
 import com.padc.interactive_training.data.persistence.CoursesContract.TodoItemEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.TodoListEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.UserEntry;
+import com.padc.interactive_training.data.persistence.CoursesContract.ArticleEntry;
 
 /**
  * Created by NayLinAung on 7/9/16.
@@ -156,6 +158,27 @@ public class CourseDBHelper extends SQLiteOpenHelper {
             " UNIQUE (" + UserEntry.COLUMN_USER_ID + ") ON CONFLICT IGNORE" +
             " );";
 
+    private static final String SQL_CREATE_ARTICLES_TABLE = "CREATE TABLE " + ArticleEntry.TABLE_NAME + " (" +
+            ArticleEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            ArticleEntry.COLUMN_ARTICLE_ID + " INTEGER NOT NULL, " +
+            ArticleEntry.COLUMN_PUBLISHED_DATE_TIME + " TEXT NOT NULL, " +
+            ArticleEntry.COLUMN_AUTHOR + " TEXT NOT NULL, " +
+            ArticleEntry.COLUMN_IMG_URL1 + " TEXT NOT NULL, " +
+            ArticleEntry.COLUMN_IMG_URL2 + " TEXT NOT NULL, " +
+            ArticleEntry.COLUMN_STATUS + " TEXT NOT NULL, " +
+            ArticleEntry.COLUMN_ARTICLE_TITLE + " TEXT NOT NULL, " +
+            ArticleEntry.COLUMN_INTRO_CONTENT + " TEXT NOT NULL, " +
+            ArticleEntry.COLUMN_FIRST_HEADING + " TEXT NOT NULL, " +
+            ArticleEntry.COLUMN_FIRST_HEADING_CONTENT + " TEXT NOT NULL, " +
+            ArticleEntry.COLUMN_SECOND_HEADING + " TEXT NOT NULL, " +
+            ArticleEntry.COLUMN_SECOND_HEADING_CONTENT + " TEXT NOT NULL, " +
+            ArticleEntry.COLUMN_THIRD_HEADING + " TEXT NOT NULL, " +
+            ArticleEntry.COLUMN_THIRD_HEADING_CONTENT + " TEXT NOT NULL, " +
+
+
+            " UNIQUE (" + ArticleEntry.COLUMN_ARTICLE_ID + ") ON CONFLICT IGNORE" +
+            " );";
+
     public CourseDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -173,6 +196,7 @@ public class CourseDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_TODO_LIST_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_TODO_ITEM_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_USER_TABLE);
+        sqLiteDatabase.execSQL(SQL_CREATE_ARTICLES_TABLE);
     }
 
     @Override
@@ -188,6 +212,7 @@ public class CourseDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TodoListEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TodoItemEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + UserEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ArticleEntry.TABLE_NAME);
 
         onCreate(sqLiteDatabase);
     }

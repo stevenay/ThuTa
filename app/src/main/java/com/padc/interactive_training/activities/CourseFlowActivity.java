@@ -2,11 +2,20 @@ package com.padc.interactive_training.activities;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
+import android.support.v4.content.FileProvider;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,6 +24,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.padc.interactive_training.InteractiveTrainingApp;
@@ -25,9 +35,15 @@ import com.padc.interactive_training.data.vos.LessonCardVO;
 import com.padc.interactive_training.data.vos.TodoListVO;
 import com.padc.interactive_training.fragments.ChapterIntroFragment;
 import com.padc.interactive_training.fragments.LessonCardFragment;
+import com.padc.interactive_training.utils.ImageUtils;
 import com.padc.interactive_training.utils.InteractiveTrainingConstants;
+import com.padc.interactive_training.utils.ScreenUtils;
 import com.padc.interactive_training.views.holders.LessonCardViewHolder;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +89,8 @@ public class CourseFlowActivity extends AppCompatActivity
     private static final int navigateToLessonCard = 1;
     protected static final int RC_TODO_LIST = 1236;
 
+    RelativeLayout relativeLayout;
+
     public static Intent newIntent(String courseTitle, String chapterId, int lastAccessCardIndex) {
         Intent intent = new Intent(InteractiveTrainingApp.getContext(), CourseFlowActivity.class);
         intent.putExtra(IE_COURSE_TITLE, courseTitle);
@@ -103,6 +121,16 @@ public class CourseFlowActivity extends AppCompatActivity
         mFirstChapterId = CourseModel.getInstance().getChapterbyIndex(0).getChapterId();
         pbCourseFlow.setScaleY(1.5f);
 
+        // Defining the RelativeLayout layout parameters.
+        // In this case I want to fill its parent
+        RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.MATCH_PARENT);
+
+        relativeLayout = new RelativeLayout(this);
+        relativeLayout.setBackgroundColor(getResources().getColor(R.color.divider));
+        relativeLayout.setLayoutParams(rlp);
+
         getSupportLoaderManager().initLoader(InteractiveTrainingConstants.COURSE_FLOW_LOADER, null, this);
     }
 
@@ -114,6 +142,19 @@ public class CourseFlowActivity extends AppCompatActivity
 
     @OnClick(R.id.btn_share)
     public void onbtnSharePressed(ImageButton view) {
+        this.getImage();
+        File imagePath = new File(getApplicationContext().getCacheDir(), "images");
+        File newFile = new File(imagePath, "image.png");
+        Uri contentUri = FileProvider.getUriForFile(this, "com.padc.interactive_training.fileprovider", newFile);
+
+        if (contentUri != null) {
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); // temp permission for receiving app to read this file
+            shareIntent.setDataAndType(contentUri, getContentResolver().getType(contentUri));
+            shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
+            startActivity(Intent.createChooser(shareIntent, "Choose an app"));
+        }
     }
 
     @OnClick(R.id.btn_next)
@@ -324,6 +365,24 @@ public class CourseFlowActivity extends AppCompatActivity
         // has to plus one because it's based on Zero value.
         int overallFinish = (currentIndex + 1) * 100 / totalCardNumber;
         pbCourseFlow.setProgress(overallFinish);
+    }
+
+    private void getImage() {
+        // save bitmap to cache directory
+        try {
+            File cachePath = new File(getApplicationContext().getCacheDir(), "images");
+            cachePath.mkdirs(); // don't forget to make the directory
+            FileOutputStream stream = new FileOutputStream(cachePath + "/image.png"); // overwrites this image every time
+
+            Bitmap bmap = ImageUtils.addWhiteBorderToBitmap(ScreenUtils.screenShot(this.flContainer), 20);
+            bmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            stream.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     //endregion
 

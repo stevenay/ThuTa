@@ -36,10 +36,6 @@ public class ArticleListFragment extends Fragment {
 
     @BindView(R.id.rv_articles)
     RecyclerView rvArticle;
-
-
-
-
     //endregion
 
     public static ArticleListFragment newInstance(){
@@ -83,7 +79,7 @@ public class ArticleListFragment extends Fragment {
             }
         };
         rvArticle.setLayoutManager(linearLayoutManager);
-        articleAdapter = new ArticleAdapter(prepareSampleArticleList(), getContext(),controllerArticleItem);
+        articleAdapter = new ArticleAdapter(new ArrayList<ArticleVO>(), getContext(),controllerArticleItem);
         rvArticle.setAdapter(articleAdapter);
 
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
@@ -102,33 +98,4 @@ public class ArticleListFragment extends Fragment {
 
     }
 
-    public List<ArticleVO> prepareSampleArticleList(){
-        List<ArticleVO> articleList = new ArrayList<>();
-
-        ArticleVO articleSample1 = new ArticleVO();
-        articleSample1.setTitle("Article Title 1");
-        articleSample1.setBriefDescription(getString(R.string.lorem_ipsum_one_third));
-        articleSample1.setPublishedDate(DateTimeUtils.parseStringToDate("2015-08-21"));
-        articleSample1.setCategoryName("Driving Manual");
-        articleSample1.setImageURL(R.drawable.tech_android_wallpaper);
-        articleList.add(articleSample1);
-
-        ArticleVO articleSample2 = new ArticleVO();
-        articleSample2.setTitle("Article Title 2");
-        articleSample2.setBriefDescription(getString(R.string.lorem_ipsum_one_third));
-        articleSample2.setPublishedDate(DateTimeUtils.parseStringToDate("2015-08-21"));
-        articleSample2.setCategoryName("Driving Manual");
-        articleSample2.setImageURL(R.drawable.gento_cow);
-        articleList.add(articleSample2);
-
-        ArticleVO articleSample3 = new ArticleVO();
-        articleSample3.setTitle("Article Title 3");
-        articleSample3.setBriefDescription(getString(R.string.lorem_ipsum_one_third));
-        articleSample3.setPublishedDate(DateTimeUtils.parseStringToDate("2015-08-21"));
-        articleSample3.setCategoryName("Driving Manual");
-        articleSample3.setImageURL(R.drawable.otto_blue);
-        articleList.add(articleSample3);
-
-        return articleList;
-    }
 }

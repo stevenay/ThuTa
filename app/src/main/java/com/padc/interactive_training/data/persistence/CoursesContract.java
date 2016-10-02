@@ -25,6 +25,7 @@ public class CoursesContract {
     public static final String PATH_COURSE_REPLIES = "replies";
     public static final String PATH_COURSE_TODOLIST = "todolists";
     public static final String PATH_COURSE_TODOITEM = "todoitems";
+    public static final String PATH_ARTICLES = "articles";
     public static final String PATH_USER = "user";
 
     public static final class CourseEntry implements BaseColumns {
@@ -445,6 +446,43 @@ public class CoursesContract {
 
         public static String getUserIdFromParam(Uri uri) {
             return uri.getQueryParameter(COLUMN_USER_ID);
+        }
+    }
+
+    public static final class ArticleEntry implements BaseColumns {
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_ARTICLES).build();
+        public static final String DIR_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_ARTICLES;
+        public static final String ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_ARTICLES;
+        public static final String TABLE_NAME = "articles";
+        public static final String COLUMN_ARTICLE_ID = "article_id";
+        public static final String COLUMN_PUBLISHED_DATE_TIME = "published_date_time";
+        public static final String COLUMN_AUTHOR = "author";
+        public static final String COLUMN_IMG_URL1 = "img_url1";
+        public static final String COLUMN_IMG_URL2 = "img_url2";
+        public static final String COLUMN_STATUS = "status";
+        public static final String COLUMN_ARTICLE_TITLE = "article_title";
+        public static final String COLUMN_INTRO_CONTENT = "intro_content";
+        public static final String COLUMN_FIRST_HEADING = "first_heading";
+        public static final String COLUMN_FIRST_HEADING_CONTENT = "first_heading_content";
+        public static final String COLUMN_SECOND_HEADING = "second_heading";
+        public static final String COLUMN_SECOND_HEADING_CONTENT = "second_heading_content";
+        public static final String COLUMN_THIRD_HEADING = "third_heading";
+        public static final String COLUMN_THIRD_HEADING_CONTENT = "third_heading_content";
+        public static Uri buildArticleUri(long id) {
+            //content://xyz.aungpyaephyo.padc.myanmarattractions/attractions/1
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+        public static Uri buildArticleUriWithId(String aritcleId) {
+            //content://xyz.aungpyaephyo.padc.myanmarattractions/attractions?title="Yangon"
+            return CONTENT_URI.buildUpon()
+                    .appendQueryParameter(COLUMN_ARTICLE_ID, aritcleId)
+                    .build();
+        }
+        public static String getArticleIdFromParam(Uri uri) {
+            return uri.getQueryParameter(COLUMN_ARTICLE_ID);
         }
     }
 }

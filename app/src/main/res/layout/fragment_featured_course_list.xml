@@ -68,7 +68,6 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:clickable="true"
-                android:foreground="@color/primary"
                 android:src="@drawable/ic_receipt_white_24dp" />
 
             <TextView
@@ -288,7 +287,6 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:clickable="true"
-                android:foreground="@color/primary"
                 android:src="@drawable/ic_receipt_white_24dp" />
 
             <com.padc.interactive_training.components.MMTextView
@@ -511,7 +509,6 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:clickable="true"
-                android:foreground="@color/primary"
                 android:src="@drawable/ic_receipt_white_24dp" />
 
             <com.padc.interactive_training.components.MMTextView

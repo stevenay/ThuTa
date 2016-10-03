@@ -13,6 +13,4 @@
         android:clipToPadding="false"
         android:background="@color/text_white_ish" />
 
-
-
 </FrameLayout>

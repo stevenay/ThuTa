@@ -94,7 +94,8 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_COURSE_FLOW) {
-            chapterListFragment.chapterAdapter.setNewData(CourseModel.getInstance().getChapterListData());
+            if (CourseModel.getInstance().getChapterListData() != null && chapterListFragment != null)
+                chapterListFragment.chapterAdapter.setNewData(CourseModel.getInstance().getChapterListData());
         }
     }
 

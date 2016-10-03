@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.data.agents.CourseDataAgent;
+import com.padc.interactive_training.data.models.ArticleModel;
 import com.padc.interactive_training.data.models.CourseModel;
 import com.padc.interactive_training.data.responses.ArticleListResponse;
 import com.padc.interactive_training.data.responses.CourseListResponse;
@@ -100,25 +101,24 @@ public class RetrofitDataAgent implements CourseDataAgent {
 
     @Override
     public void loadArticles() {
-//        Call<ArticleListResponse> loadArticleCall = theApi.loadArticles(InteractiveTrainingConstants.ACCESS_TOKEN);
-//        loadArticleCall.enqueue(new Callback<ArticleListResponse>() {
-//            @Override
-//            public void onResponse(Call<ArticleListResponse> call, Response<ArticleListResponse> response) {
-//                Log.d(InteractiveTrainingApp.TAG, "OnResponse");
-//                ArticleListResponse articleListResponse = response.body();
-//                if (articleListResponse == null) {
-//                    CourseModel.getInstance().notifyErrorInLoadingArticles(response.message());
-//                } else {
-//                    CourseModel.getInstance().notifyArticlesLoaded(articleListResponse.getArticleList());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ArticleListResponse> call, Throwable throwable) {
-//                Log.d(InteractiveTrainingApp.TAG, "OnFailure " + throwable.getMessage());
-//                CourseModel.getInstance().notifyErrorInLoadingArticles(throwable.getMessage());
-//            }
-//        });
-    }
+        Call<ArticleListResponse> loadCourseCall = theApi.loadArticles(InteractiveTrainingConstants.ACCESS_TOKEN);
+        loadCourseCall.enqueue(new Callback<ArticleListResponse>() {
+            @Override
+            public void onResponse(Call<ArticleListResponse> call, Response<ArticleListResponse> response) {
+                Log.d(InteractiveTrainingApp.TAG, "OnResponse");
+                ArticleListResponse courseListResponse = response.body();
+                if (courseListResponse == null) {
+                    ArticleModel.getInstance().notifyErrorInLoadingArticles(response.message());
+                } else {
+                    ArticleModel.getInstance().notifyArticlesLoaded(courseListResponse.getArticleList());
+                }
+            }
 
+            @Override
+            public void onFailure(Call<ArticleListResponse> call, Throwable throwable) {
+                Log.d(InteractiveTrainingApp.TAG, "OnFailure " + throwable.getMessage());
+                ArticleModel.getInstance().notifyErrorInLoadingArticles(throwable.getMessage());
+            }
+        });
+    }
 }

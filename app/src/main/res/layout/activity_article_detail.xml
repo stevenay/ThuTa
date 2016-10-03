@@ -18,6 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
+            app:collapsedTitleTextAppearance="@style/DetailPageTitle"
+            app:expandedTitleTextAppearance="@style/DetailPageTitle"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
@@ -26,14 +28,14 @@
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax"
-                android:src="@drawable/tech_android_wallpaper"/>
+                android:src="@drawable/tech_android_wallpaper"
+                app:layout_collapseMode="parallax" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
+                app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -49,9 +51,9 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium"
             android:layout_marginLeft="@dimen/margin_medium_2"
             android:layout_marginRight="@dimen/margin_medium_2"
+            android:layout_marginTop="@dimen/margin_medium"
             android:gravity="center_vertical"
             android:orientation="vertical"
             android:padding="@dimen/margin_small">
@@ -67,23 +69,23 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_view_week_black_24dp"
-                    android:layout_weight="0"/>
+                    android:layout_weight="0"
+                    android:src="@drawable/ic_view_week_black_24dp" />
                 <com.padc.interactive_training.components.MMTextView
                     android:id="@+id/tv_category_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_medium_2"
+                    android:layout_weight="9"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="ေမာ္ေတာ္ယာဥ္"
-                    android:layout_weight="9"/>
+                    android:text="ေမာ္ေတာ္ယာဥ္" />
 
                 <ImageView
                     android:id="@+id/iv_post_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
                     android:layout_weight="0"
+                    android:gravity="right"
                     android:src="@drawable/ic_date_range_black_24dp"
                     />
                 <TextView
@@ -100,8 +102,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="@dimen/margin_medium"
+                android:orientation="horizontal"
                 android:padding="@dimen/margin_small">
                 <ImageView
                     android:layout_width="wrap_content"
@@ -114,23 +116,18 @@
                     android:layout_marginLeft="@dimen/margin_medium_2"
                     android:text="Maung Tayar"/>
             </LinearLayout>
-            <com.padc.interactive_training.components.MMTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Introduction"
-                style="@style/cardViewTitle"
-                android:layout_marginTop="@dimen/margin_medium"/>
+
             <com.padc.interactive_training.components.MMTextView
                 android:id="@+id/tv_introduction_content"
-                android:layout_marginTop="@dimen/margin_small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
                 android:text="@string/lorem_ipsum_one_third"/>
             <com.padc.interactive_training.components.MMTextView
                 android:id="@+id/tv_first_heading"
+                style="@style/cardViewTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/cardViewTitle"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:text="First Heading"/>
 
@@ -138,16 +135,16 @@
                 android:id="@+id/tv_first_heading_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/lorem_ipsum_one_third"
-                android:layout_marginTop="@dimen/margin_small"/>
+                android:layout_marginTop="@dimen/margin_small"
+                android:text="@string/lorem_ipsum_one_third" />
 
             <com.padc.interactive_training.components.MMTextView
                 android:id="@+id/tv_second_heading"
+                style="@style/cardViewTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/cardViewTitle"
-                android:text="Second Heading"
-                android:layout_marginTop="@dimen/margin_medium"/>
+                android:layout_marginTop="@dimen/margin_medium"
+                android:text="Second Heading" />
             <com.padc.interactive_training.components.MMTextView
                 android:id="@+id/tv_second_heading_content"
                 android:layout_width="wrap_content"
@@ -156,20 +153,20 @@
                 android:text="@string/lorem_ipsum_one_third"/>
 
             <com.padc.interactive_training.components.MMTextView
-                android:id="@+id/tv_list_content_heading"
+                android:id="@+id/tv_third_heading"
+                style="@style/cardViewTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="List Content Heading"
                 android:layout_marginTop="@dimen/margin_medium"
-                style="@style/cardViewTitle"/>
+                android:text="List Content Heading" />
 
             <com.padc.interactive_training.components.MMTextView
-                android:id="@+id/tv_article_content"
+                android:id="@+id/tv_third_heading_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_medium"
-                android:text="@string/lorem_ipsum_full_3x"
-                android:layout_marginBottom="@dimen/margin_small"/>
+                android:text="@string/lorem_ipsum_full_3x" />
 
         </LinearLayout>
 
@@ -181,10 +178,10 @@
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"        
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_share_24dp"
         app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:layout_anchorGravity="bottom|end" />
 
 </android.support.design.widget.CoordinatorLayout>

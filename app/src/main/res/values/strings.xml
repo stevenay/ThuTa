@@ -24,7 +24,7 @@
 
     <string name="navigation_drawer_open">Open Navigation Drawer</string>
     <string name="navigation_drawer_close">Close Navigation Drawer</string>
-    <string name="title_activity_articles">ArticlesActivity</string>
+    <string name="title_activity_articles">Articles</string>
     <string name="title_activity_aricles">AriclesActivity</string>
     <string name="title_activity_">Activity</string>
     <string name="title_activity_my_test">MyTestActivity</string>
@@ -76,6 +76,7 @@
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
     </string>
     <string name="title_activity_article_detail">ArticleDetailActivity</string>
+    <string name="title_activity_outsource_article_detail">Outsource Article</string>
     <!-- Sample Text Finish -->
 
 

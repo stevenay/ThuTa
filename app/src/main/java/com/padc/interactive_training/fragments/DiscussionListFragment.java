@@ -109,25 +109,23 @@ public class DiscussionListFragment extends Fragment
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        List<DiscussionVO> discussionList = CourseModel.getInstance().getDiscussionListData();
+        List<DiscussionVO> discussionList;
 
-        if (discussionList == null || discussionList.size() <= 0) {
-            if (data != null && data.moveToFirst()) {
-                discussionList = new ArrayList<>();
+        if (data != null && data.moveToFirst()) {
+            discussionList = new ArrayList<>();
 
-                do {
-                    DiscussionVO discussion = DiscussionVO.parseFromCursor(data);
-                    discussion.setReplies(ReplyVO.loadRepliesbyDiscussionId(discussion.getDiscussionId()));
-                    discussion.setUser(UserVO.loadUserbyUserId(discussion.getUserId()));
-                    discussionList.add(discussion);
-                } while (data.moveToNext());
+            do {
+                DiscussionVO discussion = DiscussionVO.parseFromCursor(data);
+                discussion.setReplies(ReplyVO.loadRepliesbyDiscussionId(discussion.getDiscussionId()));
+                discussion.setUser(UserVO.loadUserbyUserId(discussion.getUserId()));
+                discussionList.add(discussion);
+            } while (data.moveToNext());
 
-                CourseModel.getInstance().setDiscussionListData(discussionList);
-                Log.d(InteractiveTrainingApp.TAG, "Retrieved discussion DESC : " + discussionList.size());
-            }
+            CourseModel.getInstance().setDiscussionListData(discussionList);
+            Log.d(InteractiveTrainingApp.TAG, "Retrieved discussion DESC : " + discussionList.size());
+
+            discussionAdapter.setNewData(discussionList);
         }
-
-        discussionAdapter.setNewData(discussionList);
     }
 
     @Override

@@ -123,99 +123,76 @@ public class CourseModel extends BaseModel {
         mCourseList = courseList;
     }
 
+    //region CardData
     public void setLastAccessCardIndex(int cardIndex) {
         getStoredFeaturedCourseData().setLastAccessCardIndex(cardIndex);
     }
 
     public int getLastAccessCardIndex() {
-        if (getStoredFeaturedCourseData() != null)
-            return getStoredFeaturedCourseData().getLastAccessCardIndex();
-        else
-            return -1;
+        return getStoredFeaturedCourseData().getLastAccessCardIndex();
     }
 
     public void setCardListData(List<LessonCardVO> cardList) {
         mCurrentAccessCardList = cardList;
     }
 
-    public LessonCardVO getLessonCardbyIndex(int cardIndex) {
-        return mCurrentAccessCardList.get(cardIndex);
+    public List<LessonCardVO> getCardListData() {
+        if (mCurrentAccessCardList == null || mCurrentAccessCardList.size() <= 0) {
+            mCurrentAccessCardList = LessonCardVO.loadLessonCardsByCourseTitle(getStoredFeaturedCourseData().getTitle());
+        }
+
+        return mCurrentAccessCardList;
     }
 
+    public LessonCardVO getLessonCardbyIndex(int cardIndex) {
+        return getCardListData().get(cardIndex);
+    }
+
+    public int getFirstCardIndexbyChapterId(String chapterId) {
+        for (LessonCardVO s : getCardListData()) {
+            if (s.getChapterId().equals(chapterId)) {
+                return mCurrentAccessCardList.indexOf(s);
+            }
+        }
+
+        return 0;
+    }
+
+    public int getCardCountbyChapterId(String chapterId) {
+        int count = 0;
+        for (LessonCardVO s : getCardListData()) {
+            if (s.getChapterId().equals(chapterId)) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+    //endregion
+
+    //region ChapterData
     public void setChapterListData(List<ChapterVO> chapterList) {
         mCurrentAccessChapterList = chapterList;
     }
 
     public List<ChapterVO> getChapterListData() {
+        if (mCurrentAccessChapterList == null || mCurrentAccessChapterList.size() <= 0)
+            mCurrentAccessChapterList = ChapterVO.loadChapterListByCourseTitle(getStoredFeaturedCourseData().getTitle());
+
         return mCurrentAccessChapterList;
     }
 
-    public void setDiscussionListData(List<DiscussionVO> discussionList) {
-        mCurrentAccessDiscussionList = discussionList;
-    }
-
-    public List<DiscussionVO> getDiscussionListData() {
-        return mCurrentAccessDiscussionList;
-    }
-
-    public void setTodoListData(List<TodoListVO> itemList) {
-        mCurrentTodoList = itemList;
-    }
-
-    public List<TodoListVO> getTodoListData() {
-        return mCurrentTodoList;
-    }
-
-    public TodoListVO getTodoListbyListId(String listId) {
-        for (TodoListVO s : mCurrentTodoList) {
-            if (s.getTodoListId().equals(listId)) {
-                return s;
-            }
-        }
-
-        return null;
-    }
-
-    public TodoListVO getTodoListbyCardId(String cardId) {
-        for (TodoListVO s : mCurrentTodoList) {
-            if (s.getCardId().equals(cardId)) {
-                return s;
-            }
-        }
-
-        return null;
-    }
-
-    public void setTodoItemListData(List<TodoItemVO> itemList) {
-        mCurrentTodoItemList = itemList;
-    }
-
-    public List<TodoItemVO> getTodoItemListData() {
-        return mCurrentTodoItemList;
-    }
-
-    public DiscussionVO getDiscussionbyId(String discussionId)
-    {
-        for (DiscussionVO s : mCurrentAccessDiscussionList) {
-            if (s.getDiscussionId().equals(discussionId)) {
-                return s;
-            }
-        }
-
-        return null;
-    }
-
     public ChapterVO getChapterbyIndex(int chapterIndex) {
-        return mCurrentAccessChapterList.get(chapterIndex);
+        return getChapterListData().get(chapterIndex);
     }
 
+    //TODO check error
     public ChapterVO getChapterbyId(String chapterId) {
-        if (mCurrentAccessCardList != null)
-            for (ChapterVO s : mCurrentAccessChapterList) {
-                if (s.getChapterId().equals(chapterId)) {
-                    return s;
-                }
+        for (ChapterVO s : getChapterListData()) {
+            if (s.getChapterId().equals(chapterId)) {
+                return s;
             }
+        }
 
         return null;
     }
@@ -231,25 +208,69 @@ public class CourseModel extends BaseModel {
         if (chapter.isLocked())
             chapter.setLocked(false);
     }
+    //endregion
 
-    public int getFirstCardIndexbyChapterId(String chapterId) {
-        for (LessonCardVO s : mCurrentAccessCardList) {
-            if (s.getChapterId().equals(chapterId)) {
-                return mCurrentAccessCardList.indexOf(s);
+    //region Discussion
+    public void setDiscussionListData(List<DiscussionVO> discussionList) {
+        mCurrentAccessDiscussionList = discussionList;
+    }
+
+    public List<DiscussionVO> getDiscussionListData() {
+        return mCurrentAccessDiscussionList;
+    }
+
+    public DiscussionVO getDiscussionbyId(String discussionId)
+    {
+        for (DiscussionVO s : mCurrentAccessDiscussionList) {
+            if (s.getDiscussionId().equals(discussionId)) {
+                return s;
             }
         }
 
-        return 0;
+        return null;
+    }
+    //endregion
+
+    //region TodoList
+    public void setTodoListData(List<TodoListVO> itemList) {
+        mCurrentTodoList = itemList;
     }
 
-    public int getCardCountbyChapterId(String chapterId) {
-        int count = 0;
-        for (LessonCardVO s : mCurrentAccessCardList) {
-            if (s.getChapterId().equals(chapterId)) {
-                count++;
+    public List<TodoListVO> getTodoListData() {
+        if (mCurrentTodoList == null || mCurrentTodoList.size() <= 0)
+            mCurrentTodoList = TodoListVO.loadTodoListbyCourseTitle(getStoredFeaturedCourseData().getTitle());
+
+        return mCurrentTodoList;
+    }
+
+    public TodoListVO getTodoListbyListId(String listId) {
+        for (TodoListVO s : getTodoListData()) {
+            if (s.getTodoListId().equals(listId)) {
+                return s;
             }
         }
 
-        return count;
+        return null;
     }
+
+    public TodoListVO getTodoListbyCardId(String cardId) {
+        for (TodoListVO s : getTodoListData()) {
+            if (s.getCardId().equals(cardId)) {
+                return s;
+            }
+        }
+
+        return null;
+    }
+    //endregion
+
+    //region TodoItemData
+    public void setTodoItemListData(List<TodoItemVO> itemList) {
+        mCurrentTodoItemList = itemList;
+    }
+
+    public List<TodoItemVO> getTodoItemListData() {
+        return mCurrentTodoItemList;
+    }
+    //endregion
 }

@@ -48,7 +48,6 @@
 
     </style>
 
-
     <style name="cardViewTitle" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="android:textSize">@dimen/card_view_title1</item>
         <item name="android:textColor">@color/black_full</item>
@@ -56,5 +55,7 @@
         <item name="android:textAppearance">?android:textAppearanceLarge</item>
     </style>
 
-
+    <style name="DetailPageTitle" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/accent</item>
+    </style>
 </resources>

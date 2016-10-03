@@ -143,24 +143,22 @@ public class CourseTodoListFragment extends Fragment
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        List<TodoListVO> todoList = CourseModel.getInstance().getTodoListData();
+        List<TodoListVO> todoList;
 
-        if (todoList == null || todoList.size() <= 0) {
-            if (data != null && data.moveToFirst()) {
-                todoList = new ArrayList<>();
+        if (data != null && data.moveToFirst()) {
+            todoList = new ArrayList<>();
 
-                do {
-                    TodoListVO list = TodoListVO.parseFromCursor(data);
-                    list.setTodoItems(TodoItemVO.loadItemsbyListId(list.getTodoListId(), list.getTitle()));
-                    todoList.add(list);
-                } while (data.moveToNext());
+            do {
+                TodoListVO list = TodoListVO.parseFromCursor(data);
+                list.setTodoItems(TodoItemVO.loadItemsbyListId(list.getTodoListId(), list.getTitle()));
+                todoList.add(list);
+            } while (data.moveToNext());
 
-                CourseModel.getInstance().setTodoListData(todoList);
-                Log.d(InteractiveTrainingApp.TAG, "Retrieved todoLists DESC : " + todoList.size());
-            }
+            CourseModel.getInstance().setTodoListData(todoList);
+            Log.d(InteractiveTrainingApp.TAG, "Retrieved todoLists DESC : " + todoList.size());
+
+            mAdapter.setNewData(todoList.get(0).getTodoItems());
         }
-
-        mAdapter.setNewData(todoList.get(0).getTodoItems());
     }
 
     @Override

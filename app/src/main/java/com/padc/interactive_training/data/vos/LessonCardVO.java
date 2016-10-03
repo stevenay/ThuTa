@@ -167,4 +167,28 @@ public class LessonCardVO {
 
         return cards;
     }
+
+    public static List<LessonCardVO> loadLessonCardsByCourseTitle(String courseTitle) {
+        Context context = InteractiveTrainingApp.getContext();
+        List<LessonCardVO> cards = new ArrayList<>();
+        Cursor cursor = context.getContentResolver().query(CoursesContract.LessonCardEntry.buildLessonCardUriWithCourseTitle(courseTitle),
+                null, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                LessonCardVO lessonCard = new LessonCardVO();
+                lessonCard.setCardOrderNumber(cursor.getInt(cursor.getColumnIndex(CoursesContract.LessonCardEntry.COLUMN_CARD_ORDER_NUMBER)));
+                lessonCard.setLessonDescription(cursor.getString(cursor.getColumnIndex(CoursesContract.LessonCardEntry.COLUMN_CARD_DESCRIPTION)));
+                lessonCard.setLessonImageUrl(cursor.getString(cursor.getColumnIndex(CoursesContract.LessonCardEntry.COLUMN_CARD_IMAGE_URL)));
+                lessonCard.setFinished(cursor.getInt(cursor.getColumnIndex(CoursesContract.LessonCardEntry.COLUMN_FINISHED)) == 1 ? true : false);
+                lessonCard.setBookmarked(cursor.getInt(cursor.getColumnIndex(CoursesContract.LessonCardEntry.COLUMN_FINISHED)) == 1 ? true : false);
+
+                Log.d(InteractiveTrainingApp.TAG, "loadLessonCardsByChapterId " + lessonCard.getCardOrderNumber());
+
+                cards.add(lessonCard);
+            } while (cursor.moveToNext());
+        }
+
+        return cards;
+    }
 }

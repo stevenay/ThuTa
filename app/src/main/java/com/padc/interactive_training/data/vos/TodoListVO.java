@@ -10,6 +10,7 @@ import com.google.gson.annotations.SerializedName;
 import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.data.persistence.CoursesContract;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -97,19 +98,23 @@ public class TodoListVO {
         return todoList;
     }
 
-//    public static UserVO loadTodoListbyListId(String listId) {
-//        Context context = InteractiveTrainingApp.getContext();
-//        TodoListVO todoList = new TodoListVO();
-//        Cursor cursor = context.getContentResolver().query(CoursesContract.TodoListEntry.buildTodoListWithListId(listId),
-//                null, null, null, null);
-//
-//        if (cursor != null && cursor.moveToFirst()) {
-//            todoList.t
-//
-//            Log.d(InteractiveTrainingApp.TAG, "Load Users by UserId " + user.getFullName());
-//        }
-//
-//        return user;
-//    }
+    public static List<TodoListVO> loadTodoListbyCourseTitle(String courseTitle) {
+        Context context = InteractiveTrainingApp.getContext();
+        List<TodoListVO> todoLists = new ArrayList<>();
+        Cursor cursor = context.getContentResolver().query(CoursesContract.TodoListEntry.buildTodoListWithCourseTitle(courseTitle),
+                null, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                TodoListVO todoListVO = TodoListVO.parseFromCursor(cursor);
+
+                Log.d(InteractiveTrainingApp.TAG, "loadTodoListsByCourseTitle " + todoListVO.getTitle());
+
+                todoLists.add(todoListVO);
+            } while (cursor.moveToNext());
+        }
+
+        return todoLists;
+    }
 
 }

@@ -16,14 +16,6 @@ import java.util.List;
  * Created by htoomt on 9/18/2016.
  */
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder>{
-
-    //region variable declaration
-    private static final String ACTION_LIKE_BUTTON_CLICK = "action_like_button_click";
-    private static final String ACTION_LIKE_IMAGE_CLICK = "action_like_image_click";
-
-    public static final int VIEW_TYPE_DEFAULT = 1;
-    public static final int VIEW_TYPE_LOADER = 2;
-
     private LayoutInflater inflater;
     private List<ArticleVO> mArticleList;
 
@@ -33,11 +25,13 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder>{
     private boolean showLoadingImage = false;
     //endregion
 
+
     public ArticleAdapter(List<ArticleVO> mArticleList, Context context, ArticleViewHolder.ControllerArticleItem controllerArticleItem) {
         this.mArticleList = mArticleList;
         this.context = context;
         this.controllerArticleItem = controllerArticleItem;
     }
+
 
     @Override
     public ArticleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -54,5 +48,12 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder>{
     @Override
     public int getItemCount() {
         return mArticleList.size();
+    }
+
+    public void setNewData(List<ArticleVO> articleList) {
+        if (articleList != null) {
+            mArticleList = articleList;
+            notifyDataSetChanged();
+        }
     }
 }

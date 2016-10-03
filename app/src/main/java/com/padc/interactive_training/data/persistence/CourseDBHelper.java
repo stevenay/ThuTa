@@ -4,28 +4,26 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.padc.interactive_training.data.models.ArticleModel;
+import com.padc.interactive_training.data.persistence.CoursesContract.ArticleEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.AuthorEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.ChapterEntry;
-import com.padc.interactive_training.data.persistence.CoursesContract.DiscussionEntry;
-import com.padc.interactive_training.data.persistence.CoursesContract.ReplyEntry;
-import com.padc.interactive_training.data.persistence.CoursesContract.LessonCardEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.CourseCategoryEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.CourseEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.CourseTagEntry;
+import com.padc.interactive_training.data.persistence.CoursesContract.DiscussionEntry;
+import com.padc.interactive_training.data.persistence.CoursesContract.LessonCardEntry;
+import com.padc.interactive_training.data.persistence.CoursesContract.ReplyEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.TodoItemEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.TodoListEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.UserEntry;
-import com.padc.interactive_training.data.persistence.CoursesContract.ArticleEntry;
 
 /**
  * Created by NayLinAung on 7/9/16.
  */
 public class CourseDBHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 11;
     public static final String DATABASE_NAME = "courses.db";
-
+    private static final int DATABASE_VERSION = 11;
     private static final String SQL_CREATE_COURSE_TABLE = "CREATE TABLE " + CourseEntry.TABLE_NAME + " (" +
             CourseEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             CourseEntry.COLUMN_TITLE + " TEXT NOT NULL, " +

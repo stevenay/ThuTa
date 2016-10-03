@@ -5,7 +5,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.Nullable;
@@ -29,6 +28,7 @@ public class CourseProvider extends ContentProvider {
     public static final int USER = 1100;
     public static final int ARTICLE = 1200;
 
+
     private static final String sCourseTitleSelection = CoursesContract.CourseEntry.COLUMN_TITLE + " = ?";
     private static final String sAuthorNameSelection = CoursesContract.AuthorEntry.COLUMN_AUTHOR_NAME + " = ?";
     private static final String sChapterSelection = CoursesContract.ChapterEntry.COLUMN_COURSE_TITLE + " = ?";
@@ -43,6 +43,25 @@ public class CourseProvider extends ContentProvider {
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private CourseDBHelper mCourseDBHelper;
+
+    private static UriMatcher buildUriMatcher() {
+        final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+
+        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSES, COURSE);
+        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_AUTHOR, AUTHOR);
+        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_TAGS, COURSE_TAG);
+        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_CHAPTERS, COURSE_CHAPTER);
+        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_DISCUSSIONS, COURSE_DISCUSSION);
+        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_REPLIES, COURSE_REPLY);
+        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_LESSON_CARDS, LESSON_CARD);
+        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_CATEGORIES, COURSE_CATEGORY);
+        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_TODOLIST, COURSE_TODOLIST);
+        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_TODOITEM, COURSE_TODOITEM);
+        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_USER, USER);
+        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_ARTICLES, ARTICLE);
+
+        return uriMatcher;
+    }
 
     @Override
     public boolean onCreate() {
@@ -192,7 +211,7 @@ public class CourseProvider extends ContentProvider {
             case ARTICLE:
                 String articleId = CoursesContract.ArticleEntry.getArticleIdFromParam(uri);
                 if (!TextUtils.isEmpty(articleId)) {
-                    selection = sTodoItemSelection;
+                    selection = sArticleSelection;
                     selectionArgs = new String[]{articleId};
                 }
                 queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.ArticleEntry.TABLE_NAME,
@@ -339,25 +358,6 @@ public class CourseProvider extends ContentProvider {
         return rowUpdated;
     }
 
-    private static UriMatcher buildUriMatcher() {
-        final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-
-        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSES, COURSE);
-        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_AUTHOR, AUTHOR);
-        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_TAGS, COURSE_TAG);
-        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_CHAPTERS, COURSE_CHAPTER);
-        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_DISCUSSIONS, COURSE_DISCUSSION);
-        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_REPLIES, COURSE_REPLY);
-        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_LESSON_CARDS, LESSON_CARD);
-        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_CATEGORIES, COURSE_CATEGORY);
-        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_TODOLIST, COURSE_TODOLIST);
-        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_TODOITEM, COURSE_TODOITEM);
-        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_USER, USER);
-        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_ARTICLES, ARTICLE);
-
-        return uriMatcher;
-    }
-
     private String getTableName(Uri uri) {
         final int matchUri = sUriMatcher.match(uri);
 
@@ -385,7 +385,7 @@ public class CourseProvider extends ContentProvider {
             case USER:
                 return CoursesContract.UserEntry.TABLE_NAME;
             case ARTICLE:
-                return CoursesContract.AuthorEntry.TABLE_NAME;
+                return CoursesContract.ArticleEntry.TABLE_NAME;
             default:
                 throw new UnsupportedOperationException("Unknown uri : " + uri);
         }

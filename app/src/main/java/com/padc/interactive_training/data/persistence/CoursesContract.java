@@ -452,11 +452,15 @@ public class CoursesContract {
     public static final class ArticleEntry implements BaseColumns {
         public static final Uri CONTENT_URI =
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_ARTICLES).build();
+
         public static final String DIR_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_ARTICLES;
+
         public static final String ITEM_TYPE =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_ARTICLES;
+
         public static final String TABLE_NAME = "articles";
+
         public static final String COLUMN_ARTICLE_ID = "article_id";
         public static final String COLUMN_PUBLISHED_DATE_TIME = "published_date_time";
         public static final String COLUMN_AUTHOR = "author";
@@ -471,16 +475,19 @@ public class CoursesContract {
         public static final String COLUMN_SECOND_HEADING_CONTENT = "second_heading_content";
         public static final String COLUMN_THIRD_HEADING = "third_heading";
         public static final String COLUMN_THIRD_HEADING_CONTENT = "third_heading_content";
+
         public static Uri buildArticleUri(long id) {
             //content://xyz.aungpyaephyo.padc.myanmarattractions/attractions/1
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
-        public static Uri buildArticleUriWithId(String aritcleId) {
+
+        public static Uri buildArticleUriWithId(int aritcleId) {
             //content://xyz.aungpyaephyo.padc.myanmarattractions/attractions?title="Yangon"
             return CONTENT_URI.buildUpon()
-                    .appendQueryParameter(COLUMN_ARTICLE_ID, aritcleId)
+                    .appendQueryParameter(COLUMN_ARTICLE_ID, String.valueOf(aritcleId))
                     .build();
         }
+
         public static String getArticleIdFromParam(Uri uri) {
             return uri.getQueryParameter(COLUMN_ARTICLE_ID);
         }

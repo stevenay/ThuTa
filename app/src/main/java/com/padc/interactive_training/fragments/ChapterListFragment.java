@@ -108,24 +108,22 @@ public class ChapterListFragment extends Fragment
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        List<ChapterVO> chapterList = CourseModel.getInstance().getChapterListData();
+        List<ChapterVO> chapterList;
 
-        if (chapterList == null || chapterList.size() <= 0) {
-            if (data != null && data.moveToFirst()) {
-                chapterList = new ArrayList<>();
+        if (data != null && data.moveToFirst()) {
+            chapterList = new ArrayList<>();
 
-                do {
-                    ChapterVO chapter = ChapterVO.parseFromCursor(data);
-                    chapter.setLessonCards(LessonCardVO.loadLessonCardsByChapterId(chapter.getChapterId()));
-                    chapterList.add(chapter);
-                } while (data.moveToNext());
+            do {
+                ChapterVO chapter = ChapterVO.parseFromCursor(data);
+                chapter.setLessonCards(LessonCardVO.loadLessonCardsByChapterId(chapter.getChapterId()));
+                chapterList.add(chapter);
+            } while (data.moveToNext());
 
-                CourseModel.getInstance().setChapterListData(chapterList);
-                Log.d(InteractiveTrainingApp.TAG, "Retrieved chapters DESC : " + chapterList.size());
-            }
+            CourseModel.getInstance().setChapterListData(chapterList);
+            Log.d(InteractiveTrainingApp.TAG, "Retrieved chapters DESC : " + chapterList.size());
+
+            chapterAdapter.setNewData(chapterList);
         }
-
-        chapterAdapter.setNewData(chapterList);
     }
 
     @Override

@@ -9,6 +9,7 @@ import android.util.Log;
 import com.google.gson.annotations.SerializedName;
 import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.data.persistence.CoursesContract;
+
 import java.util.List;
 
 /**
@@ -60,119 +61,6 @@ public class ArticleVO {
     private String thirdHeadingContent;
     //endregion
 
-
-    public int getArticleId() {
-        return articleId;
-    }
-
-    public String getPublishedDateTime() {
-        return publishedDateTime;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public String getImageUrl1() {
-        return imageUrl1;
-    }
-
-    public String getImageUrl2() {
-        return imageUrl2;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public String getArticleTitle() {
-        return articleTitle;
-    }
-
-    public String getIntroContent() {
-        return introContent;
-    }
-
-    public String getFirstHeading() {
-        return firstHeading;
-    }
-
-    public String getFirstHeadingContent() {
-        return firstHeadingContent;
-    }
-
-    public String getSecondHeading() {
-        return secondHeading;
-    }
-
-    public String getSecondHeadingContent() {
-        return secondHeadingContent;
-    }
-
-    public String getThirdHeading() {
-        return thirdHeading;
-    }
-
-    public String getThirdHeadingContent() {
-        return thirdHeadingContent;
-    }
-
-    public void setArticleId(int articleId) {
-        this.articleId = articleId;
-    }
-
-    public void setPublishedDateTime(String publishedDateTime) {
-        this.publishedDateTime = publishedDateTime;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public void setImageUrl1(String imageUrl1) {
-        this.imageUrl1 = imageUrl1;
-    }
-
-    public void setImageUrl2(String imageURL2) {
-        this.imageUrl2 = imageURL2;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setArticleTitle(String articleTitle) {
-        this.articleTitle = articleTitle;
-    }
-
-    public void setIntroContent(String introContent) {
-        this.introContent = introContent;
-    }
-
-    public void setFirstHeading(String firstHeading) {
-        this.firstHeading = firstHeading;
-    }
-
-    public void setFirstHeadingContent(String firstHeadingContent) {
-        this.firstHeadingContent = firstHeadingContent;
-    }
-
-    public void setSecondHeading(String secondHeading) {
-        this.secondHeading = secondHeading;
-    }
-
-    public void setSecondHeadingContent(String secondHeadingContent) {
-        this.secondHeadingContent = secondHeadingContent;
-    }
-
-    public void setThirdHeading(String thirdHeading) {
-        this.thirdHeading = thirdHeading;
-    }
-
-    public void setThirdHeadingContent(String thirdHeadingContent) {
-        this.thirdHeadingContent = thirdHeadingContent;
-    }
-
     public static void saveArticles(List<ArticleVO> articles) {
         Log.d(InteractiveTrainingApp.TAG, "Method: article. Loaded article: " + articles.size());
         ContentValues[] articleCVs = new ContentValues[articles.size()];
@@ -187,6 +75,137 @@ public class ArticleVO {
         int insertCount = context.getContentResolver().bulkInsert(CoursesContract.ArticleEntry.CONTENT_URI, articleCVs);
 
         Log.d(InteractiveTrainingApp.TAG, "Bulk inserted into article table : " + insertCount);
+    }
+
+    public static ArticleVO parseFromCursor(Cursor data) {
+        ArticleVO article = new ArticleVO();
+        article.articleId = data.getInt(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_ARTICLE_ID));
+        article.articleTitle = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_ARTICLE_TITLE));
+        article.publishedDateTime = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_PUBLISHED_DATE_TIME));
+        article.author = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_AUTHOR));
+        article.imageUrl1 = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_IMG_URL1));
+        article.imageUrl2 = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_IMG_URL2));
+        article.status = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_STATUS));
+        article.introContent = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_INTRO_CONTENT));
+        article.firstHeading = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_FIRST_HEADING));
+        article.firstHeadingContent = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_FIRST_HEADING_CONTENT));
+        article.secondHeading = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_SECOND_HEADING));
+        article.secondHeadingContent = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_SECOND_HEADING_CONTENT));
+        article.thirdHeading = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_THIRD_HEADING));
+        article.thirdHeadingContent = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_THIRD_HEADING_CONTENT));
+        return article;
+    }
+
+    public int getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(int articleId) {
+        this.articleId = articleId;
+    }
+
+    public String getPublishedDateTime() {
+        return publishedDateTime;
+    }
+
+    public void setPublishedDateTime(String publishedDateTime) {
+        this.publishedDateTime = publishedDateTime;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getImageUrl1() {
+        return imageUrl1;
+    }
+
+    public void setImageUrl1(String imageUrl1) {
+        this.imageUrl1 = imageUrl1;
+    }
+
+    public String getImageUrl2() {
+        return imageUrl2;
+    }
+
+    public void setImageUrl2(String imageURL2) {
+        this.imageUrl2 = imageURL2;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getArticleTitle() {
+        return articleTitle;
+    }
+
+    public void setArticleTitle(String articleTitle) {
+        this.articleTitle = articleTitle;
+    }
+
+    public String getIntroContent() {
+        return introContent;
+    }
+
+    public void setIntroContent(String introContent) {
+        this.introContent = introContent;
+    }
+
+    public String getFirstHeading() {
+        return firstHeading;
+    }
+
+    public void setFirstHeading(String firstHeading) {
+        this.firstHeading = firstHeading;
+    }
+
+    public String getFirstHeadingContent() {
+        return firstHeadingContent;
+    }
+
+    public void setFirstHeadingContent(String firstHeadingContent) {
+        this.firstHeadingContent = firstHeadingContent;
+    }
+
+    public String getSecondHeading() {
+        return secondHeading;
+    }
+
+    public void setSecondHeading(String secondHeading) {
+        this.secondHeading = secondHeading;
+    }
+
+    public String getSecondHeadingContent() {
+        return secondHeadingContent;
+    }
+
+    public void setSecondHeadingContent(String secondHeadingContent) {
+        this.secondHeadingContent = secondHeadingContent;
+    }
+
+    public String getThirdHeading() {
+        return thirdHeading;
+    }
+
+    public void setThirdHeading(String thirdHeading) {
+        this.thirdHeading = thirdHeading;
+    }
+
+    public String getThirdHeadingContent() {
+        return thirdHeadingContent;
+    }
+
+    public void setThirdHeadingContent(String thirdHeadingContent) {
+        this.thirdHeadingContent = thirdHeadingContent;
     }
 
     public ContentValues parseToContentValues() {
@@ -206,24 +225,6 @@ public class ArticleVO {
         cv.put(CoursesContract.ArticleEntry.COLUMN_THIRD_HEADING, thirdHeading);
         cv.put(CoursesContract.ArticleEntry.COLUMN_THIRD_HEADING_CONTENT, thirdHeadingContent);
         return cv;
-    }
-    public static ArticleVO parseFromCursor(Cursor data) {
-        ArticleVO article = new ArticleVO();
-        article.articleId = data.getInt(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_ARTICLE_ID));
-        article.articleTitle = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_ARTICLE_TITLE));
-        article.publishedDateTime = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_PUBLISHED_DATE_TIME));
-        article.author = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_AUTHOR));
-        article.imageUrl1 = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_IMG_URL1));
-        article.imageUrl2 = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_IMG_URL2));
-        article.status = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_STATUS));
-        article.introContent = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_INTRO_CONTENT));
-        article.firstHeading = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_FIRST_HEADING));
-        article.firstHeadingContent = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_FIRST_HEADING_CONTENT));
-        article.secondHeading = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_SECOND_HEADING));
-        article.secondHeadingContent = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_SECOND_HEADING_CONTENT));
-        article.thirdHeading = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_THIRD_HEADING));
-        article.thirdHeadingContent = data.getString(data.getColumnIndex(CoursesContract.ArticleEntry.COLUMN_THIRD_HEADING_CONTENT));
-        return article;
     }
 
 }

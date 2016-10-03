@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white_full"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="1dp"
-    card_view:cardElevation="0dp">
+    app:cardElevation="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:visibility="gone"/>
 
         <ImageView
-            android:id="@+id/iv_category_icon"
+            android:id="@+id/iv_outsrouce_icon"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_gravity="top"
@@ -31,7 +31,7 @@
             android:layout_marginLeft="@dimen/margin_medium_2"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_computer_64" />
+            android:src="@drawable/medium" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,6 +51,17 @@
                 android:textStyle="bold"
                 android:text="Technology" />
 
+            <TextView
+                android:id="@+id/tv_outsource_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_smallest"
+                android:textSize="@dimen/text_regular"
+                android:textAllCaps="false"
+                android:textColor="#00aaad"
+                android:text="medium.com" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -65,7 +76,9 @@
                     android:layout_marginLeft="@dimen/margin_medium"
                     android:layout_marginRight="@dimen/margin_small"
                     android:lineSpacingMultiplier="1"
-                    android:text="Google Auto Mobile"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textColor="@color/text_black_ish"
+                    android:text="3 questions on cybersecurity that should be asked in the debates"
                     android:textSize="@dimen/text_regular_2x"/>
 
                 <LinearLayout
@@ -82,7 +95,7 @@
                         android:layout_marginLeft="@dimen/margin_medium"
                         android:layout_marginTop="@dimen/margin_small"
                         android:textSize="@dimen/text_small"
-                        android:text="Author: ထူးေမာင္သစ္ ," />
+                        android:text="Author: Kelly Shortridge ," />
 
                     <com.padc.interactive_training.components.MMTextView
                         android:id="@+id/tv_published_date"
@@ -111,52 +124,52 @@
                 android:text="@string/lorem_ipsum_one_third" />
 
             <!--<RelativeLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="@dimen/margin_medium">-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/margin_medium">-->
 
-                <!--<ImageButton-->
-                    <!--android:id="@+id/btn_pin"-->
-                    <!--android:layout_width="24dp"-->
-                    <!--android:layout_height="24dp"-->
-                    <!--android:layout_alignParentLeft="true"-->
-                    <!--android:layout_marginBottom="12dp"-->
-                    <!--android:background="@color/transparent"-->
-                    <!--android:scaleType="fitCenter"-->
-                    <!--android:src="@drawable/ic_bookmark_border_24dp" />-->
+            <!--<ImageButton-->
+            <!--android:id="@+id/btn_pin"-->
+            <!--android:layout_width="24dp"-->
+            <!--android:layout_height="24dp"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_marginBottom="12dp"-->
+            <!--android:background="@color/transparent"-->
+            <!--android:scaleType="fitCenter"-->
+            <!--android:src="@drawable/ic_bookmark_border_24dp" />-->
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="@dimen/margin_small"-->
-                    <!--android:gravity="center_vertical|right">-->
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/margin_small"-->
+            <!--android:gravity="center_vertical|right">-->
 
-                    <!--<ImageView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:src="@drawable/ic_heart_small_blue" />-->
+            <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/ic_heart_small_blue" />-->
 
-                    <!--<TextSwitcher-->
-                        <!--android:id="@+id/tsLikesCounter"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginLeft="8dp"-->
-                        <!--android:layout_marginRight="8dp"-->
-                        <!--android:inAnimation="@anim/slide_in_likes_counter"-->
-                        <!--android:outAnimation="@anim/slide_out_likes_counter">-->
+            <!--<TextSwitcher-->
+            <!--android:id="@+id/tsLikesCounter"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:inAnimation="@anim/slide_in_likes_counter"-->
+            <!--android:outAnimation="@anim/slide_out_likes_counter">-->
 
-                        <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="123 likes"-->
-                            <!--android:textColor="@color/text_like_counter" />-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="123 likes"-->
+            <!--android:textColor="@color/text_like_counter" />-->
 
-                        <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:textColor="@color/text_like_counter" />-->
-                    <!--</TextSwitcher>-->
-                <!--</LinearLayout>-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="@color/text_like_counter" />-->
+            <!--</TextSwitcher>-->
+            <!--</LinearLayout>-->
 
             <!--</RelativeLayout>-->
 

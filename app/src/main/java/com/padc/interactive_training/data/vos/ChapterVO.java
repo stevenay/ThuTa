@@ -9,6 +9,7 @@ import com.google.gson.annotations.SerializedName;
 import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.data.persistence.CoursesContract;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -172,4 +173,22 @@ public class ChapterVO {
 
         return cv;
     }
+
+    public static List<ChapterVO> loadChapterListByCourseTitle(String courseTitle) {
+        Context context = InteractiveTrainingApp.getContext();
+        List<ChapterVO> chapters = new ArrayList<>();
+        Cursor cursor = context.getContentResolver().query(CoursesContract.ChapterEntry.buildChapterUriWithCourseTitle(courseTitle),
+                null, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                ChapterVO chapterVO = ChapterVO.parseFromCursor(cursor);
+                Log.d(InteractiveTrainingApp.TAG, "loadChaptersByCourseTitle " + chapterVO.getTitle());
+                chapters.add(chapterVO);
+            } while (cursor.moveToNext());
+        }
+
+        return chapters;
+    }
+
 }

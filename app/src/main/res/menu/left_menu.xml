@@ -37,7 +37,7 @@
         <item
             android:id="@+id/nav_pin_cards"
             android:icon="@drawable/ic_collections_bookmark_24dp"
-            android:title="Pin Cards" />
+            android:title="My Collection" />
 
         <item
             android:id="@+id/nav_notifications"

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/text_white_ish">
+
+    <RadioGroup
+        android:id="@+id/rg_textsize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_medium_3">
+
+        <RadioButton
+            android:id="@+id/rdo_extra_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_regular_2x"
+            android:text="Extra Small" />
+
+        <RadioButton
+            android:id="@+id/rdo_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:textSize="@dimen/text_regular_2x"
+            android:text="Small" />
+
+        <RadioButton
+            android:id="@+id/rdo_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:textSize="@dimen/text_regular_2x"
+            android:text="Medium"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/rdo_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:textSize="@dimen/text_regular_2x"
+            android:text="Large" />
+
+        <RadioButton
+            android:id="@+id/rdo_extra_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:textSize="@dimen/text_regular_2x"
+            android:text="Extra Large" />
+
+    </RadioGroup>
+
+</LinearLayout>

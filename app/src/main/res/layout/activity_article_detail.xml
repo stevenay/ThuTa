@@ -165,6 +165,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginRight="@dimen/margin_small"
                     android:textSize="@dimen/text_regular_2x"
                     android:textColor="@color/black_overlay"
                     android:text="@string/lorem_ipsum_one_third" />
@@ -184,6 +185,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_medium_2"
+                    android:layout_marginRight="@dimen/margin_small"
                     android:textSize="@dimen/text_regular_3x"
                     android:textColor="@color/text_black_ish"
                     android:text="First Heading" />
@@ -193,6 +195,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginRight="@dimen/margin_small"
                     android:textSize="@dimen/text_regular_2x"
                     android:textColor="@color/black_overlay"
                     android:text="@string/lorem_ipsum_one_third" />
@@ -203,6 +206,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginRight="@dimen/margin_small"
                     android:textSize="@dimen/text_regular_3x"
                     android:textColor="@color/text_black_ish"
                     android:text="Second Heading" />
@@ -212,6 +216,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginRight="@dimen/margin_small"
                     android:textSize="@dimen/text_regular_2x"
                     android:textColor="@color/black_overlay"
                     android:text="@string/lorem_ipsum_one_third" />
@@ -231,6 +236,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginRight="@dimen/margin_small"
                     android:textSize="@dimen/text_regular_3x"
                     android:textColor="@color/text_black_ish"
                     android:text="List Content Heading" />
@@ -241,6 +247,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_small"
                     android:layout_marginTop="@dimen/margin_medium"
+                    android:paddingRight="@dimen/margin_medium"
                     android:textSize="@dimen/text_regular_2x"
                     android:textColor="@color/black_overlay"
                     android:text="@string/lorem_ipsum_full_3x" />

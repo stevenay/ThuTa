@@ -1,5 +1,6 @@
 package com.padc.interactive_training.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -9,13 +10,21 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.padc.interactive_training.InteractiveTrainingApp;
@@ -25,7 +34,9 @@ import com.padc.interactive_training.data.vos.ArticleVO;
 import com.padc.interactive_training.utils.DateTimeUtils;
 import com.padc.interactive_training.utils.InteractiveTrainingConstants;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -99,6 +110,7 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_detail);
         ButterKnife.bind(this, this);
+
         //setContentView(R.layout.true_false_question);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -108,14 +120,7 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        renderArticleTextSize(null);
 
         mArticleId = getIntent().getIntExtra(IE_ARTICLE_ID, 0);
 
@@ -128,6 +133,132 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
         getMenuInflater().inflate(R.menu.menu_article, menu);
 
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        switch (id) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.action_textsize:
+                showRadioButtonDialog();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showRadioButtonDialog() {
+        // custom dialog
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_article_textsize);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        this.renderArticleTextSize(dialog);
+
+        RadioGroup radioGroup = (RadioGroup) dialog.findViewById(R.id.rg_textsize);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int radioId) {
+                switch (radioId) {
+                    case R.id.rdo_extra_small:
+                        InteractiveTrainingApp.setArticleTextSize("extra_small");
+                        break;
+                    case R.id.rdo_small:
+                        InteractiveTrainingApp.setArticleTextSize("small");
+                        break;
+                    case R.id.rdo_medium:
+                        InteractiveTrainingApp.setArticleTextSize("medium");
+                        break;
+                    case R.id.rdo_large:
+                        InteractiveTrainingApp.setArticleTextSize("large");
+                        break;
+                    case R.id.rdo_extra_large:
+                        InteractiveTrainingApp.setArticleTextSize("extra_large");
+                        break;
+                    default:
+                        InteractiveTrainingApp.setArticleTextSize("medium");
+                        break;
+                }
+
+                renderArticleTextSize(null);
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void renderArticleTextSize(Dialog dialog)
+    {
+        switch (InteractiveTrainingApp.getArticleTextSize()) {
+            case "extra_small":
+                this.setArticleContentTextSize(12);
+                if (dialog != null) {
+                    RadioButton rdoExSmall = (RadioButton) dialog.findViewById(R.id.rdo_extra_small);
+                    rdoExSmall.setChecked(true);
+                }
+                break;
+            case "small":
+                this.setArticleContentTextSize(14);
+                if (dialog != null) {
+                    RadioButton rdoSmall = (RadioButton) dialog.findViewById(R.id.rdo_small);
+                    rdoSmall.setChecked(true);
+                }
+                break;
+            case "medium":
+                this.setArticleContentTextSize(16);
+                if (dialog != null) {
+                    RadioButton rdoMedium = (RadioButton) dialog.findViewById(R.id.rdo_medium);
+                    rdoMedium.setChecked(true);
+                }
+                break;
+            case "large":
+                this.setArticleContentTextSize(18);
+                if (dialog != null) {
+                    RadioButton rdoLarge = (RadioButton) dialog.findViewById(R.id.rdo_large);
+                    rdoLarge.setChecked(true);
+                }
+                break;
+            case "extra_large":
+                this.setArticleContentTextSize(20);
+                if (dialog != null) {
+                    RadioButton rdoExtraLarge = (RadioButton) dialog.findViewById(R.id.rdo_extra_large);
+                    rdoExtraLarge.setChecked(true);
+                }
+                break;
+            default:
+                this.setArticleContentTextSize(16);
+                if (dialog != null) {
+                    RadioButton rdoDefault = (RadioButton) dialog.findViewById(R.id.rdo_medium);
+                    rdoDefault.setChecked(true);
+                }
+                break;
+        }
+    }
+
+    private void setArticleContentTextSize(int fontSize)
+    {
+        tvIntroContent.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        tvFirstHeadingContent.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        tvSecondHeadingContent.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        tvThirdHeadingContent.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+
+        this.setArticleHeadingTextSize(fontSize+4);
+    }
+
+    private void setArticleHeadingTextSize(int fontSize)
+    {
+        tvFirstHeading.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        tvSecondHeading.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        tvThirdHeading.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
     }
 
     //region loader pattern methods

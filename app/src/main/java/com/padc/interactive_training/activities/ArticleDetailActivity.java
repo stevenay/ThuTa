@@ -12,6 +12,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,14 +41,20 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
     @BindView(R.id.collapsing_toolbar)
     CollapsingToolbarLayout collapsingToolBar;
 
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
+    @BindView(R.id.tv_article_title)
+    TextView tvArticleTitle;
 
     @BindView(R.id.tv_category_name)
     TextView tvCategoryName;
 
+    @BindView(R.id.iv_header_photo)
+    ImageView ivHeaderPhoto;
+
     @BindView(R.id.iv_stock_photo)
     ImageView ivStockPhoto;
+
+    @BindView(R.id.iv_stock_photo_2)
+    ImageView ivStockPhoto2;
 
     @BindView(R.id.tv_author_name)
     TextView tvAuthorName;
@@ -96,23 +103,31 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back_24dp);
         }
+
+        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         mArticleId = getIntent().getIntExtra(IE_ARTICLE_ID, 0);
 
         getSupportLoaderManager().initLoader(InteractiveTrainingConstants.ARTICLE_DETAIL_LOADER, null, this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_article, menu);
+
+        return true;
     }
 
     //region loader pattern methods
@@ -164,7 +179,25 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
         tvSecondHeadingContent.setText(mArticle.getSecondHeadingContent());
         tvThirdHeadingContent.setText(mArticle.getThirdHeadingContent());
 
-        collapsingToolBar.setTitle(mArticle.getArticleTitle());
+        collapsingToolBar.setTitle("သုတေဆာင္းပါး");
+        tvArticleTitle.setText(mArticle.getArticleTitle());
+        if (mArticle.getArticleTitle().contains("မူးယစ္စြာေမာင္းႏွင္ျခင္းႏွင့္ မေတာ္တ")) {
+            Glide.with(ivHeaderPhoto.getContext())
+                    .load(R.drawable.ic_car)
+                    .centerCrop()
+                    .placeholder(R.drawable.misc_09_256)
+                    .error(R.drawable.misc_09_256)
+                    .into(ivHeaderPhoto);
+        } else {
+            Glide.with(ivHeaderPhoto.getContext())
+                    .load(R.drawable.ic_building)
+                    .centerCrop()
+                    .placeholder(R.drawable.misc_09_256)
+                    .error(R.drawable.misc_09_256)
+                    .into(ivHeaderPhoto);
+        }
+
+
         Glide.with(ivStockPhoto.getContext())
                 .load(mArticle.getImageUrl1())
                 .centerCrop()
@@ -172,6 +205,11 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
                 .error(R.drawable.misc_09_256)
                 .into(ivStockPhoto);
 
-
+        Glide.with(ivStockPhoto2.getContext())
+                .load(mArticle.getImageUrl2())
+                .centerCrop()
+                .placeholder(R.drawable.misc_09_256)
+                .error(R.drawable.misc_09_256)
+                .into(ivStockPhoto2);
     }
 }

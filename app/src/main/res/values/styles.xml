@@ -56,6 +56,6 @@
     </style>
 
     <style name="DetailPageTitle" parent="TextAppearance.AppCompat.Title">
-        <item name="android:textColor">@color/accent</item>
+        <item name="android:textColor">@color/text_white_ish</item>
     </style>
 </resources>

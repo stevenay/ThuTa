@@ -38,11 +38,11 @@ public class NewDiscussionActivity extends AppCompatActivity {
 
         this.arraySpinner = new String[] {
             "General Topic",
-            "1. Wear broad-spectrum sunscreen",
-            "2. Put on protective clothing",
-            "3. Use UV-blocking sunglasses",
-            "4. Limiting Your Overall Exposure to UV Rays.",
-            "5. Stay out of the sun during peak UV rediation times"
+            "1. Everyone should familiar with UX",
+            "2. Making complex processes easy",
+            "3. Be true to brand identity",
+            "4. Depends on your app's goals",
+            "5. Good UX encourge people"
         };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                                         R.layout.view_item_discussion_topic, arraySpinner);

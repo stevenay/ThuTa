@@ -55,6 +55,9 @@ public class FeaturedCourseListFragment extends Fragment
     @BindView(R.id.card_view_technology)
     CardView cardTechnology;
 
+    @BindView(R.id.card_view_cooking)
+    CardView cardCooking;
+
     @BindView(R.id.tv_category_name)
     TextView tvCategoryName;
 
@@ -137,7 +140,14 @@ public class FeaturedCourseListFragment extends Fragment
         cardTechnology.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Course content still in development state. Please click on Featured Course this week.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.ContentInDev, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        cardCooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), R.string.ContentInDev, Toast.LENGTH_LONG).show();
             }
         });
     }

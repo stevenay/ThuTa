@@ -1,5 +1,6 @@
 package com.padc.interactive_training.views.holders;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -7,7 +8,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.R;
 import com.padc.interactive_training.data.vos.CourseVO;
 
@@ -55,6 +58,7 @@ public class FeaturedCourseViewHolder extends RecyclerView.ViewHolder {
     private ControllerFeaturedCourseItem mController;
     private CourseVO mCourseVO;
     private View mSelfView;
+    private Context mContext;
 
     public FeaturedCourseViewHolder(View view, ControllerFeaturedCourseItem controller) {
         super(view);
@@ -62,20 +66,24 @@ public class FeaturedCourseViewHolder extends RecyclerView.ViewHolder {
 
         this.mController = controller;
         this.mSelfView = view;
+        this.mContext = InteractiveTrainingApp.getContext();
     }
 
     private void setupClickableViews(View selfView, final ControllerFeaturedCourseItem controller) {
         this.ivCourseCoverImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                controller.onFeaturedCoverImageClick();
+//                controller.onFeaturedCoverImageClick();
+                Toast.makeText(mContext, R.string.ContentInDev, Toast.LENGTH_LONG).show();
+
             }
         });
 
         selfView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                controller.onTapFeaturedCourse(mCourseVO);
+//                controller.onTapFeaturedCourse(mCourseVO);
+                Toast.makeText(mContext, R.string.ContentInDev, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -97,12 +105,6 @@ public class FeaturedCourseViewHolder extends RecyclerView.ViewHolder {
 //                .into(ivCourseCoverImage);
 
         setupClickableViews(mSelfView, mController);
-
-//        Context context = ivCourseCoverImage.getContext();
-//        int id = context
-//                .getResources()
-//                .getIdentifier("drawable-nodpi/" + courseVO.getImageUrl(), null, context.getPackageName());
-//        ivCourseCoverImage.setImageResource(id);
     }
 
     public interface ControllerFeaturedCourseItem {

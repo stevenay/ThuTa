@@ -1,5 +1,6 @@
 package com.padc.interactive_training.views.holders;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
@@ -10,8 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.R;
 import com.padc.interactive_training.components.SendingProgressView;
 import com.padc.interactive_training.data.vos.CourseVO;
@@ -60,6 +63,7 @@ public class MyCourseViewHolder extends RecyclerView.ViewHolder {
     private ControllerCourseItem mController;
     private CourseVO mCourseVO;
     private View mSelfView;
+    private Context mContext;
 
     public SendingProgressView vSendingProgress;
     public View vProgressBg;
@@ -70,20 +74,23 @@ public class MyCourseViewHolder extends RecyclerView.ViewHolder {
 
         this.mController = controller;
         this.mSelfView = view;
+        this.mContext = InteractiveTrainingApp.getContext();
     }
 
     private void setupClickableViews(View selfView, final ControllerCourseItem controller) {
         this.ivCourseCoverImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                controller.onCoverImageClick();
+//                controller.onCoverImageClick();
+                Toast.makeText(mContext, R.string.ContentInDev, Toast.LENGTH_LONG).show();
             }
         });
 
         selfView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                controller.onTapCourse(mCourseVO);
+//                controller.onTapCourse(mCourseVO);
+                Toast.makeText(mContext, R.string.ContentInDev, Toast.LENGTH_LONG).show();
             }
         });
     }

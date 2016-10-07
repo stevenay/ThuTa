@@ -101,5 +101,6 @@
     <string name="action_share">Share the Article</string>
     <string name="ArticlePreference">ArticleTextSizePref</string>
     <string name="ArticleTextSizePara">text_size</string>
+    <string name="ContentInDev">Course content still in development state. Please view \'Featured Course this week\' at the top.</string>
     <!-- Development Package, dir, path, notation finish-->
 </resources>

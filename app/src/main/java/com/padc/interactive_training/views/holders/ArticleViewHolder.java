@@ -30,6 +30,9 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder implements View.O
     @BindView(R.id.tv_category_name)
     TextView tvCategoryName;
 
+    @BindView(R.id.tv_author)
+    TextView tvAuthor;
+
     @BindView(R.id.tv_article_brief_description)
     TextView tvArticleBriefDescription;
 
@@ -75,6 +78,7 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder implements View.O
         tvArticleTilte.setText(mArticleVO.getArticleTitle());
         tvPublishedDate.setText(formmatedDate);
         tvCategoryName.setText("Technology");
+        tvAuthor.setText("Author: " + mArticleVO.getAuthor() + " ,");
         tvArticleBriefDescription.setText(mArticleVO.getIntroContent());
 
         Glide.with(ivArticle.getContext())

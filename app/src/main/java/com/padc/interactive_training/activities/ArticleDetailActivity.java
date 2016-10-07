@@ -2,6 +2,7 @@ package com.padc.interactive_training.activities;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -187,6 +188,11 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
                         InteractiveTrainingApp.setArticleTextSize("medium");
                         break;
                 }
+
+                SharedPreferences pref = getApplicationContext().getSharedPreferences(getString(R.string.ArticlePreference), MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString(getString(R.string.ArticleTextSizePara), InteractiveTrainingApp.getArticleTextSize());
+                editor.commit();
 
                 renderArticleTextSize(null);
                 dialog.dismiss();

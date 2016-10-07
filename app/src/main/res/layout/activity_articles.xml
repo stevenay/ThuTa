@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_large"
                 android:layout_marginTop="@dimen/margin_medium"
-                android:text="ပညာေပး ေဆာင္းပါးမ်ား"
+                android:text="ေဆာင္းပါးမ်ား"
                 android:textSize="@dimen/screen_title_size" />
 
         </android.support.v7.widget.Toolbar>

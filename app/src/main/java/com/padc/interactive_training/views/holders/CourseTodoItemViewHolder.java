@@ -53,6 +53,19 @@ public class CourseTodoItemViewHolder extends RecyclerView.ViewHolder {
 
     public void bindData(final TodoItemVO item, final int position)
     {
+        this.swipeLayout.setOnClickListener(new SwipeLayout.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final SwipeLayout layout = (SwipeLayout) view;
+                layout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        layout.toggle();
+                    }
+                }, 50);
+            }
+        });
+
         this.layoutDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

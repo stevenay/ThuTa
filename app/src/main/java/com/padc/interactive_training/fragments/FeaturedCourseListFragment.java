@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.padc.interactive_training.InteractiveTrainingApp;
@@ -50,6 +51,9 @@ public class FeaturedCourseListFragment extends Fragment
 
     @BindView(R.id.card_view)
     CardView cardFeaturedCourse;
+
+    @BindView(R.id.card_view_technology)
+    CardView cardTechnology;
 
     @BindView(R.id.tv_category_name)
     TextView tvCategoryName;
@@ -129,6 +133,13 @@ public class FeaturedCourseListFragment extends Fragment
                 LinearLayoutManager.HORIZONTAL, false);
         rvCookingList.setLayoutManager(linearLayoutManager2);
         rvCookingList.setAdapter(featuredCourseAdapter);
+
+        cardTechnology.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Course content still in development state. Please click on Featured Course this week.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public List<CourseVO> prepareSampleCourseList() {
@@ -155,7 +166,7 @@ public class FeaturedCourseListFragment extends Fragment
         courseTwo.setTitle("အားကစားကို နည္းမွန္လမ္းမွန္ ျပဳလုပ္နည္းမ်ား");
 
         CourseCategoryVO category1 = new CourseCategoryVO();
-        category.setCategoryName("Sports and Fitness");
+        category1.setCategoryName("Sports and Fitness");
 
         courseTwo.setCourseCategory(category1);
         courseTwo.setDurationInMinute(15);
@@ -165,10 +176,10 @@ public class FeaturedCourseListFragment extends Fragment
         courseList.add(courseTwo);
 
         CourseVO courseThree = new CourseVO();
-        courseThree.setTitle("C# အသံုးျပဳ Console Application တစ္ခု ဘယ္လိုတည္ေဆာက္မလဲ");
+        courseThree.setTitle("C# အသံုးျပဳ Console Application တည္ေဆာက္နည္း");
 
         CourseCategoryVO category2 = new CourseCategoryVO();
-        category.setCategoryName("Programming");
+        category2.setCategoryName("Programming");
 
         courseThree.setCourseCategory(category2);
         courseThree.setDurationInMinute(10);

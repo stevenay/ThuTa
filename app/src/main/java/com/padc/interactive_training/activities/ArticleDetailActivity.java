@@ -18,14 +18,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.padc.interactive_training.InteractiveTrainingApp;
@@ -34,6 +32,7 @@ import com.padc.interactive_training.data.persistence.CoursesContract;
 import com.padc.interactive_training.data.vos.ArticleVO;
 import com.padc.interactive_training.utils.DateTimeUtils;
 import com.padc.interactive_training.utils.InteractiveTrainingConstants;
+import com.padc.interactive_training.utils.MMFontUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -328,6 +327,8 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
         tvThirdHeadingContent.setText(mArticle.getThirdHeadingContent());
 
         collapsingToolBar.setTitle("သုတေဆာင္းပါး");
+        MMFontUtils.applyMMFontToCollapsingToolbar(collapsingToolBar);
+
         tvArticleTitle.setText(mArticle.getArticleTitle());
         if (mArticle.getArticleTitle().contains("မူးယစ္စြာေမာင္းႏွင္ျခင္းႏွင့္ မေတာ္တ")) {
             Glide.with(ivHeaderPhoto.getContext())

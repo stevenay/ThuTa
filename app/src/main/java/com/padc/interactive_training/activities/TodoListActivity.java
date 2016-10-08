@@ -80,8 +80,10 @@ public class TodoListActivity extends AppCompatActivity {
     }
 
     private void bindData(TodoListVO todoList) {
-        tvListDescription.setText(todoList.getTitle());
-        mAdapter.setNewData(todoList.getTodoItems());
+        if (todoList != null) {
+            tvListDescription.setText(todoList.getTitle());
+            mAdapter.setNewData(todoList.getTodoItems());
+        }
     }
 
     //region ButtonEvents

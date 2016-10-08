@@ -13,7 +13,7 @@
         <item
             android:id="@+id/nav_course_categories"
             android:icon="@drawable/ic_dns_24dp"
-            android:title="Categories" />
+            android:title="သင္ခန္းစာမ်ား" />
 
         <item
             android:id="@+id/nav_articles"

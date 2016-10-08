@@ -16,8 +16,11 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.daimajia.swipe.implments.SwipeItemRecyclerMangerImpl;
 import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.R;
+<<<<<<< HEAD
 import com.padc.interactive_training.data.vos.ChapterVO;
 import com.padc.interactive_training.data.vos.TodoItemVO;
+=======
+>>>>>>> develop
 import com.padc.interactive_training.views.holders.TodoItemViewHolder;
 
 import java.util.ArrayList;
@@ -29,11 +32,19 @@ import java.util.List;
 public class TodoAdapter extends RecyclerView.Adapter<TodoItemViewHolder> {
 
     private Context mContext;
+<<<<<<< HEAD
     private List<TodoItemVO> mTodoItemList;
 
     public TodoAdapter(List<TodoItemVO> todoList) {
         this.mContext = InteractiveTrainingApp.getContext();
         this.mTodoItemList = todoList;
+=======
+    private ArrayList<String> mTodoList;
+
+    public TodoAdapter(ArrayList<String> todoList) {
+        this.mContext = InteractiveTrainingApp.getContext();
+        this.mTodoList = todoList;
+>>>>>>> develop
     }
 
     @Override
@@ -44,11 +55,16 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoItemViewHolder> {
 
     @Override
     public void onBindViewHolder(final TodoItemViewHolder viewHolder, final int position) {
+<<<<<<< HEAD
         viewHolder.bindData(mTodoItemList.get(position));
+=======
+        viewHolder.bindData(mTodoList.get(position));
+>>>>>>> develop
     }
 
     @Override
     public int getItemCount() {
+<<<<<<< HEAD
         return mTodoItemList.size();
     }
 
@@ -57,5 +73,8 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoItemViewHolder> {
             mTodoItemList = todoItemList;
             notifyDataSetChanged();
         }
+=======
+        return mTodoList.size();
+>>>>>>> develop
     }
 }

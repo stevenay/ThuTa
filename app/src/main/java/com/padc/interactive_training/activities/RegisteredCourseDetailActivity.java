@@ -183,6 +183,7 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+
     }
 
     private void setupWindowAnimations() {

@@ -41,10 +41,11 @@ public class TodoListActivity extends AppCompatActivity {
     @BindView(R.id.tv_list_description)
     TextView tvListDescription;
 
-    private TodoAdapter mAdapter;
     private List<TodoItemVO> mTodoItemList;
 
     private String mTodoListId;
+    private TodoAdapter mAdapter;
+    private ArrayList<String> mDataSet;
 
     private static final String IE_TODOLIST_ID = "IE_TODOLIST_ID";
 

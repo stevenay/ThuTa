@@ -204,7 +204,6 @@ public class CourseFlowActivity extends AppCompatActivity
 
     @OnClick(R.id.btn_previous)
     public void onbtnPreviousPressed(Button view) {
-
         if (btnTodoList.getVisibility() == View.VISIBLE) {
             btnTodoList.setVisibility(View.INVISIBLE);
             btnNext.setVisibility(View.VISIBLE);
@@ -235,19 +234,14 @@ public class CourseFlowActivity extends AppCompatActivity
 
             currentChapterId = tempChapterId;
             navigateToLessonCard(cardIndex, "prev");
-            cardIndex--;
-            if (cardIndex >= 0) {
-                navigateToTodoActivity();
-//            navigateToLessonCard(cardIndex, "previous");
-            } else {
-                cardIndex = -1;
-                this.setProgressBar(cardIndex);
-                if (!chapterIntro) {
-                    navigateToNewChapterIntro(mFirstChapterId, "prev");
-                    chapterIntro = true;
-                }
-                Toast.makeText(getApplicationContext(), "သင္ခန္းစာမ်ား မရွိေတာ့ပါ", Toast.LENGTH_SHORT).show();
+        } else {
+            cardIndex = -1;
+            this.setProgressBar(cardIndex);
+            if (!chapterIntro) {
+                navigateToNewChapterIntro(mFirstChapterId, "prev");
+                chapterIntro = true;
             }
+            Toast.makeText(getApplicationContext(), "သင္ခန္းစာမ်ား မရွိေတာ့ပါ", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -391,11 +385,6 @@ public class CourseFlowActivity extends AppCompatActivity
         }
     }
     //endregion
-
-    private void navigateToTodoActivity() {
-        Intent intent = TodoListActivity.newIntent("sampleCourseID");
-        startActivity(intent);
-    }
 
     //region ControllerLessonCardItem Implementation
     @Override

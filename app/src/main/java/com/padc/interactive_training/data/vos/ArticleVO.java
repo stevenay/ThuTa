@@ -59,6 +59,8 @@ public class ArticleVO {
 
     @SerializedName("third_heading_content")
     private String thirdHeadingContent;
+
+    private boolean bookmarked;
     //endregion
 
     public static void saveArticles(List<ArticleVO> articles) {
@@ -206,6 +208,14 @@ public class ArticleVO {
 
     public void setThirdHeadingContent(String thirdHeadingContent) {
         this.thirdHeadingContent = thirdHeadingContent;
+    }
+
+    public boolean isBookmarked() {
+        return bookmarked;
+    }
+
+    public void setBookmarked(boolean bookmarked) {
+        this.bookmarked = bookmarked;
     }
 
     public ContentValues parseToContentValues() {

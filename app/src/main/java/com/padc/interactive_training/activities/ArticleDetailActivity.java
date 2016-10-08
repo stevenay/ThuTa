@@ -95,6 +95,7 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
     @BindView(R.id.tv_third_heading_content)
     TextView tvThirdHeadingContent;
 
+    private Menu articleMenu;
     private int mArticleId;
     private ArticleVO mArticle;
 
@@ -124,7 +125,6 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
         renderArticleTextSize(null);
 
         mArticleId = getIntent().getIntExtra(IE_ARTICLE_ID, 0);
-
         getSupportLoaderManager().initLoader(InteractiveTrainingConstants.ARTICLE_DETAIL_LOADER, null, this);
     }
 
@@ -132,7 +132,7 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_article, menu);
-
+        this.articleMenu = menu;
         return true;
     }
 
@@ -146,6 +146,17 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
         switch (id) {
             case android.R.id.home:
                 onBackPressed();
+                return true;
+            case R.id.action_bookmark:
+                if (mArticle != null) {
+                    if (mArticle.isBookmarked()) {
+                        articleMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_bookmark_border_24dp));
+                        mArticle.setBookmarked(false);
+                    } else {
+                        articleMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_bookmark_black_24dp));
+                        mArticle.setBookmarked(true);
+                    }
+                }
                 return true;
             case R.id.action_textsize:
                 showRadioButtonDialog();
@@ -333,7 +344,6 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
                     .error(R.drawable.misc_09_256)
                     .into(ivHeaderPhoto);
         }
-
 
         Glide.with(ivStockPhoto.getContext())
                 .load(mArticle.getImageUrl1())

@@ -12,10 +12,13 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
 import android.transition.Fade;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -50,6 +53,9 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
         implements ChapterViewHolder.ControllerChapterItem,
         DiscussionViewHolder.ControllerDiscussionItem,
         LoaderManager.LoaderCallbacks<Cursor> {
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @BindView(R.id.appbar)
     AppBarLayout appBar;
@@ -107,8 +113,14 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
 
         ButterKnife.bind(this, this);
 
-        mCourseTitle = getIntent().getStringExtra(IE_COURSE_TITLE);
+        setSupportActionBar(toolbar);
 
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        mCourseTitle = getIntent().getStringExtra(IE_COURSE_TITLE);
         mCoursePagerAdapter = new CoursePagerAdapter(getSupportFragmentManager());
 
         chapterListFragment = ChapterListFragment.newInstance(mCourseTitle);
@@ -152,7 +164,25 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
             }
         });
 
+        collapsingToolbar.setTitle(" ");
         getSupportLoaderManager().initLoader(InteractiveTrainingConstants.COURSE_DETAIL_LOADER, null, this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        switch (id) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void setupWindowAnimations() {

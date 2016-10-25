@@ -11,12 +11,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
-        android:id="@+id/imageView"
+    <TextView
+        android:id="@+id/tv_member_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:src="@android:drawable/sym_def_app_icon" />
+        android:layout_marginTop="@dimen/margin_medium_2"
+        android:layout_marginBottom="@dimen/margin_medium_2"
+        android:text="Member ID : SS98303" />
+
+    <ImageView
+        android:id="@+id/iv_user_profile"
+        android:layout_width="@dimen/btn_biggest"
+        android:layout_height="@dimen/btn_biggest"
+        android:background="@drawable/bg_circular"
+        android:src="@drawable/user_profile" />
 
     <!--<com.padc.interactive_training.components.MMTextView-->
         <!--android:layout_width="match_parent"-->
@@ -29,13 +37,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/nav_header_vertical_spacing"
-        android:text="NayLin Aung"
+        android:text="Nay Lin Aung"
+        android:textSize="@dimen/text_regular_2.5x"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_user_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="some.one@gmail.com" />
+        android:layout_marginTop="@dimen/margin_small"
+        android:text="steve.naylinaung@gmail.com" />
 
 </LinearLayout>

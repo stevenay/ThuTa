@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.R;
+import com.padc.interactive_training.activities.CourseDetailActivity;
 import com.padc.interactive_training.activities.RegisteredCourseDetailActivity;
 import com.padc.interactive_training.adapters.FeaturedCourseAdapter;
 import com.padc.interactive_training.animators.RecyclerItemAnimator;
@@ -238,7 +239,8 @@ public class FeaturedCourseListFragment extends Fragment
 
     private void navigateToCourseDetail(String courseTitle)
     {
-        Intent intent = RegisteredCourseDetailActivity.newIntent(courseTitle);
+        // Intent intent = RegisteredCourseDetailActivity.newIntent(courseTitle);
+        Intent intent = CourseDetailActivity.newIntent("SampleCourseName");
 
         final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(this.getActivity(), true);
         ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this.getActivity(), pairs);

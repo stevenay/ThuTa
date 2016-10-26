@@ -194,7 +194,9 @@ public class HomeActivity extends AppCompatActivity
     //region ControllerCourseItem Implementation
     @Override
     public void onTapCourse(CourseVO course) {
-        Intent intent = RegisteredCourseDetailActivity.newIntent("SampleCourseName");
+       // Intent intent = RegisteredCourseDetailActivity.newIntent("SampleCourseName");
+
+        Intent intent = CourseDetailActivity.newIntent("SampleCourseName");
 
         final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(this, true);
         ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this, pairs);
@@ -227,7 +229,9 @@ public class HomeActivity extends AppCompatActivity
     //region FeaturedCourseItemListener
     @Override
     public void onTapFeaturedCourse(CourseVO course) {
-        Intent intent = RegisteredCourseDetailActivity.newIntent("SampleCourseName");
+        //Intent intent = RegisteredCourseDetailActivity.newIntent("SampleCourseName");
+
+        Intent intent = CourseDetailActivity.newIntent("SampleCourseName");
 
         final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(this, true);
         ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this, pairs);

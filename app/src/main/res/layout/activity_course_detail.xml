@@ -43,16 +43,16 @@
                     android:id="@+id/tv_course_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/margin_xxlarge"
-                    android:paddingRight="@dimen/margin_medium"
                     android:layout_marginTop="@dimen/margin_xxlarge"
                     android:gravity="left"
-                    android:textSize="@dimen/text_regular_2.5x"
-                    android:textStyle="bold"
-                    android:textColor="@color/white_full"
-                    android:textAllCaps="false"
                     android:lineSpacingMultiplier="1.3"
-                    android:text="Improve your Mobile App with Strong UX"/>
+                    android:paddingLeft="@dimen/margin_xxlarge"
+                    android:paddingRight="@dimen/margin_medium"
+                    android:text="Improve your Mobile App with Strong UX"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white_full"
+                    android:textSize="@dimen/text_regular_2.5x"
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
@@ -79,119 +79,180 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="106dp"
+            android:layout_marginBottom="-6dp"
+            android:layout_marginTop="-6dp"
+            android:layout_marginRight="-4dp"
+            android:layout_marginLeft="-4dp"
+            android:backgroundTint="@color/white_full"
+            android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+            android:drawablePadding="-15sp"
+            android:text="Start Course"
+            android:textSize="@dimen/text_regular"
+            android:textStyle="bold"/>
 
-            <!--<HorizontalScrollView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="@dimen/margin_small">-->
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="horizontal">-->
-
-                    <!--<LinearLayout-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:orientation="vertical">-->
-
-                        <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_marginTop="@dimen/margin_small"-->
-                            <!--android:layout_marginLeft="@dimen/margin_medium"-->
-                            <!--android:text="CLASSROOM"-->
-                            <!--android:textSize="@dimen/text_small"-->
-                            <!--android:textStyle="bold"-->
-                            <!--android:textColor="@color/black_overlay_light"/>-->
-
-                        <!--<Button-->
-                            <!--android:id="@+id/btn_start_course"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_marginBottom="@dimen/margin_small"-->
-                            <!--android:layout_marginLeft="@dimen/margin_small"-->
-                            <!--android:layout_gravity="right"-->
-                            <!--android:paddingTop="@dimen/margin_medium"-->
-                            <!--android:paddingBottom="@dimen/margin_medium"-->
-                            <!--android:paddingLeft="@dimen/margin_medium_3"-->
-                            <!--android:paddingRight="@dimen/margin_medium_3"-->
-                            <!--android:backgroundTint="@color/course_background_dark_sample"-->
-                            <!--android:text="Start Course"-->
-                            <!--android:textAllCaps="false"-->
-                            <!--android:textColor="@color/text_white_ish"-->
-                            <!--android:textSize="@dimen/text_regular_2x"/>-->
-
-                    <!--</LinearLayout>-->
-
-                <!--</LinearLayout>-->
-
-            <!--</HorizontalScrollView>-->
-
-            <android.support.v7.widget.CardView
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/card_view"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginLeft="@dimen/margin_small"
-                android:layout_marginRight="@dimen/margin_small"
-                android:layout_marginBottom="@dimen/margin_small"
-                card_view:cardCornerRadius="0dp">
+                android:layout_marginLeft="-4dp"
+                android:layout_marginRight="-4dp"
+                android:orientation="vertical"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
 
-                <LinearLayout
+                <requestFocus />
+
+                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_course_summary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:orientation="vertical"
-                    android:paddingBottom="0dp">
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_marginRight="@dimen/margin_small"
+                    android:background="@color/transparent"
+                    card_view:cardCornerRadius="0dp"
+                    card_view:cardElevation="0dp">
 
-                    <TextView
-                        android:id="@+id/tv_course_summary_label"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_medium"
-                        android:layout_marginRight="@dimen/margin_medium"
-                        android:layout_marginTop="@dimen/margin_medium_2"
-                        android:ellipsize="end"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center_horizontal"
-                        android:lineSpacingMultiplier="1.2"
-                        android:maxLines="4"
-                        android:paddingRight="@dimen/margin_medium_3"
-                        android:text="Course Summary"
-                        android:textColor="@color/text_black_ish_2"
-                        android:textAllCaps="true"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/text_regular" />
+                        android:background="#ffffff"
+                        android:orientation="vertical"
+                        android:paddingBottom="0dp">
 
-                    <com.padc.interactive_training.components.MMTextView
-                        android:id="@+id/tv_duration_author"
-                        android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_medium">
+
+                            <ImageView
+                                android:id="@+id/iv_course_summary"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginLeft="@dimen/margin_medium"
+                                android:layout_marginTop="@dimen/margin_medium_1"
+                                android:clickable="true"
+                                android:src="@drawable/ic_receipt_white_24dp" />
+
+                            <TextView
+                                android:id="@+id/tv_course_summary_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_medium"
+                                android:layout_marginRight="@dimen/margin_medium"
+                                android:layout_marginTop="14dp"
+                                android:fontFamily="sans-serif-light"
+                                android:gravity="center_horizontal"
+                                android:paddingRight="@dimen/margin_medium_3"
+                                android:text="Course Summary"
+                                android:textAllCaps="true"
+                                android:textColor="@color/text_black_ish_2"
+                                android:textSize="@dimen/text_small"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <com.padc.interactive_training.components.MMTextView
+                            android:id="@+id/tv_course_summary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin_medium_3"
+                            android:layout_marginLeft="@dimen/margin_medium"
+                            android:layout_marginRight="@dimen/margin_medium"
+                            android:layout_marginTop="@dimen/margin_large"
+                            android:lineSpacingMultiplier="1.2"
+                            android:padding="@dimen/margin_medium"
+                            android:text="Desktop Applications၊ Website၊ Mobile App မ်ားေရးသားရာတြင္ ဘက္စံုအသံုးျပဳနိုင္ေသာ Programming Language တစ္ခုျဖစ္ပါတယ္။
+Course တြင္ ပါဝင္ေသာ သင္ခန္းစာအားလံုးကို Free ေလ့လာနိုင္ပါသည္။"
+                            android:textColor="@color/secondary_text"
+                            android:textSize="@dimen/text_regular_2x" />
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_course_outline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_marginRight="@dimen/margin_small"
+                    android:background="@color/transparent"
+                    card_view:cardCornerRadius="0dp"
+                    card_view:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/margin_medium_2"
-                        android:layout_marginTop="@dimen/margin_medium"
-                        android:padding="@dimen/margin_medium"
-                        android:text="Desktop Applications၊ Website၊ Mobile App မ်ားေရးသားရာတြင္ ဘက္စံုအသံုးျပဳနိုင္ေသာ Programming Language တစ္ခုျဖစ္ပါတယ္။
-\n\nCourse တြင္ ပါဝင္ေသာ သင္ခန္းစာအားလံုးကို Free ေလ့လာနိုင္ပါသည္။"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="@dimen/text_regular_2x" />
+                        android:background="#ffffff"
+                        android:orientation="vertical"
+                        android:paddingBottom="0dp">
 
-                </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_medium">
 
-            </android.support.v7.widget.CardView>
+                            <ImageView
+                                android:id="@+id/iv_course_outline"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginLeft="@dimen/margin_medium"
+                                android:layout_marginTop="@dimen/margin_medium_1"
+                                android:clickable="true"
+                                android:src="@drawable/ic_receipt_white_24dp" />
 
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+                            <TextView
+                                android:id="@+id/tv_course_outline_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_medium"
+                                android:layout_marginRight="@dimen/margin_medium"
+                                android:layout_marginTop="14dp"
+                                android:fontFamily="sans-serif-light"
+                                android:gravity="center_horizontal"
+                                android:paddingRight="@dimen/margin_medium_3"
+                                android:text="Course Outline"
+                                android:textAllCaps="true"
+                                android:textColor="@color/text_black_ish_2"
+                                android:textSize="@dimen/text_small"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rv_course_outline"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_medium"
+                            android:layout_marginLeft="@dimen/margin_medium"
+                            android:layout_marginBottom="@dimen/margin_medium_3"
+                            android:nestedScrollingEnabled="false"
+                            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

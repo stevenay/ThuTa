@@ -100,7 +100,7 @@
             android:theme="@style/AppTheme.Base.NoActionBar.FullScreen" />
         <activity android:name=".activities.CourseDetailActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Base.NoActionBar.FullScreen" />
+            android:theme="@style/AppTheme.Base.NoActionBar" />
     </application>
 
 </manifest>

@@ -67,7 +67,7 @@
                     android:paddingRight="@dimen/margin_medium_2"
                     android:text="ပါတယ္။ သူက radiation ေတြကိုပါ ကာကြယ္နိုင္စြမ္းရွိပါတယ္။"
                     android:textColor="@color/primary_text"
-                    android:textSize="@dimen/text_regular_2.5x" />
+                    android:textSize="@dimen/text_regular_2x" />
 
             </LinearLayout>
 

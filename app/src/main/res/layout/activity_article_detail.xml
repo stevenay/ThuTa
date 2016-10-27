@@ -167,8 +167,7 @@
                     android:layout_marginTop="@dimen/margin_small"
                     android:layout_marginRight="@dimen/margin_small"
                     android:textSize="@dimen/text_regular_2x"
-                    android:textColor="@color/black_overlay"
-                    android:text="@string/lorem_ipsum_one_third" />
+                    android:textColor="@color/black_overlay" />
 
                 <ImageView
                     android:id="@+id/iv_stock_photo"
@@ -197,8 +196,7 @@
                     android:layout_marginTop="@dimen/margin_small"
                     android:layout_marginRight="@dimen/margin_small"
                     android:textSize="@dimen/text_regular_2x"
-                    android:textColor="@color/black_overlay"
-                    android:text="@string/lorem_ipsum_one_third" />
+                    android:textColor="@color/black_overlay" />
 
                 <com.padc.interactive_training.components.MMTextView
                     android:id="@+id/tv_second_heading"
@@ -218,8 +216,7 @@
                     android:layout_marginTop="@dimen/margin_small"
                     android:layout_marginRight="@dimen/margin_small"
                     android:textSize="@dimen/text_regular_2x"
-                    android:textColor="@color/black_overlay"
-                    android:text="@string/lorem_ipsum_one_third" />
+                    android:textColor="@color/black_overlay" />
 
                 <ImageView
                     android:id="@+id/iv_stock_photo_2"
@@ -249,8 +246,7 @@
                     android:layout_marginTop="@dimen/margin_medium"
                     android:paddingRight="@dimen/margin_medium"
                     android:textSize="@dimen/text_regular_2x"
-                    android:textColor="@color/black_overlay"
-                    android:text="@string/lorem_ipsum_full_3x" />
+                    android:textColor="@color/black_overlay" />
             </LinearLayout>
 
         </LinearLayout>

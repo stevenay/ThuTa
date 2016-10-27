@@ -3,6 +3,8 @@ package com.padc.interactive_training.activities;
 import android.content.Intent;
 import android.os.Build;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,11 +21,13 @@ import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.R;
 import com.padc.interactive_training.adapters.CourseOutlineAdapter;
 import com.padc.interactive_training.components.PageIndicatorView;
+import com.padc.interactive_training.utils.TransitionHelper;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class CourseDetailActivity extends AppCompatActivity {
 
@@ -81,5 +86,15 @@ public class CourseDetailActivity extends AppCompatActivity {
     private void bindData()
     {
 
+    }
+
+    @OnClick(R.id.btn_start_course)
+    public void onClickStartCourse(View view)
+    {
+        Intent intent = RegisteredCourseDetailActivity.newIntent("");
+
+        final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(this, true);
+        ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this, pairs);
+        startActivity(intent, transitionActivityOptions.toBundle());
     }
 }

@@ -47,7 +47,7 @@
                     android:gravity="left"
                     android:lineSpacingMultiplier="1.3"
                     android:paddingLeft="@dimen/margin_xxlarge"
-                    android:paddingRight="@dimen/margin_medium"
+                    android:paddingRight="@dimen/margin_medium_2"
                     android:text="Improve your Mobile App with Strong UX"
                     android:textAllCaps="false"
                     android:textColor="@color/white_full"
@@ -86,18 +86,19 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <Button
+            android:id="@+id/btn_start_course"
             android:layout_width="match_parent"
-            android:layout_height="106dp"
+            android:layout_height="96dp"
             android:layout_marginBottom="-6dp"
-            android:layout_marginTop="-6dp"
-            android:layout_marginRight="-4dp"
             android:layout_marginLeft="-4dp"
+            android:layout_marginRight="-4dp"
+            android:layout_marginTop="-6dp"
             android:backgroundTint="@color/white_full"
-            android:drawableRight="@drawable/ic_chevron_right_black_24dp"
             android:drawablePadding="-15sp"
+            android:drawableRight="@drawable/ic_chevron_right_black_24dp"
             android:text="Start Course"
             android:textSize="@dimen/text_regular"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -108,11 +109,95 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="-4dp"
                 android:layout_marginRight="-4dp"
-                android:orientation="vertical"
                 android:focusable="true"
-                android:focusableInTouchMode="true">
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
 
                 <requestFocus />
+
+                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_course_instructor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_marginRight="@dimen/margin_small"
+                    android:background="@color/transparent"
+                    card_view:cardCornerRadius="0dp"
+                    card_view:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#ffffff"
+                        android:orientation="vertical"
+                        android:paddingBottom="0dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_medium">
+
+                            <ImageView
+                                android:id="@+id/iv_course_instructor"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginLeft="@dimen/margin_medium"
+                                android:layout_marginTop="@dimen/margin_medium_1"
+                                android:clickable="true"
+                                android:src="@drawable/ic_receipt_white_24dp" />
+
+                            <TextView
+                                android:id="@+id/tv_course_instructor_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_medium"
+                                android:layout_marginRight="@dimen/margin_medium"
+                                android:layout_marginTop="14dp"
+                                android:fontFamily="sans-serif-light"
+                                android:gravity="center_horizontal"
+                                android:paddingRight="@dimen/margin_medium_3"
+                                android:text="Instructor"
+                                android:textAllCaps="true"
+                                android:textColor="@color/text_black_ish_2"
+                                android:textSize="@dimen/text_small"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_large"
+                            android:layout_marginBottom="@dimen/margin_medium_3"
+                            android:paddingLeft="@dimen/margin_medium_2"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/iv_user_profile"
+                                android:layout_width="56dp"
+                                android:layout_height="56dp"
+                                android:background="@drawable/bg_circular"
+                                android:src="@drawable/user_profile" />
+
+                            <com.padc.interactive_training.components.MMTextView
+                                android:id="@+id/tv_course_instructor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/margin_medium_3"
+                                android:layout_marginLeft="@dimen/margin_medium_2"
+                                android:layout_marginRight="@dimen/margin_medium"
+                                android:lineSpacingMultiplier="1"
+                                android:text="Nay Lin Aung \nWeb and Mobile Developer"
+                                android:textColor="@color/secondary_text"
+                                android:textSize="@dimen/text_regular" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/card_course_summary"
@@ -165,6 +250,27 @@
 
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_large">
+
+                            <com.padc.interactive_training.components.MMTextView
+                                android:id="@+id/tv_duration"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_medium_2"
+                                android:layout_marginRight="@dimen/margin_medium"
+                                android:fontFamily="sans-serif-light"
+                                android:gravity="center_horizontal"
+                                android:paddingRight="@dimen/margin_medium_3"
+                                android:text="သင္ခန္းစာၾကာျမင့္ခ်ိန္ - ၁၁ မိနစ္"
+                                android:textAllCaps="true"
+                                android:textColor="@color/text_black_ish_2"
+                                android:textSize="@dimen/text_regular_2x" />
+
+                        </LinearLayout>
+
                         <com.padc.interactive_training.components.MMTextView
                             android:id="@+id/tv_course_summary"
                             android:layout_width="wrap_content"
@@ -172,11 +278,13 @@
                             android:layout_marginBottom="@dimen/margin_medium_3"
                             android:layout_marginLeft="@dimen/margin_medium"
                             android:layout_marginRight="@dimen/margin_medium"
-                            android:layout_marginTop="@dimen/margin_large"
+                            android:layout_marginTop="@dimen/margin_medium"
                             android:lineSpacingMultiplier="1.2"
                             android:padding="@dimen/margin_medium"
-                            android:text="Desktop Applications၊ Website၊ Mobile App မ်ားေရးသားရာတြင္ ဘက္စံုအသံုးျပဳနိုင္ေသာ Programming Language တစ္ခုျဖစ္ပါတယ္။
-Course တြင္ ပါဝင္ေသာ သင္ခန္းစာအားလံုးကို Free ေလ့လာနိုင္ပါသည္။"
+                            android:text="Mobile App တစ္ခုဖန္တီးေတာ့မယ္ဆိုရင္ UX က အလြန္အေရးပါပါတယ္။ ဒီသင္ခန္းစာမွာ UX သည္ ဘာကိုဆိုလိုလဲဆိုတာ အေသးစိတ္ ရွင္းလင္းထားပါတယ္။
+                            \n\nUX ေကာင္းမြန္ေအာင္ ဘယ္လိုနည္းလမ္းေတြ သံုးသင့္လဲ၊ ဘာေတြစဥ္းစားသင့္လဲဆို
+တာကိုလည္း တစ္ခ်က္ျခင္းစီ ေသခ်ာေဖာ္ျပေပးထားပါတယ္။ ကိုယ္ဖန္တီးေနတဲ့ App သည္ UX ေကာင္း၊ မေကာင္း စစ္ေဆးနိုင္မယ့္ CheckList တစ္ခုကိုလည္း
+Bonus အေနနဲ႔ ထည့္ေပးထားပါတယ္။"
                             android:textColor="@color/secondary_text"
                             android:textSize="@dimen/text_regular_2x" />
 
@@ -239,9 +347,9 @@ Course တြင္ ပါဝင္ေသာ သင္ခန္းစာအာ�
                             android:id="@+id/rv_course_outline"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_medium"
-                            android:layout_marginLeft="@dimen/margin_medium"
                             android:layout_marginBottom="@dimen/margin_medium_3"
+                            android:layout_marginLeft="@dimen/margin_medium"
+                            android:layout_marginTop="@dimen/margin_medium"
                             android:nestedScrollingEnabled="false"
                             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 

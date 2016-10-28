@@ -239,8 +239,13 @@ public class FeaturedCourseListFragment extends Fragment
 
     private void navigateToCourseDetail(String courseTitle)
     {
-        // Intent intent = RegisteredCourseDetailActivity.newIntent(courseTitle);
-        Intent intent = CourseDetailActivity.newIntent("SampleCourseName");
+        Intent intent;
+        if (CourseModel.getInstance().getStoredFeaturedCourseData() != null
+                && CourseModel.getInstance().getStoredFeaturedCourseData().isRegistered()) {
+            intent = RegisteredCourseDetailActivity.newIntent(courseTitle);
+        } else {
+            intent = CourseDetailActivity.newIntent("SampleCourseName");
+        }
 
         final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(this.getActivity(), true);
         ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this.getActivity(), pairs);

@@ -16,6 +16,8 @@ import com.padc.interactive_training.data.persistence.CoursesContract.ReplyEntry
 import com.padc.interactive_training.data.persistence.CoursesContract.TodoItemEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.TodoListEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.UserEntry;
+import com.padc.interactive_training.data.persistence.CoursesContract.CourseTestEntry;
+import com.padc.interactive_training.data.persistence.CoursesContract.TestQuestionEntry;
 
 /**
  * Created by NayLinAung on 7/9/16.
@@ -66,6 +68,26 @@ public class CourseDBHelper extends SQLiteOpenHelper {
             CourseCategoryEntry.COLUMN_COURSE_TITLE + " TEXT NOT NULL, " +
 
             " UNIQUE (" + CourseCategoryEntry.COLUMN_CATEGORY_NAME + ") ON CONFLICT IGNORE" +
+            " );";
+
+    private static final String SQL_CREATE_COURSE_TEST_TABLE = "CREATE TABLE " + CourseTestEntry.TABLE_NAME + " (" +
+            CourseTestEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            CourseTestEntry.COLUMN_TEST_ID + " INTEGER NOT NULL, " +
+            CourseTestEntry.COLUMN_CHAPTER_ID + " TEXT NOT NULL, " +
+            CourseTestEntry.COLUMN_TEST_TYPE + " TEXT NOT NULL, " +
+            CourseTestEntry.COLUMN_ALLOWANCE_TIME + " TEXT NOT NULL, " +
+
+            " UNIQUE (" + CourseTestEntry.COLUMN_TEST_ID + ") ON CONFLICT IGNORE" +
+            " );";
+
+    private static final String SQL_CREATE_TEST_QUESTION_TABLE = "CREATE TABLE " + TestQuestionEntry.TABLE_NAME + " (" +
+            TestQuestionEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            TestQuestionEntry.COLUMN_TEST_ID + " INTEGER NOT NULL, " +
+            TestQuestionEntry.COLUMN_QUESTION_ID + " INTEGER NOT NULL, " +
+            TestQuestionEntry.COLUMN_QUESTION_TEXT + " TEXT NOT NULL, " +
+            TestQuestionEntry.COLUMN_TEST_TYPE + " TEXT NOT NULL, " +
+
+            " UNIQUE (" + TestQuestionEntry.COLUMN_QUESTION_ID + ") ON CONFLICT IGNORE" +
             " );";
 
     private static final String SQL_CREATE_CHAPTER_TABLE = "CREATE TABLE " + ChapterEntry.TABLE_NAME + " (" +
@@ -187,6 +209,8 @@ public class CourseDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_AUTHOR_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_COURSE_TAG_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_COURSE_CATEGORY_TABLE);
+        sqLiteDatabase.execSQL(SQL_CREATE_COURSE_TEST_TABLE);
+        sqLiteDatabase.execSQL(SQL_CREATE_TEST_QUESTION_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_CHAPTER_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_LESSON_CARD_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_DISCUSSION_TABLE);
@@ -203,6 +227,8 @@ public class CourseDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + AuthorEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CourseTagEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CourseCategoryEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CourseTestEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TestQuestionEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ChapterEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + LessonCardEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + DiscussionEntry.TABLE_NAME);

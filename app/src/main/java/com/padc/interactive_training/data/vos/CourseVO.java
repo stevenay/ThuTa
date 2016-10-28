@@ -66,6 +66,16 @@ public class CourseVO {
 
     private int lastAccessCardIndex;
 
+    private boolean registered;
+
+    public boolean isRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(boolean registered) {
+        this.registered = registered;
+    }
+
     public int getLastAccessCardIndex() {
         return lastAccessCardIndex;
     }
@@ -198,6 +208,7 @@ public class CourseVO {
             ChapterVO.saveChapters(course.getTitle(), course.getChapters());
             DiscussionVO.saveDiscussions(course.getTitle(), course.getDiscussions());
             TodoListVO.saveTodoList(course.getTitle(), course.getTodoList());
+
         }
 
         //Bulk insert into attractions.

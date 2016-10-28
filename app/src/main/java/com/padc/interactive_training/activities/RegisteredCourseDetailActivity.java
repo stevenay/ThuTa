@@ -201,6 +201,8 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
     private void bindData(final CourseVO courseVO) {
         MMFontUtils.applyMMFontToCollapsingToolbar(collapsingToolbar);
 
+        CourseModel.getInstance().getStoredFeaturedCourseData().setRegistered(true);
+
         // hide CollapsingToolbar Title on Expanded Condition
         // show only when Collapsed State
         appBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
@@ -245,7 +247,6 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
 
             }
         });
-
     }
 
     //region LoaderPattern

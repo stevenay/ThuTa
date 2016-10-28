@@ -18,6 +18,8 @@ public class CoursesContract {
     public static final String PATH_COURSES = "courses";
     public static final String PATH_AUTHOR = "course_authors";
     public static final String PATH_COURSE_TAGS = "course_tags";
+    public static final String PATH_COURSE_TEST = "course_tests";
+    public static final String PATH_TEST_QUESTION = "course_test_questions";
     public static final String PATH_COURSE_CHAPTERS = "chapters";
     public static final String PATH_LESSON_CARDS = "lesson_cards";
     public static final String PATH_COURSE_CATEGORIES = "course_categories";
@@ -142,6 +144,76 @@ public class CoursesContract {
 
         public static String getCourseIdFromParam(Uri uri) {
             return uri.getQueryParameter(COLUMN_COURSE_ID);
+        }
+    }
+
+    public static final class CourseTestEntry implements BaseColumns {
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_COURSE_TEST).build();
+
+        public static final String DIR_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_COURSE_TEST;
+
+        public static final String ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_COURSE_TEST;
+
+        public static final String TABLE_NAME = "course_tests";
+
+        public static final String COLUMN_TEST_ID = "course_id";
+        public static final String COLUMN_COURSE_ID = "course_id";
+        public static final String COLUMN_CHAPTER_ID = "chapter_id";
+        public static final String COLUMN_TEST_TYPE = "test_type";
+        public static final String COLUMN_ALLOWANCE_TIME = "allowance_time";
+
+        public static Uri buildCourseTestUri(long id) {
+            //content://xyz.aungpyaephyo.padc.myanmarattractions/attraction_images/1
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+
+        public static Uri buildCourseTestUriWithCourseId(String courseId) {
+            //content://xyz.aungpyaephyo.padc.myanmarattractions/attraction_images?attraction_title=Yangon
+            return CONTENT_URI.buildUpon()
+                    .appendQueryParameter(COLUMN_COURSE_ID, courseId)
+                    .build();
+        }
+
+        public static String getCourseIdFromParam(Uri uri) {
+            return uri.getQueryParameter(COLUMN_COURSE_ID);
+        }
+    }
+
+    public static final class TestQuestionEntry implements BaseColumns {
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_TEST_QUESTION).build();
+
+        public static final String DIR_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_TEST_QUESTION;
+
+        public static final String ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_TEST_QUESTION;
+
+        public static final String TABLE_NAME = "course_test_questions";
+
+        public static final String COLUMN_QUESTION_ID = "course_id";
+        public static final String COLUMN_TEST_ID = "test_id";
+        public static final String COLUMN_QUESTION_TEXT = "chapter_id";
+        public static final String COLUMN_QUESTION_TYPE = "test_type";
+        public static final String COLUMN_TEST_TYPE = "allowance_time";
+
+        public static Uri buildTestQuestionUri(long id) {
+            //content://xyz.aungpyaephyo.padc.myanmarattractions/attraction_images/1
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+
+        public static Uri buildTestQuestionUriWithTestId(String testId) {
+            //content://xyz.aungpyaephyo.padc.myanmarattractions/attraction_images?attraction_title=Yangon
+            return CONTENT_URI.buildUpon()
+                    .appendQueryParameter(COLUMN_TEST_ID, testId)
+                    .build();
+        }
+
+        public static String getTestIdFromParam(Uri uri) {
+            return uri.getQueryParameter(COLUMN_TEST_ID);
         }
     }
 

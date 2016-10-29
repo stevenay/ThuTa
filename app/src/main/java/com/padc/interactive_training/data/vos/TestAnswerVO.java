@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by NayLinAung on 10/29/2016.
  */
 
-public class AnswerVO {
+public class TestAnswerVO {
 
     @SerializedName("answer_id")
     private String answerId;

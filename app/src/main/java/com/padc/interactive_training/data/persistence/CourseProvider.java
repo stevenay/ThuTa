@@ -41,7 +41,7 @@ public class CourseProvider extends ContentProvider {
     private static final String sTodoListSelection = CoursesContract.TodoListEntry.COLUMN_COURSE_TITLE + " = ?";
     private static final String sTodoItemSelection = CoursesContract.TodoItemEntry.COLUMN_TODO_LIST_ID + " = ?";
     private static final String sArticleSelection = CoursesContract.ArticleEntry.COLUMN_ARTICLE_ID + " = ?";
-    private static final String sCourseTestSelection = CoursesContract.CourseTestEntry.COLUMN_COURSE_ID + " = ?";
+    private static final String sCourseTestSelection = CoursesContract.CourseTestEntry.COLUMN_COURSE_TITLE + " = ?";
     private static final String sTestQuestionSelection = CoursesContract.TestQuestionEntry.COLUMN_TEST_ID + " = ?";
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
@@ -228,10 +228,10 @@ public class CourseProvider extends ContentProvider {
                         sortOrder);
                 break;
             case COURSE_TEST:
-                String courseId = CoursesContract.CourseTestEntry.getCourseIdFromParam(uri);
-                if (!TextUtils.isEmpty(courseId)) {
+                String courseTestTitle = CoursesContract.CourseTestEntry.getCourseTitleFromParam(uri);
+                if (!TextUtils.isEmpty(courseTestTitle)) {
                     selection = sCourseTestSelection;
-                    selectionArgs = new String[]{courseId};
+                    selectionArgs = new String[]{courseTestTitle};
                 }
                 queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.CourseTestEntry.TABLE_NAME,
                         projection,

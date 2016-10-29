@@ -18,6 +18,7 @@ import com.padc.interactive_training.data.persistence.CoursesContract.TodoListEn
 import com.padc.interactive_training.data.persistence.CoursesContract.UserEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.CourseTestEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.TestQuestionEntry;
+import com.padc.interactive_training.data.persistence.CoursesContract.TestAnswerEntry;
 
 /**
  * Created by NayLinAung on 7/9/16.
@@ -84,10 +85,21 @@ public class CourseDBHelper extends SQLiteOpenHelper {
             TestQuestionEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             TestQuestionEntry.COLUMN_TEST_ID + " INTEGER NOT NULL, " +
             TestQuestionEntry.COLUMN_QUESTION_ID + " INTEGER NOT NULL, " +
+            TestQuestionEntry.COLUMN_QUESTION_TYPE + " TEXT NOT NULL, " +
             TestQuestionEntry.COLUMN_QUESTION_TEXT + " TEXT NOT NULL, " +
             TestQuestionEntry.COLUMN_TEST_TYPE + " TEXT NOT NULL, " +
 
             " UNIQUE (" + TestQuestionEntry.COLUMN_QUESTION_ID + ") ON CONFLICT IGNORE" +
+            " );";
+
+    private static final String SQL_CREATE_ANSWER_TABLE = "CREATE TABLE " + TestAnswerEntry.TABLE_NAME + " (" +
+            TestAnswerEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            TestAnswerEntry.COLUMN_QUESTION_ID + " INTEGER NOT NULL, " +
+            TestAnswerEntry.COLUMN_ANSWER_ID + " INTEGER NOT NULL, " +
+            TestAnswerEntry.COLUMN_ANSWER_CONTENT + " TEXT NOT NULL, " +
+            TestAnswerEntry.COLUMN_IS_ANSWER + " INT NOT NULL, " +
+
+            " UNIQUE (" + TestAnswerEntry.COLUMN_ANSWER_ID + ") ON CONFLICT IGNORE" +
             " );";
 
     private static final String SQL_CREATE_CHAPTER_TABLE = "CREATE TABLE " + ChapterEntry.TABLE_NAME + " (" +

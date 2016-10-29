@@ -71,6 +71,14 @@ public class CourseVO {
 
     private boolean registered;
 
+    public CourseTestVO getCourseTest() {
+        return courseTest;
+    }
+
+    public void setCourseTest(CourseTestVO courseTest) {
+        this.courseTest = courseTest;
+    }
+
     public boolean isRegistered() {
         return registered;
     }

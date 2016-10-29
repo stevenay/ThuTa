@@ -1,6 +1,12 @@
 package com.padc.interactive_training.data.vos;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
+import com.padc.interactive_training.InteractiveTrainingApp;
+import com.padc.interactive_training.data.persistence.CoursesContract;
 
 import java.util.List;
 
@@ -23,7 +29,7 @@ public class TestQuestionVO {
     private String testType;
 
     @SerializedName("answers")
-    private List<AnswerVO> answers;
+    private List<TestAnswerVO> testAnswers;
 
     public String getQuestionId() {
         return questionId;
@@ -57,11 +63,40 @@ public class TestQuestionVO {
         this.testType = testType;
     }
 
-    public List<AnswerVO> getAnswers() {
-        return answers;
+    public List<TestAnswerVO> getTestAnswers() {
+        return testAnswers;
     }
 
-    public void setAnswers(List<AnswerVO> answers) {
-        this.answers = answers;
+    public void setTestAnswers(List<TestAnswerVO> testAnswers) {
+        this.testAnswers = testAnswers;
+    }
+
+    public static void saveTestQuestions(String courseTestId, List<TestQuestionVO> testQuestions) {
+        Log.d(InteractiveTrainingApp.TAG, "Method: TestQuestions. Loaded items: " + testQuestions.size());
+
+        ContentValues[] testQuestionCVs = new ContentValues[testQuestions.size()];
+        for (int index = 0; index < testQuestions.size(); index++) {
+            TestQuestionVO testQuestion = testQuestions.get(index);
+            testQuestionCVs[index] = testQuestion.parseToContentValues(courseTestId);
+
+            Log.d(InteractiveTrainingApp.TAG, "Method: TestQuestions. Qeustion Text: " + testQuestion.getQuestionText());
+        }
+
+        Context context = InteractiveTrainingApp.getContext();
+        int insertCount = context.getContentResolver().bulkInsert(CoursesContract.TestQuestionEntry.CONTENT_URI, testQuestionCVs);
+
+        Log.d(InteractiveTrainingApp.TAG, "Bulk inserted into testQuestions table : " + insertCount);
+    }
+
+    public ContentValues parseToContentValues(String courseTestId) {
+        ContentValues cv = new ContentValues();
+
+        cv.put(CoursesContract.TestQuestionEntry.COLUMN_TEST_ID, courseTestId);
+        cv.put(CoursesContract.TestQuestionEntry.COLUMN_QUESTION_ID, this.questionId);
+        cv.put(CoursesContract.TestQuestionEntry.COLUMN_QUESTION_TEXT, this.questionText);
+        cv.put(CoursesContract.TestQuestionEntry.COLUMN_QUESTION_TYPE, this.questionType);
+        cv.put(CoursesContract.TestQuestionEntry.COLUMN_TEST_TYPE, this.testType);
+
+        return cv;
     }
 }

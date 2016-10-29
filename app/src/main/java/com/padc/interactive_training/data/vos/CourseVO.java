@@ -61,6 +61,9 @@ public class CourseVO {
     @SerializedName("to_do_list")
     private TodoListVO todoList;
 
+    @SerializedName("course_test")
+    private CourseTestVO courseTest;
+
     @SerializedName("last_accessed_card_id")
     private String lastAccessedCardId;
 
@@ -208,6 +211,7 @@ public class CourseVO {
             ChapterVO.saveChapters(course.getTitle(), course.getChapters());
             DiscussionVO.saveDiscussions(course.getTitle(), course.getDiscussions());
             TodoListVO.saveTodoList(course.getTitle(), course.getTodoList());
+            CourseTestVO.saveCourseTest(course.getTitle(), course.getCourseTest());
 
         }
 

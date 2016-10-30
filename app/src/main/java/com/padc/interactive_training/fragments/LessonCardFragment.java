@@ -216,6 +216,7 @@ public class LessonCardFragment extends Fragment {
 
     public interface ControllerLessonCard {
         void onAccessTodoList();
+        void onAccessCourseLesson();
         void onNextCard();
         void onPreviousCard();
     }

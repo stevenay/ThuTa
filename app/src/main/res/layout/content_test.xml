@@ -6,17 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.padc.interactive_training.activities.TestActivity"
-    tools:showIn="@layout/activity_test">
+    tools:context="com.padc.interactive_training.activities.CourseLessonActivity"
+    tools:showIn="@layout/activity_course_lesson">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
             <include layout="@layout/true_false_question"
                 android:layout_width="match_parent"
                 android:layout_height="512dp"/>
@@ -25,6 +25,7 @@
                 android:layout_height="512dp"
                 android:layout_width="match_parent" />
         </LinearLayout>
+
     </ScrollView>
 
 

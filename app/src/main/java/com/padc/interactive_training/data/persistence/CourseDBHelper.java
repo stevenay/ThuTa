@@ -16,9 +16,9 @@ import com.padc.interactive_training.data.persistence.CoursesContract.ReplyEntry
 import com.padc.interactive_training.data.persistence.CoursesContract.TodoItemEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.TodoListEntry;
 import com.padc.interactive_training.data.persistence.CoursesContract.UserEntry;
-import com.padc.interactive_training.data.persistence.CoursesContract.CourseTestEntry;
-import com.padc.interactive_training.data.persistence.CoursesContract.TestQuestionEntry;
-import com.padc.interactive_training.data.persistence.CoursesContract.TestAnswerEntry;
+import com.padc.interactive_training.data.persistence.CoursesContract.CourseLessonEntry;
+import com.padc.interactive_training.data.persistence.CoursesContract.QuestionEntry;
+import com.padc.interactive_training.data.persistence.CoursesContract.AnswerEntry;
 
 /**
  * Created by NayLinAung on 7/9/16.
@@ -71,35 +71,35 @@ public class CourseDBHelper extends SQLiteOpenHelper {
             " UNIQUE (" + CourseCategoryEntry.COLUMN_CATEGORY_NAME + ") ON CONFLICT IGNORE" +
             " );";
 
-    private static final String SQL_CREATE_COURSE_TEST_TABLE = "CREATE TABLE " + CourseTestEntry.TABLE_NAME + " (" +
-            CourseTestEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            CourseTestEntry.COLUMN_TEST_ID + " INTEGER NOT NULL, " +
-            CourseTestEntry.COLUMN_CHAPTER_ID + " TEXT NOT NULL, " +
-            CourseTestEntry.COLUMN_TEST_TYPE + " TEXT NOT NULL, " +
-            CourseTestEntry.COLUMN_ALLOWANCE_TIME + " TEXT NOT NULL, " +
+    private static final String SQL_CREATE_COURSE_TEST_TABLE = "CREATE TABLE " + CourseLessonEntry.TABLE_NAME + " (" +
+            CourseLessonEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            CourseLessonEntry.COLUMN_LESSON_ID + " INTEGER NOT NULL, " +
+            CourseLessonEntry.COLUMN_COURSE_TITLE + " TEXT NOT NULL, " +
+            CourseLessonEntry.COLUMN_CHAPTER_ID + " INTEGER NOT NULL, " +
+            CourseLessonEntry.COLUMN_LESSON_TYPE + " TEXT NOT NULL, " +
+            CourseLessonEntry.COLUMN_ALLOWANCE_TIME + " TEXT NOT NULL, " +
 
-            " UNIQUE (" + CourseTestEntry.COLUMN_TEST_ID + ") ON CONFLICT IGNORE" +
+            " UNIQUE (" + CourseLessonEntry.COLUMN_LESSON_ID + ") ON CONFLICT IGNORE" +
             " );";
 
-    private static final String SQL_CREATE_TEST_QUESTION_TABLE = "CREATE TABLE " + TestQuestionEntry.TABLE_NAME + " (" +
-            TestQuestionEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            TestQuestionEntry.COLUMN_TEST_ID + " INTEGER NOT NULL, " +
-            TestQuestionEntry.COLUMN_QUESTION_ID + " INTEGER NOT NULL, " +
-            TestQuestionEntry.COLUMN_QUESTION_TYPE + " TEXT NOT NULL, " +
-            TestQuestionEntry.COLUMN_QUESTION_TEXT + " TEXT NOT NULL, " +
-            TestQuestionEntry.COLUMN_TEST_TYPE + " TEXT NOT NULL, " +
+    private static final String SQL_CREATE_TEST_QUESTION_TABLE = "CREATE TABLE " + QuestionEntry.TABLE_NAME + " (" +
+            QuestionEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            QuestionEntry.COLUMN_LESSON_ID + " INTEGER NOT NULL, " +
+            QuestionEntry.COLUMN_QUESTION_ID + " INTEGER NOT NULL, " +
+            QuestionEntry.COLUMN_QUESTION_TYPE + " TEXT NOT NULL, " +
+            QuestionEntry.COLUMN_QUESTION_TEXT + " TEXT NOT NULL, " +
 
-            " UNIQUE (" + TestQuestionEntry.COLUMN_QUESTION_ID + ") ON CONFLICT IGNORE" +
+            " UNIQUE (" + QuestionEntry.COLUMN_QUESTION_ID + ") ON CONFLICT IGNORE" +
             " );";
 
-    private static final String SQL_CREATE_ANSWER_TABLE = "CREATE TABLE " + TestAnswerEntry.TABLE_NAME + " (" +
-            TestAnswerEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            TestAnswerEntry.COLUMN_QUESTION_ID + " INTEGER NOT NULL, " +
-            TestAnswerEntry.COLUMN_ANSWER_ID + " INTEGER NOT NULL, " +
-            TestAnswerEntry.COLUMN_ANSWER_CONTENT + " TEXT NOT NULL, " +
-            TestAnswerEntry.COLUMN_IS_ANSWER + " INT NOT NULL, " +
+    private static final String SQL_CREATE_TEST_ANSWER_TABLE = "CREATE TABLE " + AnswerEntry.TABLE_NAME + " (" +
+            AnswerEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            AnswerEntry.COLUMN_QUESTION_ID + " INTEGER NOT NULL, " +
+            AnswerEntry.COLUMN_ANSWER_ID + " INTEGER NOT NULL, " +
+            AnswerEntry.COLUMN_ANSWER_CONTENT + " TEXT NOT NULL, " +
+            AnswerEntry.COLUMN_IS_ANSWER + " INT NOT NULL, " +
 
-            " UNIQUE (" + TestAnswerEntry.COLUMN_ANSWER_ID + ") ON CONFLICT IGNORE" +
+            " UNIQUE (" + AnswerEntry.COLUMN_ANSWER_ID + ") ON CONFLICT IGNORE" +
             " );";
 
     private static final String SQL_CREATE_CHAPTER_TABLE = "CREATE TABLE " + ChapterEntry.TABLE_NAME + " (" +
@@ -223,6 +223,7 @@ public class CourseDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_COURSE_CATEGORY_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_COURSE_TEST_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_TEST_QUESTION_TABLE);
+        sqLiteDatabase.execSQL(SQL_CREATE_TEST_ANSWER_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_CHAPTER_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_LESSON_CARD_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_DISCUSSION_TABLE);
@@ -239,8 +240,9 @@ public class CourseDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + AuthorEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CourseTagEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CourseCategoryEntry.TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CourseTestEntry.TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TestQuestionEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CourseLessonEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + QuestionEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + AnswerEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ChapterEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + LessonCardEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + DiscussionEntry.TABLE_NAME);

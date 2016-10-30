@@ -102,6 +102,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Base.NoActionBar"
             android:noHistory="true" />
+        <activity android:name=".activities.CourseLessonActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Base.NoActionBar.FullScreen"
+            android:noHistory="true" />
     </application>
 
 </manifest>

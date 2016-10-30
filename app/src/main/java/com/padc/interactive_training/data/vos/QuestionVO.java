@@ -14,7 +14,7 @@ import java.util.List;
  * Created by NayLinAung on 10/29/2016.
  */
 
-public class TestQuestionVO {
+public class QuestionVO {
 
     @SerializedName("question_id")
     private String questionId;
@@ -29,7 +29,7 @@ public class TestQuestionVO {
     private String testType;
 
     @SerializedName("answers")
-    private List<TestAnswerVO> testAnswers;
+    private List<AnswerVO> testAnswers;
 
     public String getQuestionId() {
         return questionId;
@@ -63,27 +63,27 @@ public class TestQuestionVO {
         this.testType = testType;
     }
 
-    public List<TestAnswerVO> getTestAnswers() {
+    public List<AnswerVO> getTestAnswers() {
         return testAnswers;
     }
 
-    public void setTestAnswers(List<TestAnswerVO> testAnswers) {
+    public void setTestAnswers(List<AnswerVO> testAnswers) {
         this.testAnswers = testAnswers;
     }
 
-    public static void saveTestQuestions(String courseTestId, List<TestQuestionVO> testQuestions) {
+    public static void saveTestQuestions(String courseTestId, List<QuestionVO> testQuestions) {
         Log.d(InteractiveTrainingApp.TAG, "Method: TestQuestions. Loaded items: " + testQuestions.size());
 
         ContentValues[] testQuestionCVs = new ContentValues[testQuestions.size()];
         for (int index = 0; index < testQuestions.size(); index++) {
-            TestQuestionVO testQuestion = testQuestions.get(index);
+            QuestionVO testQuestion = testQuestions.get(index);
             testQuestionCVs[index] = testQuestion.parseToContentValues(courseTestId);
 
             Log.d(InteractiveTrainingApp.TAG, "Method: TestQuestions. Qeustion Text: " + testQuestion.getQuestionText());
         }
 
         Context context = InteractiveTrainingApp.getContext();
-        int insertCount = context.getContentResolver().bulkInsert(CoursesContract.TestQuestionEntry.CONTENT_URI, testQuestionCVs);
+        int insertCount = context.getContentResolver().bulkInsert(CoursesContract.QuestionEntry.CONTENT_URI, testQuestionCVs);
 
         Log.d(InteractiveTrainingApp.TAG, "Bulk inserted into testQuestions table : " + insertCount);
     }
@@ -91,11 +91,10 @@ public class TestQuestionVO {
     public ContentValues parseToContentValues(String courseTestId) {
         ContentValues cv = new ContentValues();
 
-        cv.put(CoursesContract.TestQuestionEntry.COLUMN_TEST_ID, courseTestId);
-        cv.put(CoursesContract.TestQuestionEntry.COLUMN_QUESTION_ID, this.questionId);
-        cv.put(CoursesContract.TestQuestionEntry.COLUMN_QUESTION_TEXT, this.questionText);
-        cv.put(CoursesContract.TestQuestionEntry.COLUMN_QUESTION_TYPE, this.questionType);
-        cv.put(CoursesContract.TestQuestionEntry.COLUMN_TEST_TYPE, this.testType);
+        cv.put(CoursesContract.QuestionEntry.COLUMN_LESSON_ID, courseTestId);
+        cv.put(CoursesContract.QuestionEntry.COLUMN_QUESTION_ID, this.questionId);
+        cv.put(CoursesContract.QuestionEntry.COLUMN_QUESTION_TEXT, this.questionText);
+        cv.put(CoursesContract.QuestionEntry.COLUMN_QUESTION_TYPE, this.questionType);
 
         return cv;
     }

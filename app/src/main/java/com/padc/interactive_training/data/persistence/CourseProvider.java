@@ -27,8 +27,9 @@ public class CourseProvider extends ContentProvider {
     public static final int COURSE_TODOITEM = 1000;
     public static final int USER = 1100;
     public static final int ARTICLE = 1200;
-    public static final int COURSE_TEST = 1300;
-    public static final int TEST_QUESTION = 1400;
+    public static final int COURSE_LESSON = 1300;
+    public static final int QUESTION = 1400;
+    public static final int ANSWER = 1500;
 
     private static final String sCourseTitleSelection = CoursesContract.CourseEntry.COLUMN_TITLE + " = ?";
     private static final String sAuthorNameSelection = CoursesContract.AuthorEntry.COLUMN_AUTHOR_NAME + " = ?";
@@ -41,8 +42,9 @@ public class CourseProvider extends ContentProvider {
     private static final String sTodoListSelection = CoursesContract.TodoListEntry.COLUMN_COURSE_TITLE + " = ?";
     private static final String sTodoItemSelection = CoursesContract.TodoItemEntry.COLUMN_TODO_LIST_ID + " = ?";
     private static final String sArticleSelection = CoursesContract.ArticleEntry.COLUMN_ARTICLE_ID + " = ?";
-    private static final String sCourseTestSelection = CoursesContract.CourseTestEntry.COLUMN_COURSE_TITLE + " = ?";
-    private static final String sTestQuestionSelection = CoursesContract.TestQuestionEntry.COLUMN_TEST_ID + " = ?";
+    private static final String sCourseTestSelection = CoursesContract.CourseLessonEntry.COLUMN_COURSE_TITLE + " = ?";
+    private static final String sQuestionSelection = CoursesContract.QuestionEntry.COLUMN_LESSON_ID + " = ?";
+    private static final String sAnswerSelection = CoursesContract.AnswerEntry.COLUMN_QUESTION_ID + " = ?";
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private CourseDBHelper mCourseDBHelper;
@@ -62,8 +64,9 @@ public class CourseProvider extends ContentProvider {
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_TODOITEM, COURSE_TODOITEM);
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_USER, USER);
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_ARTICLES, ARTICLE);
-        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_TEST, COURSE_TEST);
-        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_TEST_QUESTION, TEST_QUESTION);
+        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_LESSON, COURSE_LESSON);
+        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_QUESTION, QUESTION);
+        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_ANSWER, ANSWER);
 
         return uriMatcher;
     }
@@ -227,13 +230,13 @@ public class CourseProvider extends ContentProvider {
                         null, //having
                         sortOrder);
                 break;
-            case COURSE_TEST:
-                String courseTestTitle = CoursesContract.CourseTestEntry.getCourseTitleFromParam(uri);
+            case COURSE_LESSON:
+                String courseTestTitle = CoursesContract.CourseLessonEntry.getCourseTitleFromParam(uri);
                 if (!TextUtils.isEmpty(courseTestTitle)) {
                     selection = sCourseTestSelection;
                     selectionArgs = new String[]{courseTestTitle};
                 }
-                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.CourseTestEntry.TABLE_NAME,
+                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.CourseLessonEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -241,13 +244,27 @@ public class CourseProvider extends ContentProvider {
                         null, //having
                         sortOrder);
                 break;
-            case TEST_QUESTION:
-                String testId = CoursesContract.TestQuestionEntry.getTestIdFromParam(uri);
-                if (!TextUtils.isEmpty(testId)) {
-                    selection = sTestQuestionSelection;
-                    selectionArgs = new String[]{testId};
+            case QUESTION:
+                String lessonId = CoursesContract.QuestionEntry.getLessonIdFromParam(uri);
+                if (!TextUtils.isEmpty(lessonId)) {
+                    selection = sQuestionSelection;
+                    selectionArgs = new String[]{lessonId};
                 }
-                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.TestQuestionEntry.TABLE_NAME,
+                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.QuestionEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null, //group_by
+                        null, //having
+                        sortOrder);
+                break;
+            case ANSWER:
+                String questionId = CoursesContract.AnswerEntry.getQuestionIdFromParam(uri);
+                if (!TextUtils.isEmpty(questionId)) {
+                    selection = sQuestionSelection;
+                    selectionArgs = new String[]{questionId};
+                }
+                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.AnswerEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -323,10 +340,10 @@ public class CourseProvider extends ContentProvider {
                 }
                 break;
             }
-            case COURSE_TEST: {
-                long _id = db.insert(CoursesContract.CourseTestEntry.TABLE_NAME, null, contentValues);
+            case COURSE_LESSON: {
+                long _id = db.insert(CoursesContract.CourseLessonEntry.TABLE_NAME, null, contentValues);
                 if (_id > 0) {
-                    insertedUri = CoursesContract.CourseTestEntry.buildCourseTestUri(_id);
+                    insertedUri = CoursesContract.CourseLessonEntry.buildCourseLessonUri(_id);
                 } else {
                     // throw new SQLException("Failed to insert row into " + uri);
                 }
@@ -428,10 +445,12 @@ public class CourseProvider extends ContentProvider {
                 return CoursesContract.UserEntry.TABLE_NAME;
             case ARTICLE:
                 return CoursesContract.ArticleEntry.TABLE_NAME;
-            case COURSE_TEST:
-                return CoursesContract.CourseTestEntry.TABLE_NAME;
-            case TEST_QUESTION:
-                return CoursesContract.TestQuestionEntry.TABLE_NAME;
+            case COURSE_LESSON:
+                return CoursesContract.CourseLessonEntry.TABLE_NAME;
+            case QUESTION:
+                return CoursesContract.QuestionEntry.TABLE_NAME;
+            case ANSWER:
+                return CoursesContract.AnswerEntry.TABLE_NAME;
             default:
                 throw new UnsupportedOperationException("Unknown uri : " + uri);
         }

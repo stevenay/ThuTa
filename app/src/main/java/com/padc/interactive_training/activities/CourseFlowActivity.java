@@ -31,6 +31,7 @@ import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.R;
 import com.padc.interactive_training.data.models.CourseModel;
 import com.padc.interactive_training.data.persistence.CoursesContract;
+import com.padc.interactive_training.data.vos.CourseLessonVO;
 import com.padc.interactive_training.data.vos.LessonCardVO;
 import com.padc.interactive_training.data.vos.TodoListVO;
 import com.padc.interactive_training.fragments.ChapterIntroFragment;
@@ -69,6 +70,9 @@ public class CourseFlowActivity extends AppCompatActivity
     @BindView(R.id.btn_todo_list)
     Button btnTodoList;
 
+    @BindView(R.id.btn_lesson)
+    Button btnLesson;
+
     @BindView(R.id.fl_container)
     FrameLayout flContainer;
 
@@ -80,6 +84,7 @@ public class CourseFlowActivity extends AppCompatActivity
     private String mFirstChapterId = "";
     private int mLastAccessCardIndex = -1;
     private TodoListVO mAccessTodoList;
+    private CourseLessonVO mAccessCourseLesson;
 
     private static final String IE_CHAPTER_ID = "IE_CHAPTER_ID";
     private static final String IE_COURSE_TITLE = "IE_COURSE_TITLE";
@@ -88,6 +93,7 @@ public class CourseFlowActivity extends AppCompatActivity
     private String mCourseTitle;
     private static final int navigateToLessonCard = 1;
     protected static final int RC_TODO_LIST = 1236;
+    protected static final int RC_COURSE_LESSON = 1237;
 
     RelativeLayout relativeLayout;
 
@@ -170,11 +176,21 @@ public class CourseFlowActivity extends AppCompatActivity
             }
 
             String tempChapterId = CourseModel.getInstance().getLessonCardbyIndex(cardIndex + 1).getChapterId();
+            String nextChapterId = CourseModel.getInstance().getLessonCardbyIndex(cardIndex + 2).getChapterId();
 
             if (chapterIntro) {
                 chapterIntro = false;
+            } else if (!nextChapterId.isEmpty() && !this.currentChapterId.equals(nextChapterId)) {
+                CourseLessonVO courseLesson = CourseModel.getInstance().getCourseLessonbyChapterId(currentChapterId);
+                if (courseLesson != null && !courseLesson.isFinishAccess())
+                {
+                    mAccessCourseLesson = courseLesson;
+                    btnNext.setVisibility(View.GONE);
+                    btnLesson.setVisibility(View.VISIBLE);
+                }
             } else if (!currentChapterId.isEmpty() && !this.currentChapterId.equals(tempChapterId)) {
                 chapterIntro = true;
+
                 currentChapterId = tempChapterId;
                 CourseModel.getInstance().setChapterUnLock(currentChapterId);
                 navigateToNewChapterIntro(currentChapterId, "next");
@@ -249,6 +265,11 @@ public class CourseFlowActivity extends AppCompatActivity
     public void onbtnTodoList(Button view) {
         navigateToTodoList();
     }
+
+    @OnClick(R.id.btn_lesson)
+    public void onbtnLesson(Button view) {
+        navigateToLesson();
+    }
     //endregion
 
     //region NavigationMethods
@@ -295,6 +316,13 @@ public class CourseFlowActivity extends AppCompatActivity
         if (mAccessTodoList != null) {
             Intent intent = TodoListActivity.newIntent(mAccessTodoList.getTodoListId());
             startActivityForResult(intent, RC_TODO_LIST);
+        }
+    }
+
+    private void navigateToLesson() {
+        if (mAccessCourseLesson != null) {
+            Intent intent = CourseLessonActivity.newIntent();
+            startActivityForResult(intent, RC_COURSE_LESSON);
         }
     }
     //endregion
@@ -411,6 +439,15 @@ public class CourseFlowActivity extends AppCompatActivity
             mAccessTodoList = null;
         }
         btnTodoList.setVisibility(View.GONE);
+        btnNext.setVisibility(View.VISIBLE);
+    }
+
+    public void onAccessCourseLesson() {
+        if (mAccessCourseLesson != null) {
+            mAccessCourseLesson.setFinishAccess(true);
+            mAccessCourseLesson = null;
+        }
+        btnLesson.setVisibility(View.GONE);
         btnNext.setVisibility(View.VISIBLE);
     }
 

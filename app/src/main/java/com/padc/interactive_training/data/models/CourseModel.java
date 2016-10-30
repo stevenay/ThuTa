@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.padc.interactive_training.InteractiveTrainingApp;
-import com.padc.interactive_training.data.vos.ArticleVO;
 import com.padc.interactive_training.data.vos.ChapterVO;
+import com.padc.interactive_training.data.vos.CourseLessonVO;
 import com.padc.interactive_training.data.vos.CourseVO;
 import com.padc.interactive_training.data.vos.DiscussionVO;
 import com.padc.interactive_training.data.vos.LessonCardVO;
@@ -35,7 +35,7 @@ public class CourseModel extends BaseModel {
     private List<DiscussionVO> mCurrentAccessDiscussionList;
     private List<TodoListVO> mCurrentTodoList;
     private List<TodoItemVO> mCurrentTodoItemList;
-    private List<ArticleVO> mArticleList;
+    private List<CourseLessonVO> mCurrentCourseLessonList;
 
     private CourseVO mFeaturedCourse;
 
@@ -241,6 +241,23 @@ public class CourseModel extends BaseModel {
             mCurrentTodoList = TodoListVO.loadTodoListbyCourseTitle(getStoredFeaturedCourseData().getTitle());
 
         return mCurrentTodoList;
+    }
+
+    public List<CourseLessonVO> getCourseLessonData() {
+        if (mCurrentCourseLessonList == null || mCurrentCourseLessonList.size() <= 0)
+            mCurrentCourseLessonList = CourseLessonVO.loadCourseLessonbyCourseTitle(getStoredFeaturedCourseData().getTitle());
+
+        return mCurrentCourseLessonList;
+    }
+
+    public CourseLessonVO getCourseLessonbyChapterId(String chapterId) {
+        for (CourseLessonVO s : getCourseLessonData()) {
+            if (s.getChapterId().equals(chapterId)) {
+                return s;
+            }
+        }
+
+        return null;
     }
 
     public TodoListVO getTodoListbyListId(String listId) {

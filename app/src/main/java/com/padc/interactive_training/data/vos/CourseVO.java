@@ -61,8 +61,8 @@ public class CourseVO {
     @SerializedName("to_do_list")
     private TodoListVO todoList;
 
-    @SerializedName("course_test")
-    private CourseTestVO courseTest;
+    @SerializedName("course_lesson")
+    private CourseLessonVO courseLesson;
 
     @SerializedName("last_accessed_card_id")
     private String lastAccessedCardId;
@@ -71,12 +71,12 @@ public class CourseVO {
 
     private boolean registered;
 
-    public CourseTestVO getCourseTest() {
-        return courseTest;
+    public CourseLessonVO getCourseLesson() {
+        return courseLesson;
     }
 
-    public void setCourseTest(CourseTestVO courseTest) {
-        this.courseTest = courseTest;
+    public void setCourseLesson(CourseLessonVO courseLesson) {
+        this.courseLesson = courseLesson;
     }
 
     public boolean isRegistered() {
@@ -219,8 +219,7 @@ public class CourseVO {
             ChapterVO.saveChapters(course.getTitle(), course.getChapters());
             DiscussionVO.saveDiscussions(course.getTitle(), course.getDiscussions());
             TodoListVO.saveTodoList(course.getTitle(), course.getTodoList());
-            CourseTestVO.saveCourseTest(course.getTitle(), course.getCourseTest());
-
+            CourseLessonVO.saveCourseLesson(course.getTitle(), course.getCourseLesson());
         }
 
         //Bulk insert into attractions.

@@ -1,0 +1,81 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    tools:context="com.padc.interactive_training.fragments.MultipleChoiceFragment">
+
+    <TextView
+        android:id="@+id/tv_screen_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_medium_2"
+        android:text="@string/txt_multiple_choice"
+        android:textAllCaps="true"
+        android:textColor="@color/white_full"
+        android:textSize="@dimen/text_regular_2x"
+        android:textStyle="bold" />
+
+    <com.padc.interactive_training.components.MMTextView
+        android:id="@+id/tv_question_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_screen_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin_medium_2"
+        android:layout_marginLeft="@dimen/margin_large"
+        android:layout_marginRight="@dimen/margin_large"
+        android:layout_marginTop="@dimen/margin_medium_2"
+        android:gravity="center_horizontal"
+        android:lineSpacingMultiplier="1.2"
+        android:text="UX နဲ႕ Technology နဲ႔ ယွဥ္ၿပီး စဥ္းစားရေတာ့မယ္ဆိုရင္ ဘယ္ဟာကို ဦးစားေပးသင့္လဲ ?"
+        android:textColor="@color/white_full"
+        android:textSize="@dimen/text_regular_2.5x" />
+
+    <RadioGroup
+        android:id="@+id/rdo_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_question_text"
+        android:layout_marginLeft="@dimen/margin_medium_2"
+        android:layout_marginRight="@dimen/margin_medium_2"
+        android:orientation="vertical">
+
+        <com.padc.interactive_training.components.MMRadioButton
+            android:id="@+id/rdo_choice_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_medium_2"
+            android:buttonTint="@color/primary"
+            android:checked="true"
+            android:text="UX ကို ဦးစားေပးမယ္။"
+            android:textColor="@color/text_black_ish"
+            android:textSize="@dimen/text_regular_2x" />
+
+        <com.padc.interactive_training.components.MMRadioButton
+            android:id="@+id/rdo_choice_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_medium_2"
+            android:buttonTint="@color/primary"
+            android:checked="false"
+            android:text="Technology က ပိုအေရးႀကီးတယ္။"
+            android:textColor="@color/text_black_ish"
+            android:textSize="@dimen/text_regular_2x" />
+
+        <com.padc.interactive_training.components.MMRadioButton
+            android:id="@+id/rdo_choice_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_medium_2"
+            android:buttonTint="@color/primary"
+            android:checked="false"
+            android:text="နွစ္ခုလံုး မၽွစဥ္းစားသင့္တယ္။"
+            android:textColor="@color/text_black_ish"
+            android:textSize="@dimen/text_regular_2x" />
+
+    </RadioGroup>
+
+</RelativeLayout>

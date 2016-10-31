@@ -101,6 +101,22 @@
                 android:src="@drawable/ic_record_voice_over_24dp" />
 
             <Button
+                android:id="@+id/btn_course_lesson"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_toRightOf="@id/btn_request_article"
+                android:layout_marginLeft="@dimen/margin_medium_1"
+                android:layout_marginBottom="12dp"
+                android:paddingLeft="@dimen/margin_medium"
+                android:paddingRight="@dimen/margin_medium"
+                android:background="@drawable/bg_no_border_button"
+                android:text="1 course lesson"
+                android:textColor="@color/text_white_ish"
+                android:textSize="@dimen/text_small"
+                android:textAllCaps="false"
+                android:visibility="invisible" />
+
+            <Button
                 android:id="@+id/btn_todo_lists"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"

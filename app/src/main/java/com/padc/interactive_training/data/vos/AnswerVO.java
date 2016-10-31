@@ -2,12 +2,14 @@ package com.padc.interactive_training.data.vos;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.data.persistence.CoursesContract;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +25,7 @@ public class AnswerVO {
     private String answerContent;
 
     @SerializedName("is_answer")
-    private String isAnswer;
+    private Boolean isAnswer;
 
     public String getAnswerId() {
         return answerId;
@@ -41,12 +43,12 @@ public class AnswerVO {
         this.answerContent = answerContent;
     }
 
-    public String getIsAnswer() {
+    public Boolean getIsAnswer() {
         return isAnswer;
     }
 
-    public void setIsAnswer(String isAnswer) {
-        this.isAnswer = isAnswer;
+    public void setIsAnswer(Boolean answer) {
+        isAnswer = answer;
     }
 
     public static void saveAnswers(String questionId, List<AnswerVO> answers) {
@@ -72,8 +74,28 @@ public class AnswerVO {
         cv.put(CoursesContract.AnswerEntry.COLUMN_QUESTION_ID, questionId);
         cv.put(CoursesContract.AnswerEntry.COLUMN_ANSWER_ID, this.answerId);
         cv.put(CoursesContract.AnswerEntry.COLUMN_ANSWER_CONTENT, this.answerContent);
-        cv.put(CoursesContract.AnswerEntry.COLUMN_IS_ANSWER, this.isAnswer);
+        cv.put(CoursesContract.AnswerEntry.COLUMN_IS_ANSWER, this.isAnswer ? 1 : 0);
 
         return cv;
+    }
+
+    public static List<AnswerVO> loadAnswersByQuestionId(String questionId) {
+        Context context = InteractiveTrainingApp.getContext();
+        ArrayList<AnswerVO> answers = new ArrayList<>();
+
+        Cursor cursor = context.getContentResolver().query(CoursesContract.AnswerEntry.buildAnswerUriWithQuestionId(questionId),
+                null, null, null, null);
+
+        if(cursor != null && cursor.moveToFirst()) {
+            do {
+                AnswerVO answer = new AnswerVO();
+                answer.setAnswerId(cursor.getString(cursor.getColumnIndex(CoursesContract.AnswerEntry.COLUMN_ANSWER_ID)));
+                answer.setAnswerContent(cursor.getString(cursor.getColumnIndex(CoursesContract.AnswerEntry.COLUMN_ANSWER_CONTENT)));
+                answer.setIsAnswer(cursor.getInt(cursor.getColumnIndex(CoursesContract.AnswerEntry.COLUMN_IS_ANSWER)) == 1 ? true : false);
+                answers.add(answer);
+            } while (cursor.moveToNext());
+        }
+
+        return answers;
     }
 }

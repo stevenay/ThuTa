@@ -102,23 +102,25 @@ public class QuestionVO {
         return cv;
     }
 
-    public static List<AnswerVO> loadAnswersByQuestionId(String questionId) {
+    public static List<QuestionVO> loadQuestionsByLessonId(String lessonId) {
         Context context = InteractiveTrainingApp.getContext();
-        ArrayList<AnswerVO> answers = new ArrayList<>();
+        ArrayList<QuestionVO> questions = new ArrayList<>();
 
-        Cursor cursor = context.getContentResolver().query(CoursesContract.AnswerEntry.buildAnswerUriWithQuestionId(questionId),
+        Cursor cursor = context.getContentResolver().query(CoursesContract.QuestionEntry.buildQuestionUriWithLessonId(lessonId),
                 null, null, null, null);
 
         if(cursor != null && cursor.moveToFirst()) {
             do {
-                AnswerVO answer = new AnswerVO();
-                answer.setAnswerId(cursor.getString(cursor.getColumnIndex(CoursesContract.AnswerEntry.COLUMN_ANSWER_ID)));
-                answer.setAnswerContent(cursor.getString(cursor.getColumnIndex(CoursesContract.AnswerEntry.COLUMN_ANSWER_CONTENT)));
-                answer.setIsAnswer(cursor.getString(cursor.getColumnIndex(CoursesContract.AnswerEntry.COLUMN_IS_ANSWER)));
-                answers.add(answer);
+                QuestionVO question = new QuestionVO();
+                question.setQuestionId(cursor.getString(cursor.getColumnIndex(CoursesContract.QuestionEntry.COLUMN_QUESTION_ID)));
+                question.setQuestionText(cursor.getString(cursor.getColumnIndex(CoursesContract.QuestionEntry.COLUMN_QUESTION_TEXT)));
+                question.setQuestionType(cursor.getString(cursor.getColumnIndex(CoursesContract.QuestionEntry.COLUMN_QUESTION_TYPE)));
+
+                question.setAnswers(AnswerVO.loadAnswersByQuestionId(question.getQuestionId()));
+                questions.add(question);
             } while (cursor.moveToNext());
         }
 
-        return answers;
+        return questions;
     }
 }

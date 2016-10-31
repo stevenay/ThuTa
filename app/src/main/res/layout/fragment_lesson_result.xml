@@ -1,0 +1,50 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    tools:context="com.padc.interactive_training.fragments.LessonResultFragment">
+
+    <TextView
+        android:id="@+id/tv_screen_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_medium_2"
+        android:text="Result"
+        android:textAllCaps="true"
+        android:textColor="@color/white_full"
+        android:textSize="@dimen/text_regular_2x"
+        android:textStyle="bold" />
+
+    <com.padc.interactive_training.components.MMTextView
+        android:id="@+id/tv_question_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_screen_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin_medium_2"
+        android:layout_marginLeft="@dimen/margin_large"
+        android:layout_marginRight="@dimen/margin_large"
+        android:layout_marginTop="@dimen/margin_xxlarge"
+        android:gravity="left"
+        android:lineSpacingMultiplier="1.2"
+        android:text="UX ဆိုတာ User ေတြအတြက္ အသံုးျပဳရ လြယ္ကူသြားေအာင္ ျပဳလုပ္ေပးတဲ့ Design Process တစ္ခုပါ။
+ဒါကို user-centric လုိ႔ ေခၚၾကပါတယ္
+App တစ္ခုေရးတဲ့အခါ UX ဆိုတာ ဘာမွမလုပ္ခင္ ၿကိုတင္ၿပီး စဥ္းစားထားဖို႔ဆိုတာ ခက္ပါတယ္။ App ကို develop လုပ္ေနရင္းနဲ႔မွ တစ္ဆင့္ျခင္း review လုပ္ရင္း ပိုေကာင္းေအာင္ ျပဳလုပ္ရတာမ်ိဳး ျဖစ္ပါတယ္။"
+        android:textColor="@color/white_full"
+        android:textSize="@dimen/text_regular_2.5x" />
+
+    <Button
+        android:id="@+id/btn_finish"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/btn_big"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/margin_medium_2"
+        android:text="OK, Got it!"
+        android:textSize="@dimen/text_regular_2x"
+        android:textStyle="bold" />
+
+</RelativeLayout>
+

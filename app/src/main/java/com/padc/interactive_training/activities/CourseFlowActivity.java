@@ -80,6 +80,7 @@ public class CourseFlowActivity extends AppCompatActivity
     private int totalCardNumber;
     private boolean chapterIntro = true;
     private boolean chapterIntroFromPrev;
+    private boolean hasLesson = false;
     private String currentChapterId = "";
     private String mFirstChapterId = "";
     private int mLastAccessCardIndex = -1;
@@ -111,6 +112,8 @@ public class CourseFlowActivity extends AppCompatActivity
 
         if (requestCode == RC_TODO_LIST) {
             this.onAccessTodoList();
+        } else if (requestCode == RC_COURSE_LESSON) {
+            this.onAccessCourseLesson();
         }
     }
 
@@ -165,6 +168,8 @@ public class CourseFlowActivity extends AppCompatActivity
 
     @OnClick(R.id.btn_next)
     public void onbtnNextPressed(Button view) {
+        this.hasLesson = false;
+
         if ((cardIndex + 1) < totalCardNumber) {
 
             String cardId = CourseModel.getInstance().getLessonCardbyIndex(cardIndex + 1).getCardId();
@@ -176,18 +181,28 @@ public class CourseFlowActivity extends AppCompatActivity
             }
 
             String tempChapterId = CourseModel.getInstance().getLessonCardbyIndex(cardIndex + 1).getChapterId();
-            String nextChapterId = CourseModel.getInstance().getLessonCardbyIndex(cardIndex + 2).getChapterId();
+
+            String nextChapterId = "";
+            if (CourseModel.getInstance().getLessonCardbyIndex(cardIndex + 2) != null) {
+                nextChapterId = CourseModel.getInstance().getLessonCardbyIndex(cardIndex + 2).getChapterId();
+            }
+
+            if (!nextChapterId.isEmpty() && !this.currentChapterId.equals(nextChapterId)) {
+                CourseLessonVO courseLesson = CourseModel.getInstance().getCourseLessonbyChapterId(currentChapterId);
+                if (courseLesson != null)
+                {
+                    if (!courseLesson.isFinishAccess()) {
+                        mAccessCourseLesson = courseLesson;
+                        btnNext.setVisibility(View.GONE);
+                        btnLesson.setVisibility(View.VISIBLE);
+                    }
+
+                    hasLesson = true;
+                }
+            }
 
             if (chapterIntro) {
                 chapterIntro = false;
-            } else if (!nextChapterId.isEmpty() && !this.currentChapterId.equals(nextChapterId)) {
-                CourseLessonVO courseLesson = CourseModel.getInstance().getCourseLessonbyChapterId(currentChapterId);
-                if (courseLesson != null && !courseLesson.isFinishAccess())
-                {
-                    mAccessCourseLesson = courseLesson;
-                    btnNext.setVisibility(View.GONE);
-                    btnLesson.setVisibility(View.VISIBLE);
-                }
             } else if (!currentChapterId.isEmpty() && !this.currentChapterId.equals(tempChapterId)) {
                 chapterIntro = true;
 
@@ -220,6 +235,8 @@ public class CourseFlowActivity extends AppCompatActivity
 
     @OnClick(R.id.btn_previous)
     public void onbtnPreviousPressed(Button view) {
+        this.hasLesson = false;
+
         if (btnTodoList.getVisibility() == View.VISIBLE) {
             btnTodoList.setVisibility(View.INVISIBLE);
             btnNext.setVisibility(View.VISIBLE);
@@ -246,6 +263,19 @@ public class CourseFlowActivity extends AppCompatActivity
                 cardIndex--;
                 this.setProgressBar(cardIndex);
                 chapterIntroFromPrev = false;
+
+                String prevChapterId = "";
+                if (CourseModel.getInstance().getLessonCardbyIndex(cardIndex) != null) {
+                    prevChapterId = CourseModel.getInstance().getLessonCardbyIndex(cardIndex).getChapterId();
+                }
+
+                if (!prevChapterId.isEmpty()) {
+                    CourseLessonVO courseLesson = CourseModel.getInstance().getCourseLessonbyChapterId(prevChapterId);
+                    if (courseLesson != null)
+                    {
+                        hasLesson = true;
+                    }
+                }
             }
 
             currentChapterId = tempChapterId;
@@ -276,19 +306,19 @@ public class CourseFlowActivity extends AppCompatActivity
     private void navigateToLessonCard(int cardIndex, String direction) {
 
         if (direction == "next") {
-            LessonCardFragment fragment = LessonCardFragment.newInstance(cardIndex, totalCardNumber);
+            LessonCardFragment fragment = LessonCardFragment.newInstance(cardIndex, totalCardNumber, this.hasLesson);
             getSupportFragmentManager().beginTransaction()
                     .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left)
                     .replace(R.id.fl_container, fragment)
                     .commit();
         } else if (direction == "prev") {
-            LessonCardFragment fragment = LessonCardFragment.newInstance(cardIndex, totalCardNumber);
+            LessonCardFragment fragment = LessonCardFragment.newInstance(cardIndex, totalCardNumber, this.hasLesson);
             getSupportFragmentManager().beginTransaction()
                     .setCustomAnimations(R.anim.slide_in_fragment, R.anim.slide_out_fragment)
                     .replace(R.id.fl_container, fragment)
                     .commit();
         } else {
-            LessonCardFragment fragment = LessonCardFragment.newInstance(cardIndex, totalCardNumber);
+            LessonCardFragment fragment = LessonCardFragment.newInstance(cardIndex, totalCardNumber, this.hasLesson);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fl_container, fragment)
                     .commit();

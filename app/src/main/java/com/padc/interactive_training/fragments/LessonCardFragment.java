@@ -22,10 +22,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.padc.interactive_training.R;
+import com.padc.interactive_training.activities.CourseLessonActivity;
 import com.padc.interactive_training.activities.TodoListActivity;
 import com.padc.interactive_training.adapters.TodoAdapter;
 import com.padc.interactive_training.data.models.CourseModel;
 import com.padc.interactive_training.data.vos.ChapterVO;
+import com.padc.interactive_training.data.vos.CourseLessonVO;
 import com.padc.interactive_training.data.vos.CourseVO;
 import com.padc.interactive_training.data.vos.LessonCardVO;
 import com.padc.interactive_training.data.vos.TodoListVO;
@@ -48,6 +50,9 @@ public class LessonCardFragment extends Fragment {
     @BindView(R.id.btn_todo_lists)
     Button btnTodoLists;
 
+    @BindView(R.id.btn_course_lesson)
+    Button btnCourseLesson;
+
     @BindView(R.id.iv_lesson_image)
     ImageView ivLessonImage;
 
@@ -63,12 +68,16 @@ public class LessonCardFragment extends Fragment {
     private LessonCardVO mLessonCard;
     private ControllerLessonCard mController;
     protected static final int RC_TODO_LIST = 1237;
+    protected static final int RC_COURSE_LESSON = 1238;
 
     private static final String BK_CARD_INDEX = "BK_CARD_INDEX";
     private static final String BK_CARD_COUNT = "BK_CARD_COUNT";
+    private static final String BK_HAS_LESSON = "BK_HAS_LESSON";
     private int mCardIndex;
     private int mTotalCardinChapter;
+    private boolean mHasLesson;
     private TodoListVO mCurrentTodoList;
+    private CourseLessonVO mCurrentCourseLesson;
 
     private static final int SWIPE_MIN_DISTANCE = 120;
     private static final int SWIPE_MAX_OFF_PATH = 250;
@@ -77,8 +86,14 @@ public class LessonCardFragment extends Fragment {
     View.OnTouchListener gestureListener;
 
     public static LessonCardFragment newInstance(int cardIndex, int totalCardinChapter) {
+        LessonCardFragment fragment = LessonCardFragment.newInstance(cardIndex, totalCardinChapter, false);
+        return fragment;
+    }
+
+    public static LessonCardFragment newInstance(int cardIndex, int totalCardinChapter, boolean hasLesson) {
         LessonCardFragment fragment = new LessonCardFragment();
         Bundle bundle = new Bundle();
+        bundle.putBoolean(BK_HAS_LESSON, hasLesson);
         bundle.putInt(BK_CARD_INDEX, cardIndex);
         bundle.putInt(BK_CARD_COUNT, totalCardinChapter);
         fragment.setArguments(bundle);
@@ -104,6 +119,7 @@ public class LessonCardFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
+            mHasLesson = bundle.getBoolean(BK_HAS_LESSON, false);
             mCardIndex = bundle.getInt(BK_CARD_INDEX, 0);
             mTotalCardinChapter = bundle.getInt(BK_CARD_COUNT, 0);
             mLessonCard = CourseModel.getInstance().getLessonCardbyIndex(mCardIndex);
@@ -193,6 +209,10 @@ public class LessonCardFragment extends Fragment {
             mCurrentTodoList = todoList;
             btnTodoLists.setVisibility(View.VISIBLE);
         }
+
+        if (mHasLesson) {
+            btnCourseLesson.setVisibility(View.VISIBLE);
+        }
     }
 
     @OnClick(R.id.btn_pin)
@@ -211,6 +231,14 @@ public class LessonCardFragment extends Fragment {
         if (mCurrentTodoList != null) {
             Intent intent = TodoListActivity.newIntent(mCurrentTodoList.getTodoListId());
             startActivityForResult(intent, RC_TODO_LIST);
+        }
+    }
+
+    @OnClick(R.id.btn_course_lesson)
+    public void onbtnCourseLesson(View button) {
+        if (mCurrentCourseLesson != null) {
+            Intent intent = CourseLessonActivity.newIntent("Improve your App with Strong UX", "6789012346");
+            startActivityForResult(intent, RC_COURSE_LESSON);
         }
     }
 

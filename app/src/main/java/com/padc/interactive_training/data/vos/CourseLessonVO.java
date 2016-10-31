@@ -130,26 +130,4 @@ public class CourseLessonVO {
 
         return courseLessons;
     }
-
-    public static List<QuestionVO> loadQuestionsByLessonId(String lessonId) {
-        Context context = InteractiveTrainingApp.getContext();
-        ArrayList<QuestionVO> questions = new ArrayList<>();
-
-        Cursor cursor = context.getContentResolver().query(CoursesContract.QuestionEntry.buildQuestionUriWithLessonId(lessonId),
-                null, null, null, null);
-
-        if(cursor != null && cursor.moveToFirst()) {
-            do {
-                QuestionVO question = new QuestionVO();
-                question.setQuestionId(cursor.getString(cursor.getColumnIndex(CoursesContract.QuestionEntry.COLUMN_QUESTION_ID)));
-                question.setQuestionText(cursor.getString(cursor.getColumnIndex(CoursesContract.QuestionEntry.COLUMN_QUESTION_TEXT)));
-                question.setQuestionType(cursor.getString(cursor.getColumnIndex(CoursesContract.QuestionEntry.COLUMN_QUESTION_TYPE)));
-
-                question.setAnswers(QuestionVO.loadAnswersByQuestionId(question.getQuestionId()));
-                questions.add(question);
-            } while (cursor.moveToNext());
-        }
-
-        return questions;
-    }
 }

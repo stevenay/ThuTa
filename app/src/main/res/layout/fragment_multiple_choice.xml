@@ -78,4 +78,43 @@
 
     </RadioGroup>
 
+    <RelativeLayout
+        android:id="@+id/rl_result_popup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="128dp"
+        android:padding="@dimen/margin_medium_2"
+        android:background="@color/white_full"
+        android:visibility="invisible"
+        android:elevation="4dp">
+
+        <ImageView
+            android:id="@+id/iv_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_cancel_black_24dp"/>
+
+        <com.padc.interactive_training.components.MMTextView
+            android:id="@+id/tv_result_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_toRightOf="@id/iv_result"
+            android:layout_centerVertical="true"
+            android:text="မွန္တယ္။ သင့္အတြက္ ၂ မွတ္။"
+            android:textSize="@dimen/text_regular_2x"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_check"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/btn_big"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/margin_medium_2"
+        android:text="Check"
+        android:textSize="@dimen/text_regular_2x"
+        android:textStyle="bold" />
+
 </RelativeLayout>

@@ -60,7 +60,9 @@ public class CourseModel extends BaseModel {
         dataAgent.loadCourses();
     }
 
-    public void loadUsers() { dataAgent.loadUsers(); }
+    public void loadUsers() {
+        dataAgent.loadUsers();
+    }
 
     public List<CourseVO> getCourseList() {
         return mCourseList;
@@ -162,7 +164,10 @@ public class CourseModel extends BaseModel {
     }
 
     public LessonCardVO getLessonCardbyIndex(int cardIndex) {
-        return getCardListData().get(cardIndex);
+        if (cardIndex >= getCardListData().size())
+            return null;
+        else
+            return getCardListData().get(cardIndex);
     }
 
     public int getFirstCardIndexbyChapterId(String chapterId) {
@@ -236,8 +241,7 @@ public class CourseModel extends BaseModel {
         return mCurrentAccessDiscussionList;
     }
 
-    public DiscussionVO getDiscussionbyId(String discussionId)
-    {
+    public DiscussionVO getDiscussionbyId(String discussionId) {
         for (DiscussionVO s : mCurrentAccessDiscussionList) {
             if (s.getDiscussionId().equals(discussionId)) {
                 return s;

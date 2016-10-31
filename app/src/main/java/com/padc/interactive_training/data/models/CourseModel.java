@@ -9,6 +9,7 @@ import com.padc.interactive_training.data.vos.CourseLessonVO;
 import com.padc.interactive_training.data.vos.CourseVO;
 import com.padc.interactive_training.data.vos.DiscussionVO;
 import com.padc.interactive_training.data.vos.LessonCardVO;
+import com.padc.interactive_training.data.vos.QuestionVO;
 import com.padc.interactive_training.data.vos.TodoItemVO;
 import com.padc.interactive_training.data.vos.TodoListVO;
 import com.padc.interactive_training.data.vos.UserVO;
@@ -31,6 +32,7 @@ public class CourseModel extends BaseModel {
     private List<CourseVO> mCourseList;
     private List<UserVO> mUserList;
     private List<LessonCardVO> mCurrentAccessCardList;
+    private List<QuestionVO> mCurrentQuestionList;
     private List<ChapterVO> mCurrentAccessChapterList;
     private List<DiscussionVO> mCurrentAccessDiscussionList;
     private List<TodoListVO> mCurrentTodoList;
@@ -130,6 +132,21 @@ public class CourseModel extends BaseModel {
 
     public int getLastAccessCardIndex() {
         return getStoredFeaturedCourseData().getLastAccessCardIndex();
+    }
+
+    public void setQuestionListData(List<QuestionVO> questionList) {
+        mCurrentQuestionList = questionList;
+    }
+
+    public List<QuestionVO> getQuestionListData() {
+        return mCurrentQuestionList;
+    }
+
+    public QuestionVO getQuestionbyIndex(int questionIndex) {
+        if (getQuestionListData() != null)
+            return getQuestionListData().get(questionIndex);
+        else
+            return null;
     }
 
     public void setCardListData(List<LessonCardVO> cardList) {

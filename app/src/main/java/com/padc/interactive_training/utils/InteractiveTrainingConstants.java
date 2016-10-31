@@ -42,6 +42,7 @@ public class InteractiveTrainingConstants {
     public static final int TODO_LIST_LOADER = 7;
     public static final int ARTICLE_LIST_LOADER = 8;
     public static final int ARTICLE_DETAIL_LOADER = 9;
+    public static final int COURSE_LESSON_LOADER = 10;
 
     //Regular Expression for checking email.
     public static final String EMAIL_PATTERN = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";

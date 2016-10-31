@@ -1,6 +1,14 @@
 package com.padc.interactive_training.data.vos;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
+import com.padc.interactive_training.InteractiveTrainingApp;
+import com.padc.interactive_training.data.persistence.CoursesContract;
+
+import java.util.List;
 
 /**
  * Created by NayLinAung on 10/29/2016.
@@ -39,5 +47,33 @@ public class AnswerVO {
 
     public void setIsAnswer(String isAnswer) {
         this.isAnswer = isAnswer;
+    }
+
+    public static void saveAnswers(String questionId, List<AnswerVO> answers) {
+        Log.d(InteractiveTrainingApp.TAG, "Method: Answers. Loaded items: " + answers.size());
+
+        ContentValues[] answerCVs = new ContentValues[answers.size()];
+        for (int index = 0; index < answers.size(); index++) {
+            AnswerVO answerVO = answers.get(index);
+            answerCVs[index] = answerVO.parseToContentValues(questionId);
+
+            Log.d(InteractiveTrainingApp.TAG, "Method: Answer. Answer Content: " + answerVO.getAnswerContent());
+        }
+
+        Context context = InteractiveTrainingApp.getContext();
+        int insertCount = context.getContentResolver().bulkInsert(CoursesContract.AnswerEntry.CONTENT_URI, answerCVs);
+
+        Log.d(InteractiveTrainingApp.TAG, "Bulk inserted into testQuestions table : " + insertCount);
+    }
+
+    public ContentValues parseToContentValues(String questionId) {
+        ContentValues cv = new ContentValues();
+
+        cv.put(CoursesContract.AnswerEntry.COLUMN_QUESTION_ID, questionId);
+        cv.put(CoursesContract.AnswerEntry.COLUMN_ANSWER_ID, this.answerId);
+        cv.put(CoursesContract.AnswerEntry.COLUMN_ANSWER_CONTENT, this.answerContent);
+        cv.put(CoursesContract.AnswerEntry.COLUMN_IS_ANSWER, this.isAnswer);
+
+        return cv;
     }
 }

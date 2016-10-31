@@ -32,7 +32,7 @@ public class CourseLessonVO {
     private int allowanceTime;
 
     @SerializedName("questions")
-    private List<QuestionVO> testQuestions;
+    private List<QuestionVO> questions;
 
     private boolean finishAccess;
 
@@ -68,12 +68,12 @@ public class CourseLessonVO {
         this.allowanceTime = allowanceTime;
     }
 
-    public List<QuestionVO> getTestQuestions() {
-        return testQuestions;
+    public List<QuestionVO> getQuestions() {
+        return questions;
     }
 
-    public void setTestQuestions(List<QuestionVO> testQuestions) {
-        this.testQuestions = testQuestions;
+    public void setQuestions(List<QuestionVO> questions) {
+        this.questions = questions;
     }
 
     public boolean isFinishAccess() {
@@ -92,7 +92,7 @@ public class CourseLessonVO {
         cv.put(CoursesContract.CourseLessonEntry.COLUMN_LESSON_ID, courseTest.getLessonId());
         cv.put(CoursesContract.CourseLessonEntry.COLUMN_LESSON_TYPE, courseTest.getLessonType());
 
-        QuestionVO.saveTestQuestions(courseTest.getLessonId(), courseTest.getTestQuestions());
+        QuestionVO.saveTestQuestions(courseTest.getLessonId(), courseTest.getQuestions());
 
         Context context = InteractiveTrainingApp.getContext();
         Uri insertedRow = context.getContentResolver().insert(CoursesContract.CourseLessonEntry.CONTENT_URI, cv);
@@ -129,5 +129,27 @@ public class CourseLessonVO {
         }
 
         return courseLessons;
+    }
+
+    public static List<QuestionVO> loadQuestionsByLessonId(String lessonId) {
+        Context context = InteractiveTrainingApp.getContext();
+        ArrayList<QuestionVO> questions = new ArrayList<>();
+
+        Cursor cursor = context.getContentResolver().query(CoursesContract.QuestionEntry.buildQuestionUriWithLessonId(lessonId),
+                null, null, null, null);
+
+        if(cursor != null && cursor.moveToFirst()) {
+            do {
+                QuestionVO question = new QuestionVO();
+                question.setQuestionId(cursor.getString(cursor.getColumnIndex(CoursesContract.QuestionEntry.COLUMN_QUESTION_ID)));
+                question.setQuestionText(cursor.getString(cursor.getColumnIndex(CoursesContract.QuestionEntry.COLUMN_QUESTION_TEXT)));
+                question.setQuestionType(cursor.getString(cursor.getColumnIndex(CoursesContract.QuestionEntry.COLUMN_QUESTION_TYPE)));
+
+                question.setAnswers(QuestionVO.loadAnswersByQuestionId(question.getQuestionId()));
+                questions.add(question);
+            } while (cursor.moveToNext());
+        }
+
+        return questions;
     }
 }

@@ -321,7 +321,7 @@ public class CourseFlowActivity extends AppCompatActivity
 
     private void navigateToLesson() {
         if (mAccessCourseLesson != null) {
-            Intent intent = CourseLessonActivity.newIntent();
+            Intent intent = CourseLessonActivity.newIntent(mCourseTitle, currentChapterId);
             startActivityForResult(intent, RC_COURSE_LESSON);
         }
     }

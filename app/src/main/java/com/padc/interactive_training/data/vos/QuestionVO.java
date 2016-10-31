@@ -2,12 +2,14 @@ package com.padc.interactive_training.data.vos;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.data.persistence.CoursesContract;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +31,7 @@ public class QuestionVO {
     private String testType;
 
     @SerializedName("answers")
-    private List<AnswerVO> testAnswers;
+    private List<AnswerVO> Answers;
 
     public String getQuestionId() {
         return questionId;
@@ -63,12 +65,12 @@ public class QuestionVO {
         this.testType = testType;
     }
 
-    public List<AnswerVO> getTestAnswers() {
-        return testAnswers;
+    public List<AnswerVO> getAnswers() {
+        return Answers;
     }
 
-    public void setTestAnswers(List<AnswerVO> testAnswers) {
-        this.testAnswers = testAnswers;
+    public void setAnswers(List<AnswerVO> answers) {
+        Answers = answers;
     }
 
     public static void saveTestQuestions(String courseTestId, List<QuestionVO> testQuestions) {
@@ -77,6 +79,7 @@ public class QuestionVO {
         ContentValues[] testQuestionCVs = new ContentValues[testQuestions.size()];
         for (int index = 0; index < testQuestions.size(); index++) {
             QuestionVO testQuestion = testQuestions.get(index);
+            AnswerVO.saveAnswers(testQuestion.questionId, testQuestion.getAnswers());
             testQuestionCVs[index] = testQuestion.parseToContentValues(courseTestId);
 
             Log.d(InteractiveTrainingApp.TAG, "Method: TestQuestions. Qeustion Text: " + testQuestion.getQuestionText());
@@ -97,5 +100,25 @@ public class QuestionVO {
         cv.put(CoursesContract.QuestionEntry.COLUMN_QUESTION_TYPE, this.questionType);
 
         return cv;
+    }
+
+    public static List<AnswerVO> loadAnswersByQuestionId(String questionId) {
+        Context context = InteractiveTrainingApp.getContext();
+        ArrayList<AnswerVO> answers = new ArrayList<>();
+
+        Cursor cursor = context.getContentResolver().query(CoursesContract.AnswerEntry.buildAnswerUriWithQuestionId(questionId),
+                null, null, null, null);
+
+        if(cursor != null && cursor.moveToFirst()) {
+            do {
+                AnswerVO answer = new AnswerVO();
+                answer.setAnswerId(cursor.getString(cursor.getColumnIndex(CoursesContract.AnswerEntry.COLUMN_ANSWER_ID)));
+                answer.setAnswerContent(cursor.getString(cursor.getColumnIndex(CoursesContract.AnswerEntry.COLUMN_ANSWER_CONTENT)));
+                answer.setIsAnswer(cursor.getString(cursor.getColumnIndex(CoursesContract.AnswerEntry.COLUMN_IS_ANSWER)));
+                answers.add(answer);
+            } while (cursor.moveToNext());
+        }
+
+        return answers;
     }
 }

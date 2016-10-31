@@ -261,7 +261,7 @@ public class CourseProvider extends ContentProvider {
             case ANSWER:
                 String questionId = CoursesContract.AnswerEntry.getQuestionIdFromParam(uri);
                 if (!TextUtils.isEmpty(questionId)) {
-                    selection = sQuestionSelection;
+                    selection = sAnswerSelection;
                     selectionArgs = new String[]{questionId};
                 }
                 queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.AnswerEntry.TABLE_NAME,

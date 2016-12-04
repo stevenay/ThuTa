@@ -16,6 +16,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.R;
@@ -32,6 +34,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.R.attr.data;
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -41,15 +45,15 @@ public class ArticleListFragment extends Fragment implements
     @BindView(R.id.rv_articles)
     RecyclerView rvArticle;
 
-    //region variable declaration
+    @BindView(R.id.circle_progress_bar)
+    ProgressBar pbCircle;
+
+    @BindView(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
+
     private View view;
     private ArticleAdapter mArticleAdapter;
     private ArticleViewHolder.ControllerArticleItem controllerArticleItem;
-    //endregion
-
-    public ArticleListFragment() {
-
-    }
 
     public static ArticleListFragment newInstance(){
         ArticleListFragment fragment = new ArticleListFragment();
@@ -79,12 +83,14 @@ public class ArticleListFragment extends Fragment implements
         view = inflater.inflate(R.layout.fragment_article_list, container, false);
         ButterKnife.bind(this, view);
 
-        bindArticleListData();
+        setLayoutManagerOfArticleRecyclerView();
+        setAdapterToArticleRecyclerView();
 
+        ArticleModel.getInstance().loadArticles();
         return view;
     }
 
-    private void bindArticleListData() {
+    private void setLayoutManagerOfArticleRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext()){
             @Override
             protected int getExtraLayoutSpace(RecyclerView.State state){
@@ -92,21 +98,11 @@ public class ArticleListFragment extends Fragment implements
             }
         };
         rvArticle.setLayoutManager(linearLayoutManager);
-        mArticleAdapter = new ArticleAdapter(new ArrayList<ArticleVO>(), getContext(), controllerArticleItem);
-        rvArticle.setAdapter(mArticleAdapter);
+    }
 
-        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-                },3000); // ms
-            }
-        });
+    private void setAdapterToArticleRecyclerView() {
+        mArticleAdapter = new ArticleAdapter(controllerArticleItem);
+        rvArticle.setAdapter(mArticleAdapter);
     }
 
     @Override
@@ -121,19 +117,28 @@ public class ArticleListFragment extends Fragment implements
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        List<ArticleVO> attractionList = new ArrayList<>();
+        List<ArticleVO> articleList = new ArrayList<>();
         if (data != null && data.moveToFirst()) {
             do {
-                ArticleVO attraction = ArticleVO.parseFromCursor(data);
-                attractionList.add(attraction);
+                ArticleVO article = ArticleVO.parseFromCursor(data);
+                articleList.add(article);
             } while (data.moveToNext());
         }
 
-        bindArticleListData();
-        Log.d(InteractiveTrainingApp.TAG, "Retrieved attractions DESC : " + attractionList.size());
-        mArticleAdapter.setNewData(attractionList);
+        showLoaderSpinner(articleList);
 
-        ArticleModel.getInstance().setStoredArticleData(attractionList);
+        mArticleAdapter.setNewData(articleList);
+        ArticleModel.getInstance().setStoredArticleData(articleList);
+    }
+
+    private void showLoaderSpinner(List<ArticleVO> data) {
+        // Decide articles existed in the database
+        if (data.size() <= 0) {
+            pbCircle.setVisibility(View.VISIBLE);
+        } else {
+            pbCircle.setVisibility(View.INVISIBLE);
+            rvArticle.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

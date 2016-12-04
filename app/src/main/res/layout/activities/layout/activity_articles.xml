@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/homeBackground"
-    android:fitsSystemWindows="true"
-    tools:context="com.padc.interactive_training.activities.ArticlesActivity">
+    android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -19,6 +19,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:title="ေဆာင္းပါးမ်ား"
+            app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <com.padc.interactive_training.components.MMTextView
@@ -28,7 +29,7 @@
                 android:layout_marginLeft="@dimen/margin_large"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:text="ေဆာင္းပါးမ်ား"
-                android:textSize="@dimen/screen_title_size" />
+                android:textSize="@dimen/screen_title_size"/>
 
         </android.support.v7.widget.Toolbar>
 
@@ -43,7 +44,7 @@
             app:stl_indicatorCornerRadius="1.5dp"
             app:stl_indicatorInterpolation="smart"
             app:stl_indicatorThickness="2dp"
-            app:stl_underlineColor="@color/transparent" />
+            app:stl_underlineColor="@color/transparent"/>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -55,14 +56,8 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/pager_navigations"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
-        <!--<FrameLayout-->
-            <!--android:id="@+id/fl_container"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
-        <!---->
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

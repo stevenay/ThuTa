@@ -98,7 +98,7 @@
             android:name=".activities.TodoListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Base.NoActionBar.FullScreen" />
-        <activity android:name=".activities.CourseDetailActivity"
+        <activity android:name=".activities.CourseOverviewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Base.NoActionBar"
             android:noHistory="true" />

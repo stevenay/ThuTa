@@ -5,33 +5,25 @@ import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.transition.Fade;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.padc.interactive_training.R;
 import com.padc.interactive_training.adapters.MyCourseAdapter;
-import com.padc.interactive_training.animators.RecyclerItemAnimator;
 import com.padc.interactive_training.data.vos.CourseVO;
 import com.padc.interactive_training.fragments.FeaturedCourseListFragment;
 import com.padc.interactive_training.fragments.MyCourseListFragment;
@@ -40,9 +32,6 @@ import com.padc.interactive_training.utils.ScreenUtils;
 import com.padc.interactive_training.utils.TransitionHelper;
 import com.padc.interactive_training.views.holders.FeaturedCourseViewHolder;
 import com.padc.interactive_training.views.holders.MyCourseViewHolder;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -196,7 +185,7 @@ public class HomeActivity extends AppCompatActivity
     public void onTapCourse(CourseVO course) {
        // Intent intent = RegisteredCourseDetailActivity.newIntent("SampleCourseName");
 
-        Intent intent = CourseDetailActivity.newIntent("SampleCourseName");
+        Intent intent = CourseOverviewActivity.newIntent("SampleCourseName");
 
         final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(this, true);
         ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this, pairs);
@@ -231,7 +220,7 @@ public class HomeActivity extends AppCompatActivity
     public void onTapFeaturedCourse(CourseVO course) {
         //Intent intent = RegisteredCourseDetailActivity.newIntent("SampleCourseName");
 
-        Intent intent = CourseDetailActivity.newIntent("SampleCourseName");
+        Intent intent = CourseOverviewActivity.newIntent("SampleCourseName");
 
         final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(this, true);
         ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this, pairs);

@@ -26,7 +26,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.R;
-import com.padc.interactive_training.activities.CourseDetailActivity;
+import com.padc.interactive_training.activities.CourseOverviewActivity;
 import com.padc.interactive_training.activities.RegisteredCourseDetailActivity;
 import com.padc.interactive_training.adapters.FeaturedCourseAdapter;
 import com.padc.interactive_training.animators.RecyclerItemAnimator;
@@ -36,10 +36,9 @@ import com.padc.interactive_training.data.vos.AuthorVO;
 import com.padc.interactive_training.data.vos.CourseCategoryVO;
 import com.padc.interactive_training.data.vos.CourseVO;
 import com.padc.interactive_training.utils.InteractiveTrainingConstants;
+import com.padc.interactive_training.utils.RecyclerViewUtils;
 import com.padc.interactive_training.utils.TransitionHelper;
 import com.padc.interactive_training.views.holders.FeaturedCourseViewHolder;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,6 +117,8 @@ public class FeaturedCourseListFragment extends Fragment
         super.onAttach(context);
         controllerCourseItem = (FeaturedCourseViewHolder.ControllerFeaturedCourseItem) context;
     }
+
+
 
     private void setupFeaturedCourse() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),
@@ -244,7 +245,7 @@ public class FeaturedCourseListFragment extends Fragment
                 && CourseModel.getInstance().getStoredFeaturedCourseData().isRegistered()) {
             intent = RegisteredCourseDetailActivity.newIntent(courseTitle);
         } else {
-            intent = CourseDetailActivity.newIntent("SampleCourseName");
+            intent = CourseOverviewActivity.newIntent("SampleCourseName");
         }
 
         final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(this.getActivity(), true);

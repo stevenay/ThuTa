@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -41,6 +42,9 @@ public class ArticlesActivity extends AppCompatActivity
     @BindView(R.id.pager_navigations)
     ViewPager pagerNavigations;
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
     private ArticlePagerAdapter mArticlePagerAdapter;
 
     public static Intent newIntent() {
@@ -54,7 +58,6 @@ public class ArticlesActivity extends AppCompatActivity
         setContentView(R.layout.activity_articles);
         ButterKnife.bind(this, this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         final ActionBar actionBar = getSupportActionBar();
@@ -63,9 +66,13 @@ public class ArticlesActivity extends AppCompatActivity
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        initInstancesDrawer();
+    }
+
+    private void initInstancesDrawer() {
         mArticlePagerAdapter = new ArticlePagerAdapter(getSupportFragmentManager());
-        mArticlePagerAdapter.addTab(ArticleListFragment.newInstance(), "Our Owns");
-        mArticlePagerAdapter.addTab(OutsourceArticleListFragment.newInstance(), "From others");
+        mArticlePagerAdapter.addTab(ArticleListFragment.newInstance(), "Latest");
+        mArticlePagerAdapter.addTab(OutsourceArticleListFragment.newInstance(), "Saved");
 
         pagerNavigations.setAdapter(mArticlePagerAdapter);
         pagerNavigations.setOffscreenPageLimit(mArticlePagerAdapter.getCount());

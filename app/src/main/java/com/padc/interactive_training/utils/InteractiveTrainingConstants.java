@@ -4,10 +4,10 @@ package com.padc.interactive_training.utils;
  * Created by NayLinAung on 9/11/2016.
  */
 public class InteractiveTrainingConstants {
-    public static final String IMAGE_ROOT_DIR = "http://www.aungpyaephyo.xyz/padc-fp/interactive-trainings/";
+    public static final String IMAGE_ROOT_DIR = "http://ec2-54-213-90-121.us-west-2.compute.amazonaws.com/";
 
     // public static final String COURSE_BASE_URL = "http://www.aungpyaephyo.xyz/padc-fp/interactive-trainings/";
-    public static final String COURSE_BASE_URL = "http://10.0.2.2/thutamobile/";
+    public static final String COURSE_BASE_URL = "http://ec2-54-213-90-121.us-west-2.compute.amazonaws.com/";
     public static final String API_GET_COURSE_LIST = "GetCourses.php";
     public static final String API_GET_USER_LIST = "GetUsers.php";
     public static final String API_GET_ARTICLE_LIST = "GetArticles.php";

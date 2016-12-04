@@ -6,32 +6,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.R;
 import com.padc.interactive_training.data.vos.ArticleVO;
 import com.padc.interactive_training.views.holders.ArticleViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by htoomt on 9/18/2016.
  */
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder>{
-    private LayoutInflater inflater;
-    private List<ArticleVO> mArticleList;
 
+    private List<ArticleVO> articleList;
     private Context context;
     private ArticleViewHolder.ControllerArticleItem controllerArticleItem;
 
-    private boolean showLoadingImage = false;
-    //endregion
-
-
-    public ArticleAdapter(List<ArticleVO> mArticleList, Context context, ArticleViewHolder.ControllerArticleItem controllerArticleItem) {
-        this.mArticleList = mArticleList;
-        this.context = context;
+    public ArticleAdapter(ArticleViewHolder.ControllerArticleItem controllerArticleItem) {
+        this.context = InteractiveTrainingApp.getContext();
         this.controllerArticleItem = controllerArticleItem;
-    }
 
+        this.articleList = new ArrayList<>();
+    }
 
     @Override
     public ArticleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -42,17 +39,17 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder>{
 
     @Override
     public void onBindViewHolder(ArticleViewHolder holder, int position) {
-        holder.bindData(mArticleList.get(position));
+        holder.bindData(articleList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mArticleList.size();
+        return articleList.size();
     }
 
     public void setNewData(List<ArticleVO> articleList) {
         if (articleList != null) {
-            mArticleList = articleList;
+            this.articleList = articleList;
             notifyDataSetChanged();
         }
     }

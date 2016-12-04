@@ -71,8 +71,7 @@ public class ArticleListFragment extends Fragment implements
         super.onAttach(context);
         if (context instanceof ArticleViewHolder.ControllerArticleItem){
             controllerArticleItem = (ArticleViewHolder.ControllerArticleItem) context;
-        }
-        else{
+        } else {
             throw new RuntimeException(context.toString()+ "must implement ArticleViewHolder.ControllerArticleItem");
         }
     }

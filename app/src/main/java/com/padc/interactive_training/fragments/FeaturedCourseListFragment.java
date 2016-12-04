@@ -28,6 +28,7 @@ import com.padc.interactive_training.InteractiveTrainingApp;
 import com.padc.interactive_training.R;
 import com.padc.interactive_training.activities.CourseOverviewActivity;
 import com.padc.interactive_training.activities.RegisteredCourseDetailActivity;
+import com.padc.interactive_training.adapters.ArticleAdapter;
 import com.padc.interactive_training.adapters.FeaturedCourseAdapter;
 import com.padc.interactive_training.animators.RecyclerItemAnimator;
 import com.padc.interactive_training.data.models.CourseModel;
@@ -49,14 +50,11 @@ import butterknife.ButterKnife;
 public class FeaturedCourseListFragment extends Fragment
     implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    @BindView(R.id.rv_featured_courses)
+    RecyclerView rvFeaturedCourse;
+
     @BindView(R.id.card_view)
     CardView cardFeaturedCourse;
-
-    @BindView(R.id.card_view_technology)
-    CardView cardTechnology;
-
-    @BindView(R.id.card_view_cooking)
-    CardView cardCooking;
 
     @BindView(R.id.tv_category_name)
     TextView tvCategoryName;
@@ -73,15 +71,6 @@ public class FeaturedCourseListFragment extends Fragment
     @BindView(R.id.iv_course_cover_image)
     ImageView ivCourseCoverImage;
 
-    @BindView(R.id.rv_lifestyle_list)
-    RecyclerView rvLifestyleList;
-
-    @BindView(R.id.rv_technology_list)
-    RecyclerView rvTechnologyList;
-
-    @BindView(R.id.rv_cooking_list)
-    RecyclerView rvCookingList;
-
     private FeaturedCourseAdapter featuredCourseAdapter;
     private FeaturedCourseViewHolder.ControllerFeaturedCourseItem controllerCourseItem;
 
@@ -97,6 +86,9 @@ public class FeaturedCourseListFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_featured_course_list, container, false);
         ButterKnife.bind(this, view);
 
+        setLayoutManagerOfCourseRecyclerView();
+        setAdapterToCourseRecyclerView();
+
         List<CourseVO> featuredCourses = CourseModel.getInstance().getCourseList();
         if (featuredCourses != null && featuredCourses.size() > 0)
             bindFeaturedCourseData(featuredCourses.get(0));
@@ -104,6 +96,21 @@ public class FeaturedCourseListFragment extends Fragment
         setupFeaturedCourse();
 
         return view;
+    }
+
+    private void setLayoutManagerOfCourseRecyclerView() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext()){
+            @Override
+            protected int getExtraLayoutSpace(RecyclerView.State state){
+                return 300;
+            }
+        };
+        rvFeaturedCourse.setLayoutManager(linearLayoutManager);
+    }
+
+    private void setAdapterToCourseRecyclerView() {
+        featuredCourseAdapter = new FeaturedCourseAdapter(controllerCourseItem);
+        rvFeaturedCourse.setAdapter(featuredCourseAdapter);
     }
 
     @Override
@@ -116,91 +123,6 @@ public class FeaturedCourseListFragment extends Fragment
     public void onAttach(Context context) {
         super.onAttach(context);
         controllerCourseItem = (FeaturedCourseViewHolder.ControllerFeaturedCourseItem) context;
-    }
-
-
-
-    private void setupFeaturedCourse() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false);
-        rvLifestyleList.setLayoutManager(linearLayoutManager);
-
-        featuredCourseAdapter = new FeaturedCourseAdapter(prepareSampleCourseList(), controllerCourseItem);
-        rvLifestyleList.setAdapter(featuredCourseAdapter);
-        rvLifestyleList.setItemAnimator(new RecyclerItemAnimator());
-
-        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false);
-        rvTechnologyList.setLayoutManager(linearLayoutManager1);
-        rvTechnologyList.setAdapter(featuredCourseAdapter);
-
-        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false);
-        rvCookingList.setLayoutManager(linearLayoutManager2);
-        rvCookingList.setAdapter(featuredCourseAdapter);
-
-        cardTechnology.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), R.string.ContentInDev, Toast.LENGTH_LONG).show();
-            }
-        });
-
-        cardCooking.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), R.string.ContentInDev, Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    public List<CourseVO> prepareSampleCourseList() {
-        List<CourseVO> courseList = new ArrayList<>();
-
-        CourseVO courseOne = new CourseVO();
-        courseOne.setTitle("UV ေရာင္ျခည္ကို ဘယ္လိုကာကြယ္မလဲ");
-
-        CourseCategoryVO category = new CourseCategoryVO();
-        category.setCategoryName("LifeStyle");
-        courseOne.setCourseCategory(category);
-
-        courseOne.setDurationInMinute(15);
-
-        AuthorVO author = new AuthorVO();
-        author.setAuthorName("Admin Team");
-
-        courseOne.setAuthor(author);
-        courseOne.setColorCode("#aed582");
-        courseOne.setCoverPhotoUrl("co_terrace.png");
-        courseList.add(courseOne);
-
-        CourseVO courseTwo = new CourseVO();
-        courseTwo.setTitle("အားကစားကို နည္းမွန္လမ္းမွန္ ျပဳလုပ္နည္းမ်ား");
-
-        CourseCategoryVO category1 = new CourseCategoryVO();
-        category1.setCategoryName("Sports and Fitness");
-
-        courseTwo.setCourseCategory(category1);
-        courseTwo.setDurationInMinute(15);
-        courseTwo.setAuthor(author);
-        courseTwo.setColorCode("#81c683");
-        courseOne.setCoverPhotoUrl("co_runner.png");
-        courseList.add(courseTwo);
-
-        CourseVO courseThree = new CourseVO();
-        courseThree.setTitle("C# အသံုးျပဳ Console Application တည္ေဆာက္နည္း");
-
-        CourseCategoryVO category2 = new CourseCategoryVO();
-        category2.setCategoryName("Programming");
-
-        courseThree.setCourseCategory(category2);
-        courseThree.setDurationInMinute(10);
-        courseThree.setAuthor(author);
-        courseThree.setColorCode("#25c6da");
-        courseOne.setCoverPhotoUrl("co_terrace.png");
-        courseList.add(courseThree);
-
-        return courseList;
     }
 
     private void bindFeaturedCourseData(CourseVO featuredCourse) {

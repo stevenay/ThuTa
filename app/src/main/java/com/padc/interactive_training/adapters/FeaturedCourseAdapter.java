@@ -11,6 +11,7 @@ import com.padc.interactive_training.R;
 import com.padc.interactive_training.data.vos.CourseVO;
 import com.padc.interactive_training.views.holders.FeaturedCourseViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,10 +32,11 @@ public class FeaturedCourseAdapter extends RecyclerView.Adapter<FeaturedCourseVi
 
     private boolean showLoadingView = false;
 
-    public FeaturedCourseAdapter(List<CourseVO> courseList, FeaturedCourseViewHolder.ControllerFeaturedCourseItem controllerCourseItem) {
-        this.context = InteractiveTrainingApp.getContext();
-        this.mCourseList = courseList;
+    public FeaturedCourseAdapter(FeaturedCourseViewHolder.ControllerFeaturedCourseItem controllerCourseItem) {
         this.controllerCourseItem = controllerCourseItem;
+
+        this.context = InteractiveTrainingApp.getContext();
+        this.mCourseList = new ArrayList<>();
     }
 
     @Override

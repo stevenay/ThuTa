@@ -45,8 +45,6 @@ public class CourseModel extends BaseModel {
         super();
         mCourseList = new ArrayList<>();
         mCurrentAccessCardList = new ArrayList<>();
-        loadCourses();
-        loadUsers();
     }
 
     public static CourseModel getInstance() {
@@ -56,8 +54,8 @@ public class CourseModel extends BaseModel {
         return objInstance;
     }
 
-    public void loadCourses() {
-        dataAgent.loadCourses();
+    public void loadFeaturedCourses() {
+        dataAgent.loadFeaturedCourses();
     }
 
     public void loadUsers() {
@@ -78,10 +76,7 @@ public class CourseModel extends BaseModel {
     }
 
     public void notifyCoursesLoaded(List<CourseVO> courseList) {
-        //Notify that the data is ready - using LocalBroadcast
         mCourseList = courseList;
-
-        //keep the data in persistent layer.
         CourseVO.saveCourses(mCourseList);
     }
 
@@ -99,12 +94,6 @@ public class CourseModel extends BaseModel {
 
     public void notifyErrorInLoadingUsers(String message) {
 
-    }
-
-    private void broadcastCourseLoadedWithLocalBroadcastManager() {
-        Intent intent = new Intent(BROADCAST_DATA_LOADED);
-        intent.putExtra("key-for-extra", "extra-in-broadcast");
-        LocalBroadcastManager.getInstance(InteractiveTrainingApp.getContext()).sendBroadcast(intent);
     }
 
     private void broadcastAttractionLoadedWithEventBus() {

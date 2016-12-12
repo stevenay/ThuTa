@@ -4,7 +4,7 @@ package com.padc.interactive_training.data.agents;
  * Created by NayLinAung on 9/22/2016.
  */
 public interface CourseDataAgent {
-    void loadCourses();
+    void loadFeaturedCourses();
     void loadUsers();
     void loadArticles();
 

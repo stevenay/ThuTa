@@ -82,16 +82,17 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
     PageIndicatorView piCourseHeaderPager;
 
     protected static final int RC_COURSE_FLOW = 1236;
-    private static final String IE_COURSE_TITLE = "IE_COURSE_TITLE";
+    private static final String IE_COURSE_ID = "IE_COURSE_ID";
 
     private CoursePagerAdapter mCoursePagerAdapter;
-    private String mCourseTitle;
+    private int mCourseId;
+    private String mCourseTitle = "SampleCourse";
     private CourseVO mCourse;
     private ChapterListFragment chapterListFragment;
 
-    public static Intent newIntent(String courseTitle) {
+    public static Intent newIntent(int courseId) {
         Intent intent = new Intent(InteractiveTrainingApp.getContext(), RegisteredCourseDetailActivity.class);
-        intent.putExtra(IE_COURSE_TITLE, courseTitle);
+        intent.putExtra(IE_COURSE_ID, courseId);
         return intent;
     }
 
@@ -120,49 +121,10 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        mCourseTitle = getIntent().getStringExtra(IE_COURSE_TITLE);
+        mCourseId = getIntent().getIntExtra(IE_COURSE_ID, 0);
         mCoursePagerAdapter = new CoursePagerAdapter(getSupportFragmentManager());
 
-        chapterListFragment = ChapterListFragment.newInstance(mCourseTitle);
-        mCoursePagerAdapter.addTab(chapterListFragment, "CHAPTERS");
-        mCoursePagerAdapter.addTab(DiscussionListFragment.newInstance(mCourseTitle), "DISCUSSION");
-        mCoursePagerAdapter.addTab(CourseTodoListFragment.newInstance(mCourseTitle), "TODO-List (1)");
 
-        pagerNavigations.setAdapter(mCoursePagerAdapter);
-        pagerNavigations.setOffscreenPageLimit(mCoursePagerAdapter.getCount());
-
-        tlNavigations.setViewPager(pagerNavigations);
-
-        pagerNavigations.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                switch (mCoursePagerAdapter.getPageTitle(position).toString().toLowerCase())
-                {
-                    case "discussion":
-                        fabAddDiscussion.setVisibility(View.VISIBLE);
-                        fabPlayCourse.setVisibility(View.INVISIBLE);
-                        break;
-                    case "chapters":
-                        fabAddDiscussion.setVisibility(View.INVISIBLE);
-                        fabPlayCourse.setVisibility(View.VISIBLE);
-                        break;
-                    default:
-                        fabAddDiscussion.setVisibility(View.INVISIBLE);
-                        fabPlayCourse.setVisibility(View.INVISIBLE);
-                        break;
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
 
         collapsingToolbar.setTitle(" ");
         getSupportLoaderManager().initLoader(InteractiveTrainingConstants.COURSE_DETAIL_LOADER, null, this);
@@ -203,6 +165,9 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
 
         CourseModel.getInstance().getStoredFeaturedCourseData().setRegistered(true);
 
+        mCourseTitle = mCourse.getTitle();
+        bindDataToCoursePager();
+
         // hide CollapsingToolbar Title on Expanded Condition
         // show only when Collapsed State
         appBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
@@ -218,7 +183,7 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
                     collapsingToolbar.setTitle(courseVO.getTitle());
                     isShow = true;
                 } else if (isShow) {
-                    collapsingToolbar.setTitle(" ");//carefull there should a space between double quote otherwise it wont work
+                    collapsingToolbar.setTitle(" "); //carefull there should a space between double quote otherwise it wont work
                     isShow = false;
                 }
             }
@@ -249,11 +214,54 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
         });
     }
 
+    private void bindDataToCoursePager() {
+        chapterListFragment = ChapterListFragment.newInstance(mCourseTitle);
+        mCoursePagerAdapter.addTab(chapterListFragment, "CHAPTERS");
+        mCoursePagerAdapter.addTab(DiscussionListFragment.newInstance(mCourseTitle), "DISCUSSION");
+        mCoursePagerAdapter.addTab(CourseTodoListFragment.newInstance(mCourseTitle), "TODO-List (1)");
+
+        pagerNavigations.setAdapter(mCoursePagerAdapter);
+        pagerNavigations.setOffscreenPageLimit(mCoursePagerAdapter.getCount());
+
+        tlNavigations.setViewPager(pagerNavigations);
+
+        pagerNavigations.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (mCoursePagerAdapter.getPageTitle(position).toString().toLowerCase())
+                {
+                    case "discussion":
+                        fabAddDiscussion.setVisibility(View.VISIBLE);
+                        fabPlayCourse.setVisibility(View.INVISIBLE);
+                        break;
+                    case "chapters":
+                        fabAddDiscussion.setVisibility(View.INVISIBLE);
+                        fabPlayCourse.setVisibility(View.VISIBLE);
+                        break;
+                    default:
+                        fabAddDiscussion.setVisibility(View.INVISIBLE);
+                        fabPlayCourse.setVisibility(View.INVISIBLE);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
     //region LoaderPattern
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(this,
-                CoursesContract.CourseEntry.buildCourseUriWithTitle(mCourseTitle),
+                CoursesContract.CourseEntry.buildCourseUriWithTitle("သင့္ Mobile App ကို User Friendly ျဖစ္ေအာင္ ဘယ္လို တည္ေဆာက္မလဲ"),
                 null,
                 null,
                 null,

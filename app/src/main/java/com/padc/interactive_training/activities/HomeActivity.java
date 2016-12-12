@@ -215,24 +215,6 @@ public class HomeActivity extends AppCompatActivity
 
     //endregion
 
-    //region FeaturedCourseItemListener
-    @Override
-    public void onTapFeaturedCourse(CourseVO course) {
-        //Intent intent = RegisteredCourseDetailActivity.newIntent("SampleCourseName");
-
-        Intent intent = CourseOverviewActivity.newIntent("SampleCourseName");
-
-        final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(this, true);
-        ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this, pairs);
-        startActivity(intent, transitionActivityOptions.toBundle());
-    }
-
-    @Override
-    public void onFeaturedCoverImageClick() {
-
-    }
-    //endregion
-
     //region Navigation menu and its related
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -280,12 +262,26 @@ public class HomeActivity extends AppCompatActivity
                     .commitAllowingStateLoss();
     }
 
-    //endregion
-
     private void navigateToArticle() {
         Intent intent = ArticlesActivity.newIntent();
         startActivity(intent);
     }
 
+    //endregion
+
+    //region ControllerFeaturedCourseItem
+    @Override
+    public void onTapFeaturedCourse(int courseId) {
+        Intent intent = CourseOverviewActivity.newIntent("SampleCourseName");
+
+        final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(this, true);
+        ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this, pairs);
+        startActivity(intent, transitionActivityOptions.toBundle());
+    }
+
+    @Override
+    public void onFeaturedCoverImageClick(int courseId) {
+
+    }
     //endregion
 }

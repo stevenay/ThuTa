@@ -19,6 +19,8 @@ import java.util.List;
  */
 public class CourseVO {
 
+    private int courseId;
+
     @SerializedName("course_title")
     private String courseTitle;
 
@@ -93,6 +95,10 @@ public class CourseVO {
 
     public void setLastAccessCardIndex(int lastAccessCardIndex) {
         this.lastAccessCardIndex = lastAccessCardIndex;
+    }
+
+    public int getCourseId() {
+        return courseId;
     }
 
     public String getTitle() {
@@ -276,6 +282,7 @@ public class CourseVO {
     public static CourseVO parseFromCursor(Cursor data) {
         CourseVO course = new CourseVO();
 
+        course.courseId = data.getInt(data.getColumnIndex(CoursesContract.CourseEntry._ID));
         course.courseTitle = data.getString(data.getColumnIndex(CoursesContract.CourseEntry.COLUMN_TITLE));
         course.durationInMinute = data.getInt(data.getColumnIndex(CoursesContract.CourseEntry.COLUMN_DURATION));
         course.colorCode = data.getString(data.getColumnIndex(CoursesContract.CourseEntry.COLUMN_COLOR_CODE));

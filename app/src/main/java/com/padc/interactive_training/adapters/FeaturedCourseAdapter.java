@@ -14,23 +14,18 @@ import com.padc.interactive_training.views.holders.FeaturedCourseViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.padc.interactive_training.adapters.MyCourseAdapter.VIEW_TYPE_LOADER;
+
 /**
  * Created by NayLinAung on 9/23/2016.
  */
 public class FeaturedCourseAdapter extends RecyclerView.Adapter<FeaturedCourseViewHolder> {
-
-    public static final String ACTION_LIKE_BUTTON_CLICKED = "action_like_button_button";
-    public static final String ACTION_LIKE_IMAGE_CLICKED = "action_like_image_button";
-
     public static final int VIEW_TYPE_DEFAULT = 1;
-    public static final int VIEW_TYPE_LOADER = 2;
+    public static final int VIEW_TYPE_FEATURED = 2;
 
     private List<CourseVO> mCourseList;
-
     private Context context;
     private FeaturedCourseViewHolder.ControllerFeaturedCourseItem controllerCourseItem;
-
-    private boolean showLoadingView = false;
 
     public FeaturedCourseAdapter(FeaturedCourseViewHolder.ControllerFeaturedCourseItem controllerCourseItem) {
         this.controllerCourseItem = controllerCourseItem;
@@ -49,14 +44,8 @@ public class FeaturedCourseAdapter extends RecyclerView.Adapter<FeaturedCourseVi
     @Override
     public void onBindViewHolder(FeaturedCourseViewHolder viewHolder, int position) {
         viewHolder.bindData(this.mCourseList.get(position));
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (showLoadingView && position == 0) {
-            return VIEW_TYPE_LOADER;
-        } else {
-            return VIEW_TYPE_DEFAULT;
+        if (getItemViewType(position) == VIEW_TYPE_FEATURED) {
+            viewHolder.bindFeaturedData();
         }
     }
 
@@ -65,11 +54,19 @@ public class FeaturedCourseAdapter extends RecyclerView.Adapter<FeaturedCourseVi
         return mCourseList.size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return VIEW_TYPE_FEATURED;
+        } else {
+            return VIEW_TYPE_DEFAULT;
+        }
+    }
+
     public void setNewData(List<CourseVO> newCourseList) {
         if (newCourseList != null) {
             mCourseList = newCourseList;
             notifyDataSetChanged();
         }
     }
-
 }

@@ -54,7 +54,7 @@ public class RetrofitDataAgent implements CourseDataAgent {
     }
 
     @Override
-    public void loadCourses() {
+    public void loadFeaturedCourses() {
         Call<CourseListResponse> loadCourseCall = theApi.loadCourses(InteractiveTrainingConstants.ACCESS_TOKEN);
         loadCourseCall.enqueue(new Callback<CourseListResponse>() {
             @Override

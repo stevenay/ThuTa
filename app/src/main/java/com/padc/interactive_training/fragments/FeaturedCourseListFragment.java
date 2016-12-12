@@ -13,6 +13,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,8 +33,10 @@ import com.padc.interactive_training.activities.RegisteredCourseDetailActivity;
 import com.padc.interactive_training.adapters.ArticleAdapter;
 import com.padc.interactive_training.adapters.FeaturedCourseAdapter;
 import com.padc.interactive_training.animators.RecyclerItemAnimator;
+import com.padc.interactive_training.data.models.ArticleModel;
 import com.padc.interactive_training.data.models.CourseModel;
 import com.padc.interactive_training.data.persistence.CoursesContract;
+import com.padc.interactive_training.data.vos.ArticleVO;
 import com.padc.interactive_training.data.vos.AuthorVO;
 import com.padc.interactive_training.data.vos.CourseCategoryVO;
 import com.padc.interactive_training.data.vos.CourseVO;
@@ -48,28 +52,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FeaturedCourseListFragment extends Fragment
-    implements LoaderManager.LoaderCallbacks<Cursor> {
+        implements LoaderManager.LoaderCallbacks<Cursor>,
+        FeaturedCourseViewHolder.ControllerFeaturedCourseItem {
 
     @BindView(R.id.rv_featured_courses)
     RecyclerView rvFeaturedCourse;
 
-    @BindView(R.id.card_view)
-    CardView cardFeaturedCourse;
-
-    @BindView(R.id.tv_category_name)
-    TextView tvCategoryName;
-
-    @BindView(R.id.tv_course_title)
-    TextView tvCourseTitle;
-
-    @BindView(R.id.tv_duration_author)
-    TextView tvDurationAuthor;
-
-    @BindView(R.id.tv_likes_count)
-    TextView tvLikesCount;
-
-    @BindView(R.id.iv_course_cover_image)
-    ImageView ivCourseCoverImage;
+    @BindView(R.id.progress_bar_circle)
+    ProgressBar pbCircle;
 
     private FeaturedCourseAdapter featuredCourseAdapter;
     private FeaturedCourseViewHolder.ControllerFeaturedCourseItem controllerCourseItem;
@@ -82,26 +72,20 @@ public class FeaturedCourseListFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_featured_course_list, container, false);
         ButterKnife.bind(this, view);
 
         setLayoutManagerOfCourseRecyclerView();
         setAdapterToCourseRecyclerView();
 
-        List<CourseVO> featuredCourses = CourseModel.getInstance().getCourseList();
-        if (featuredCourses != null && featuredCourses.size() > 0)
-            bindFeaturedCourseData(featuredCourses.get(0));
-
-        setupFeaturedCourse();
-
+        CourseModel.getInstance().loadFeaturedCourses();
         return view;
     }
 
     private void setLayoutManagerOfCourseRecyclerView() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext()){
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext()) {
             @Override
-            protected int getExtraLayoutSpace(RecyclerView.State state){
+            protected int getExtraLayoutSpace(RecyclerView.State state) {
                 return 300;
             }
         };
@@ -111,6 +95,7 @@ public class FeaturedCourseListFragment extends Fragment
     private void setAdapterToCourseRecyclerView() {
         featuredCourseAdapter = new FeaturedCourseAdapter(controllerCourseItem);
         rvFeaturedCourse.setAdapter(featuredCourseAdapter);
+//        rvFeaturedCourse.setItemAnimator(new DefaultItemAnimator());
     }
 
     @Override
@@ -125,54 +110,16 @@ public class FeaturedCourseListFragment extends Fragment
         controllerCourseItem = (FeaturedCourseViewHolder.ControllerFeaturedCourseItem) context;
     }
 
-    private void bindFeaturedCourseData(CourseVO featuredCourse) {
-        Log.d("BindFeaturedCourseData", "do the method");
-        tvCategoryName.setText(featuredCourse.getCategoryName());
-        tvCourseTitle.setText(featuredCourse.getTitle());
-        tvDurationAuthor.setText(String.valueOf(featuredCourse.getDurationInMinute()) + " min - " + featuredCourse.getAuthorName());
-
-        Glide.with(ivCourseCoverImage.getContext())
-                .load(featuredCourse.getCoverPhotoUrl())
-                .asBitmap()
-                .fitCenter()
-                .placeholder(R.drawable.misc_09_256)
-                .error(R.drawable.misc_09_256)
-                .into(ivCourseCoverImage);
-
-        tvLikesCount.setText(String.valueOf(featuredCourse.getLikesCount()) + " likes");
-
-        setupClickableViews(featuredCourse.getTitle());
-    }
-
-    private void setupClickableViews(final String courseTitle) {
-        this.ivCourseCoverImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navigateToCourseDetail(courseTitle);
-            }
-        });
-
-        cardFeaturedCourse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navigateToCourseDetail(courseTitle);
-            }
-        });
-    }
-
-    private void navigateToCourseDetail(String courseTitle)
-    {
+    private void navigateToCourseDetail(int courseId) {
         Intent intent;
         if (CourseModel.getInstance().getStoredFeaturedCourseData() != null
                 && CourseModel.getInstance().getStoredFeaturedCourseData().isRegistered()) {
-            intent = RegisteredCourseDetailActivity.newIntent(courseTitle);
-        } else {
-            intent = CourseOverviewActivity.newIntent("SampleCourseName");
-        }
+            intent = RegisteredCourseDetailActivity.newIntent(courseId);
 
-        final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(this.getActivity(), true);
-        ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this.getActivity(), pairs);
-        startActivity(intent, transitionActivityOptions.toBundle());
+            final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(this.getActivity(), true);
+            ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this.getActivity(), pairs);
+            startActivity(intent, transitionActivityOptions.toBundle());
+        }
     }
 
     @Override
@@ -183,23 +130,48 @@ public class FeaturedCourseListFragment extends Fragment
                 null, // projection - {"name", "location"}
                 null, // selection - "region = ? AND popular = ?"
                 null, // selectionArgs - {"upper_myanmar", "very_high"}
-                CoursesContract.CourseEntry.COLUMN_TITLE + " DESC");
+                CoursesContract.CourseEntry._ID + " ASC");
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        CourseVO featuredCourse = null;
+        List<CourseVO> featuredCourseList = new ArrayList<>();
         if (data != null && data.moveToFirst()) {
-            featuredCourse = CourseVO.parseFromCursor(data);
-            this.bindFeaturedCourseData(featuredCourse);
-            CourseModel.getInstance().setStoredFeaturedCourseData(featuredCourse);
+            do {
+                CourseVO course = CourseVO.parseFromCursor(data);
+                featuredCourseList.add(course);
+            } while (data.moveToNext());
         }
 
-        Log.d(InteractiveTrainingApp.TAG, "Retrieved featured course : " + featuredCourse);
+        showLoaderSpinner(featuredCourseList);
+        featuredCourseAdapter.setNewData(featuredCourseList);
+
+        CourseModel.getInstance().setStoredData(featuredCourseList);
+    }
+
+    private void showLoaderSpinner(List<CourseVO> data) {
+        // Decide articles existed in the database
+        if (data.size() <= 0) {
+            pbCircle.setVisibility(View.VISIBLE);
+        } else {
+            pbCircle.setVisibility(View.INVISIBLE);
+            rvFeaturedCourse.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
+    }
+
+    //region FeaturedCourse
+    @Override
+    public void onTapFeaturedCourse(int courseId) {
+        navigateToCourseDetail(courseId);
+    }
+
+    @Override
+    public void onFeaturedCoverImageClick(int courseId) {
+        navigateToCourseDetail(courseId);
     }
 }

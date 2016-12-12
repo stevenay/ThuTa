@@ -86,7 +86,7 @@ public class CourseOverviewActivity extends AppCompatActivity {
     @OnClick(R.id.btn_start_course)
     public void onClickStartCourse(View view)
     {
-        Intent intent = RegisteredCourseDetailActivity.newIntent("");
+        Intent intent = RegisteredCourseDetailActivity.newIntent(1);
 
         final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(this, true);
         ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this, pairs);

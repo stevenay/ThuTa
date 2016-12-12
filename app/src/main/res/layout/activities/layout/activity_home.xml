@@ -32,7 +32,8 @@
                 android:background="@color/menuPrimary"
                 app:elevation="@dimen/default_elevation"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:layout_scrollFlags="scroll|enterAlways">
 
                 <LinearLayout
                     android:layout_width="match_parent"

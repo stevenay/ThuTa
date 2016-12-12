@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.squareup.leakcanary.LeakCanary;
+
 /**
  * Created by Dell on 9/4/2016.
  */
@@ -16,6 +18,13 @@ public class InteractiveTrainingApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
+
         context = getApplicationContext();
 
         SharedPreferences prefs = getSharedPreferences(getString(R.string.ArticlePreference), MODE_PRIVATE);

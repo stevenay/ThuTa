@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="course_background_sample">#afd582</color>
+    <!--<color name="course_background_sample">#afd582</color>-->
+    <color name="course_background_sample">#FF80C682</color>
     <color name="course_background_sample_ish">#FF9BBE74</color>
     <color name="course_background_dark_sample">#8cc99b</color>
     <color name="course_background_progress_bar">#FF9BBE74</color>
 
-    <color name="menuPrimary">#2f4050</color>
+    <color name="menuPrimary">#FF2F4050</color>
     <!-- Primer Primary Color #536e79 -->
     <color name="homeBackground">#273a4a</color>
 
-    <color name="primary">#2f4050</color>
-    <color name="primary_dark">#293846</color>
+    <color name="primary">#000</color>
+    <color name="primary_dark">#000</color>
     <color name="primary_light">#B3E5FC</color>
     <color name="accent">#01bcd5</color>
     <color name="primary_text">#212121</color>

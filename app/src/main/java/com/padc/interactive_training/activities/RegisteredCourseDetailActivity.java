@@ -260,8 +260,15 @@ public class RegisteredCourseDetailActivity extends AppCompatActivity
     //region LoaderPattern
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+//        return new CursorLoader(this,
+//                CoursesContract.CourseEntry.buildCourseUriWithTitle("သင့္ Mobile App ကို User Friendly ျဖစ္ေအာင္ ဘယ္လို တည္ေဆာက္မလဲ"),
+//                null,
+//                null,
+//                null,
+//                null
+//        );
         return new CursorLoader(this,
-                CoursesContract.CourseEntry.buildCourseUriWithTitle("သင့္ Mobile App ကို User Friendly ျဖစ္ေအာင္ ဘယ္လို တည္ေဆာက္မလဲ"),
+                CoursesContract.CourseEntry.buildCourseUri(1),
                 null,
                 null,
                 null,

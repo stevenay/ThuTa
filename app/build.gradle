@@ -17,7 +17,7 @@ android {
             res.srcDirs = [
                     'src/main/res',
                     'src/main/res/layout/activities'
-                    , 'src/main/res/layout/fragments', 'src/main/res/layout/view_items']
+                    , 'src/main/res/layout/fragments', 'src/main/res/layout/view_items', 'src/main/res/layout/menus']
         }
     }
     buildTypes {

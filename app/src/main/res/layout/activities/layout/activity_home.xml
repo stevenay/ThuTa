@@ -15,7 +15,6 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/menuPrimary"
         tools:context=".activities.HomeActivity">
 
         <android.support.design.widget.AppBarLayout
@@ -72,7 +71,7 @@
             android:id="@+id/fl_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FF2F4050"
+            android:background="#e9ebee"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </android.support.design.widget.CoordinatorLayout>

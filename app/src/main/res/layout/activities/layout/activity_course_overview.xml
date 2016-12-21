@@ -88,7 +88,7 @@
         <Button
             android:id="@+id/btn_start_course"
             android:layout_width="match_parent"
-            android:layout_height="96dp"
+            android:layout_height="86dp"
             android:layout_marginBottom="-6dp"
             android:layout_marginLeft="-4dp"
             android:layout_marginRight="-4dp"
@@ -143,10 +143,10 @@
                                 android:id="@+id/iv_course_instructor"
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
-                                android:layout_marginLeft="@dimen/margin_medium"
+                                android:layout_marginLeft="@dimen/margin_medium_2"
                                 android:layout_marginTop="@dimen/margin_medium_1"
                                 android:clickable="true"
-                                android:src="@drawable/ic_receipt_white_24dp" />
+                                android:src="@drawable/ic_radio_button_checked_black_24dp" />
 
                             <TextView
                                 android:id="@+id/tv_course_instructor_label"
@@ -160,9 +160,9 @@
                                 android:paddingRight="@dimen/margin_medium_3"
                                 android:text="Instructor"
                                 android:textAllCaps="true"
-                                android:textColor="@color/text_black_ish_2"
+                                android:textColor="@color/secondary_text"
                                 android:textSize="@dimen/text_small"
-                                android:textStyle="bold" />
+                                android:textStyle="normal" />
 
                         </LinearLayout>
 
@@ -188,9 +188,9 @@
                                 android:layout_marginBottom="@dimen/margin_medium_3"
                                 android:layout_marginLeft="@dimen/margin_medium_2"
                                 android:layout_marginRight="@dimen/margin_medium"
-                                android:lineSpacingMultiplier="1"
+                                android:lineSpacingMultiplier="1.2"
                                 android:text="Nay Lin Aung \nWeb and Mobile Developer"
-                                android:textColor="@color/secondary_text"
+                                android:textColor="@color/text_black_ish"
                                 android:textSize="@dimen/text_regular" />
 
                         </LinearLayout>
@@ -227,10 +227,10 @@
                                 android:id="@+id/iv_course_summary"
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
-                                android:layout_marginLeft="@dimen/margin_medium"
+                                android:layout_marginLeft="@dimen/margin_medium_2"
                                 android:layout_marginTop="@dimen/margin_medium_1"
                                 android:clickable="true"
-                                android:src="@drawable/ic_receipt_white_24dp" />
+                                android:src="@drawable/ic_radio_button_checked_black_24dp" />
 
                             <TextView
                                 android:id="@+id/tv_course_summary_label"
@@ -244,9 +244,8 @@
                                 android:paddingRight="@dimen/margin_medium_3"
                                 android:text="Course Summary"
                                 android:textAllCaps="true"
-                                android:textColor="@color/text_black_ish_2"
-                                android:textSize="@dimen/text_small"
-                                android:textStyle="bold" />
+                                android:textColor="@color/secondary_text"
+                                android:textSize="@dimen/text_small" />
 
                         </LinearLayout>
 
@@ -285,7 +284,7 @@
                             \n\nUX ေကာင္းမြန္ေအာင္ ဘယ္လိုနည္းလမ္းေတြ သံုးသင့္လဲ၊ ဘာေတြစဥ္းစားသင့္လဲဆို
 တာကိုလည္း တစ္ခ်က္ျခင္းစီ ေသခ်ာေဖာ္ျပေပးထားပါတယ္။ ကိုယ္ဖန္တီးေနတဲ့ App သည္ UX ေကာင္း၊ မေကာင္း စစ္ေဆးနိုင္မယ့္ CheckList တစ္ခုကိုလည္း
 Bonus အေနနဲ႔ ထည့္ေပးထားပါတယ္။"
-                            android:textColor="@color/secondary_text"
+                            android:textColor="@color/text_black_ish"
                             android:textSize="@dimen/text_regular_2x" />
 
                     </LinearLayout>
@@ -320,10 +319,10 @@ Bonus အေနနဲ႔ ထည့္ေပးထားပါတယ္။"
                                 android:id="@+id/iv_course_outline"
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
-                                android:layout_marginLeft="@dimen/margin_medium"
+                                android:layout_marginLeft="@dimen/margin_medium_2"
                                 android:layout_marginTop="@dimen/margin_medium_1"
                                 android:clickable="true"
-                                android:src="@drawable/ic_receipt_white_24dp" />
+                                android:src="@drawable/ic_radio_button_checked_black_24dp" />
 
                             <TextView
                                 android:id="@+id/tv_course_outline_label"
@@ -337,9 +336,8 @@ Bonus အေနနဲ႔ ထည့္ေပးထားပါတယ္။"
                                 android:paddingRight="@dimen/margin_medium_3"
                                 android:text="Course Outline"
                                 android:textAllCaps="true"
-                                android:textColor="@color/text_black_ish_2"
-                                android:textSize="@dimen/text_small"
-                                android:textStyle="bold" />
+                                android:textColor="@color/secondary_text"
+                                android:textSize="@dimen/text_small" />
 
                         </LinearLayout>
 
@@ -348,7 +346,7 @@ Bonus အေနနဲ႔ ထည့္ေပးထားပါတယ္။"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/margin_medium_3"
-                            android:layout_marginLeft="@dimen/margin_medium"
+                            android:layout_marginLeft="@dimen/margin_medium_2"
                             android:layout_marginTop="@dimen/margin_medium"
                             android:nestedScrollingEnabled="false"
                             app:layout_behavior="@string/appbar_scrolling_view_behavior" />

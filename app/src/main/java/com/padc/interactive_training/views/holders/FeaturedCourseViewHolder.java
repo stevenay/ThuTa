@@ -28,9 +28,6 @@ public class FeaturedCourseViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.layout_featured)
     RelativeLayout layoutFeatured;
 
-    @BindView(R.id.view_top_separator)
-    View viewTopSeparator;
-
     @BindView(R.id.iv_course_cover_image)
     ImageView ivCourseCoverImage;
 
@@ -42,9 +39,6 @@ public class FeaturedCourseViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.tv_author_duration)
     TextView tvAuthorDuration;
-
-    @BindView(R.id.btnComments)
-    ImageButton btnComments;
 
     @BindView(R.id.btnLike)
     public ImageButton btnLike;
@@ -93,7 +87,6 @@ public class FeaturedCourseViewHolder extends RecyclerView.ViewHolder {
 
     public void bindFeaturedData() {
         layoutFeatured.setVisibility(View.VISIBLE);
-        viewTopSeparator.setVisibility(View.GONE);
     }
 
     public void bindData(CourseVO courseVO) {
@@ -104,10 +97,10 @@ public class FeaturedCourseViewHolder extends RecyclerView.ViewHolder {
         // tvCategoryName.setTextColor(Color.parseColor(mCourseVO.getColorCode()));
 
         String minute = mContext.getResources().getQuantityString(R.plurals.minutes_count, mCourseVO.getDurationInMinute(), mCourseVO.getDurationInMinute());
-        String like = mContext.getResources().getQuantityString(R.plurals.likes_count, mCourseVO.getLikesCount(), mCourseVO.getLikesCount());
+        // String like = mContext.getResources().getQuantityString(R.plurals.likes_count, mCourseVO.getLikesCount(), mCourseVO.getLikesCount());
 
         tvAuthorDuration.setText(minute + " - " + mCourseVO.getAuthorName());
-        tvLikesCount.setText(like);
+        tvLikesCount.setText(String.valueOf(mCourseVO.getLikesCount()));
 
         Glide.with(ivCourseCoverImage.getContext())
                 .load(courseVO.getCoverPhotoUrl())

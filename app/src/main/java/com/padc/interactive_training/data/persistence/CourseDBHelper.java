@@ -26,7 +26,7 @@ import com.padc.interactive_training.data.persistence.CoursesContract.AnswerEntr
 public class CourseDBHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "courses.db";
-    private static final int DATABASE_VERSION = 21;
+    private static final int DATABASE_VERSION = 23;
     private static final String SQL_CREATE_COURSE_TABLE = "CREATE TABLE " + CourseEntry.TABLE_NAME + " (" +
             CourseEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             CourseEntry.COLUMN_TITLE + " TEXT NOT NULL, " +

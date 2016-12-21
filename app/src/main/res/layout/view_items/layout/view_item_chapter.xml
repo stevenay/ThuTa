@@ -65,15 +65,15 @@
             android:text="Wear broad-spectrum sunscreen."
             android:textColor="@color/primary_text"
             android:textSize="@dimen/text_regular_2x"
-            android:textStyle="normal" />
+            android:textStyle="bold" />
 
         <com.padc.interactive_training.components.MMTextView
             android:id="@+id/tv_chapter_brief"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_chapter_title"
-            android:layout_marginLeft="@dimen/margin_medium_2"
-            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_small"
             android:ellipsize="end"
             android:fontFamily="sans-serif-light"
             android:lineSpacingMultiplier="1.2"
@@ -81,7 +81,7 @@
             android:paddingLeft="@dimen/margin_medium_2"
             android:paddingRight="@dimen/margin_medium_2"
             android:text="It's not enough to wear sunscreen. You need to wear the right kind of sunscreen and keep reapplying..."
-            android:textColor="@color/black_overlay"
+            android:textColor="@color/text_black_ish"
             android:textSize="@dimen/text_regular" />
 
         <RelativeLayout

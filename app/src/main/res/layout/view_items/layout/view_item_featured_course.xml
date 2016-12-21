@@ -5,38 +5,29 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/transparent"
-    android:layout_marginBottom="@dimen/margin_medium"
+    android:layout_marginBottom="@dimen/margin_medium_1.5"
     tools:context=".fragments.FeaturedCourseListFragment">
 
     <RelativeLayout
         android:id="@+id/layout_featured"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:background="@color/text_white_ish"
+        android:layout_height="48dp"
+        android:background="@color/white_full"
         android:orientation="horizontal"
+        android:layout_marginTop="@dimen/margin_medium"
         android:padding="@dimen/margin_medium"
         android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/iv_course_header"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:clickable="true"
-            android:src="@drawable/ic_receipt_white_24dp"/>
 
         <com.padc.interactive_training.components.MMTextView
             android:id="@+id/tv_chapter_list_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_small"
-            android:layout_toRightOf="@id/iv_course_header"
             android:paddingLeft="@dimen/margin_small"
             android:paddingRight="@dimen/margin_small"
-            android:text="ယခုအပတ္ အထူးသင္ခန္းစာ"
-            android:textColor="@color/text_black_ish"
-            android:textSize="@dimen/text_regular_2.5x"
+            android:text="ယခုအပတ္အတြက္ အထူးသင္ခန္းစာ"
+            android:textColor="@color/secondary_text"
+            android:textSize="@dimen/text_regular"
             android:textStyle="normal"/>
 
         <Button
@@ -59,9 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:layout_marginTop="0dp"
+        card_view:cardElevation="@dimen/margin_small"
         card_view:cardCornerRadius="0dp">
 
         <LinearLayout
@@ -70,13 +59,6 @@
             android:orientation="vertical"
             android:background="@color/white_full"
             android:paddingBottom="0dp">
-
-            <View
-                android:id="@+id/view_top_separator"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_medium"
-                android:background="@color/text_white_ish"
-                />
 
             <FrameLayout
                 android:id="@+id/vImageRoot"
@@ -133,7 +115,6 @@
                 android:layout_marginRight="@dimen/margin_medium"
                 android:layout_marginTop="@dimen/margin_medium_2"
                 android:ellipsize="end"
-                android:fontFamily="sans-serif-light"
                 android:gravity="center_horizontal"
                 android:lineSpacingMultiplier="1.2"
                 android:maxLines="4"
@@ -141,7 +122,7 @@
                 android:paddingRight="@dimen/margin_medium_3"
                 android:text="loading course title"
                 android:textColor="@color/primary_text"
-                android:textSize="@dimen/text_heading_1x"/>
+                android:textSize="@dimen/text_regular_3x"/>
 
             <com.padc.interactive_training.components.MMTextView
                 android:id="@+id/tv_author_duration"
@@ -156,49 +137,41 @@
                 android:textColor="@color/secondary_text"
                 android:textSize="@dimen/text_small"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="@dimen/margin_medium_2"
+                android:layout_marginRight="@dimen/margin_medium_2"
+                android:background="#c8c8c8" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_medium_2"
-                android:background="#efefef"
+                android:orientation="horizontal"
+                android:background="@color/white_full"
                 android:padding="@dimen/margin_medium_2"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp">
 
-                <ImageButton
-                    android:id="@+id/btnLike"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:background="@android:color/transparent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_heart_outline_grey"/>
-
-                <ImageButton
-                    android:id="@+id/btnComments"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginLeft="@dimen/margin_medium"
-                    android:background="@drawable/btn_feed_action"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_comment_outline_grey"/>
-
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical|right">
+                    android:gravity="center_vertical|left">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_heart_small_blue"/>
+                    <ImageButton
+                        android:id="@+id/btnLike"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_heart_outline_grey"/>
 
                     <TextSwitcher
                         android:id="@+id/tsLikesCounter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:layout_marginRight="@dimen/margin_small"
                         android:inAnimation="@anim/slide_in_likes_counter"
                         android:outAnimation="@anim/slide_out_likes_counter">
 
@@ -207,15 +180,41 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="loading likes"
-                            android:textColor="@color/text_like_counter"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/text_like_counter"/>
+                            android:textColor="@color/secondary_text"/>
 
                     </TextSwitcher>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical|right">
+
+                    <Button
+                        android:id="@+id/btnComments"
+                        android:layout_width="wrap_content"
+                        android:layout_height="24dp"
+                        android:layout_marginRight="@dimen/margin_medium_3"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerCrop"
+                        android:textAllCaps="false"
+                        android:textColor="@color/secondary_text"
+                        android:textSize="@dimen/text_small"
+                        android:text="7 responses"/>
+
+                    <ImageButton
+                        android:id="@+id/btnBookmark"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_bookmark_border_24dp"
+                        android:tint="@color/hint_secondary_text"/>
+
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>

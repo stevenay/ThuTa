@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
-    android:background="@drawable/header_profile"
+    android:background="#fff"
     android:gravity="bottom"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -10,14 +10,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
-
-    <TextView
-        android:id="@+id/tv_member_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium_2"
-        android:layout_marginBottom="@dimen/margin_medium_2"
-        android:text="Member ID : SS98303" />
 
     <ImageView
         android:id="@+id/iv_user_profile"
@@ -38,14 +30,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/nav_header_vertical_spacing"
         android:text="Nay Lin Aung"
-        android:textSize="@dimen/text_regular_2.5x"
+        android:textSize="@dimen/text_regular_2x"
+        android:textColor="@color/black_full"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:id="@+id/tv_user_email"
+        android:id="@+id/tv_member_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_small"
-        android:text="steve.naylinaung@gmail.com" />
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_medium_2"
+        android:text="Member ID : SS98303"
+        android:textColor="@color/black_full" />
 
 </LinearLayout>

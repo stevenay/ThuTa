@@ -23,6 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_course_cover_image"
         android:gravity="center_horizontal"
+        android:paddingRight="@dimen/margin_medium_2"
+        android:paddingLeft="@dimen/margin_medium_2"
+        android:paddingBottom="@dimen/margin_medium"
         android:textSize="@dimen/text_regular_3x"
         android:textColor="@color/white_full"
         android:text="UV ေရာင္ျခည္ကို ဘယ္လိုကာကြယ္မလဲ"/>

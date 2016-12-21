@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -16,7 +17,8 @@ import android.util.Log;
  */
 public class CourseProvider extends ContentProvider {
 
-    public static final int COURSE = 100;
+    public static final int COURSE_LIST = 100;
+    public static final int COURSE_ITEM = 101;
     public static final int AUTHOR = 200;
     public static final int COURSE_TAG = 300;
     public static final int COURSE_CHAPTER = 400;
@@ -53,7 +55,8 @@ public class CourseProvider extends ContentProvider {
     private static UriMatcher buildUriMatcher() {
         final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSES, COURSE);
+        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSES, COURSE_LIST);
+        uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSES + "/#", COURSE_ITEM);
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_AUTHOR, AUTHOR);
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_TAGS, COURSE_TAG);
         uriMatcher.addURI(CoursesContract.CONTENT_AUTHORITY, CoursesContract.PATH_COURSE_CHAPTERS, COURSE_CHAPTER);
@@ -81,23 +84,25 @@ public class CourseProvider extends ContentProvider {
     @Nullable
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-        Cursor queryCursor;
+        SQLiteDatabase db = mCourseDBHelper.getReadableDatabase();
+        SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
 
         int matchUri = sUriMatcher.match(uri);
         switch (matchUri) {
-            case COURSE:
+            case COURSE_LIST:
                 String courseTitle = CoursesContract.CourseEntry.getTitleFromParam(uri);
                 if (!TextUtils.isEmpty(courseTitle)) {
                     selection = sCourseTitleSelection;
                     selectionArgs = new String[]{courseTitle};
                 }
-                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.CourseEntry.TABLE_NAME,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null, //group_by
-                        null, //having
-                        sortOrder);
+
+                builder.setTables(CoursesContract.CourseEntry.TABLE_NAME);
+                break;
+            case COURSE_ITEM:
+                builder.setTables(CoursesContract.CourseEntry.TABLE_NAME);
+                builder.appendWhere(CoursesContract.CourseEntry._ID + " = " +
+                        uri.getLastPathSegment());
+
                 break;
             case AUTHOR:
                 String authorName = CoursesContract.AuthorEntry.getAuthorNameFromParam(uri);
@@ -105,13 +110,8 @@ public class CourseProvider extends ContentProvider {
                     selection = sAuthorNameSelection;
                     selectionArgs = new String[]{authorName};
                 }
-                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.AuthorEntry.TABLE_NAME,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null, //group_by
-                        null, //having
-                        sortOrder);
+
+                builder.setTables(CoursesContract.AuthorEntry.TABLE_NAME);
                 break;
             case COURSE_CHAPTER:
                 String chapterCourseTitle = CoursesContract.ChapterEntry.getCourseTitleFromParam(uri);
@@ -119,13 +119,8 @@ public class CourseProvider extends ContentProvider {
                     selection = sChapterSelection;
                     selectionArgs = new String[]{chapterCourseTitle};
                 }
-                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.ChapterEntry.TABLE_NAME,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null, //group_by
-                        null, //having
-                        sortOrder);
+
+                builder.setTables(CoursesContract.ChapterEntry.TABLE_NAME);
                 break;
             case LESSON_CARD:
                 String chapterId = CoursesContract.LessonCardEntry.getChapterIdFromParam(uri);
@@ -139,13 +134,7 @@ public class CourseProvider extends ContentProvider {
                     selectionArgs = new String[]{cardCourseTitle};
                 }
 
-                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.LessonCardEntry.TABLE_NAME,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null, //group_by
-                        null, //having
-                        sortOrder);
+                builder.setTables(CoursesContract.LessonCardEntry.TABLE_NAME);
                 break;
             case COURSE_DISCUSSION:
                 String discussCourseTitle = CoursesContract.DiscussionEntry.getCourseTitleFromParam(uri);
@@ -153,13 +142,8 @@ public class CourseProvider extends ContentProvider {
                     selection = sDiscussionSelection;
                     selectionArgs = new String[]{discussCourseTitle};
                 }
-                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.DiscussionEntry.TABLE_NAME,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null, //group_by
-                        null, //having
-                        sortOrder);
+
+                builder.setTables(CoursesContract.DiscussionEntry.TABLE_NAME);
                 break;
             case COURSE_REPLY:
                 String discussionId = CoursesContract.ReplyEntry.getDiscussionIdFromParam(uri);
@@ -167,13 +151,8 @@ public class CourseProvider extends ContentProvider {
                     selection = sReplySelection;
                     selectionArgs = new String[]{discussionId};
                 }
-                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.ReplyEntry.TABLE_NAME,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null, //group_by
-                        null, //having
-                        sortOrder);
+
+                builder.setTables(CoursesContract.ReplyEntry.TABLE_NAME);
                 break;
             case USER:
                 String userId = CoursesContract.UserEntry.getUserIdFromParam(uri);
@@ -181,13 +160,8 @@ public class CourseProvider extends ContentProvider {
                     selection = sUserSelection;
                     selectionArgs = new String[]{userId};
                 }
-                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.UserEntry.TABLE_NAME,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null, //group_by
-                        null, //having
-                        sortOrder);
+
+                builder.setTables(CoursesContract.UserEntry.TABLE_NAME);
                 break;
             case COURSE_TODOLIST:
                 String todoCourseTitle = CoursesContract.TodoListEntry.getCourseTitleFromParam(uri);
@@ -195,13 +169,8 @@ public class CourseProvider extends ContentProvider {
                     selection = sTodoListSelection;
                     selectionArgs = new String[]{todoCourseTitle};
                 }
-                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.TodoListEntry.TABLE_NAME,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null, //group_by
-                        null, //having
-                        sortOrder);
+
+                builder.setTables(CoursesContract.TodoListEntry.TABLE_NAME);
                 break;
             case COURSE_TODOITEM:
                 String todoListId = CoursesContract.TodoItemEntry.getTodoListIdFromParam(uri);
@@ -209,13 +178,8 @@ public class CourseProvider extends ContentProvider {
                     selection = sTodoItemSelection;
                     selectionArgs = new String[]{todoListId};
                 }
-                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.TodoItemEntry.TABLE_NAME,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null, //group_by
-                        null, //having
-                        sortOrder);
+
+                builder.setTables(CoursesContract.TodoItemEntry.TABLE_NAME);
                 break;
             case ARTICLE:
                 String articleId = CoursesContract.ArticleEntry.getArticleIdFromParam(uri);
@@ -223,13 +187,8 @@ public class CourseProvider extends ContentProvider {
                     selection = sArticleSelection;
                     selectionArgs = new String[]{articleId};
                 }
-                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.ArticleEntry.TABLE_NAME,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null, //group_by
-                        null, //having
-                        sortOrder);
+
+                builder.setTables(CoursesContract.ArticleEntry.TABLE_NAME);
                 break;
             case COURSE_LESSON:
                 String courseTestTitle = CoursesContract.CourseLessonEntry.getCourseTitleFromParam(uri);
@@ -237,13 +196,8 @@ public class CourseProvider extends ContentProvider {
                     selection = sCourseTestSelection;
                     selectionArgs = new String[]{courseTestTitle};
                 }
-                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.CourseLessonEntry.TABLE_NAME,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null, //group_by
-                        null, //having
-                        sortOrder);
+
+                builder.setTables(CoursesContract.CourseLessonEntry.TABLE_NAME);
                 break;
             case QUESTION:
                 String lessonId = CoursesContract.QuestionEntry.getLessonIdFromParam(uri);
@@ -251,13 +205,8 @@ public class CourseProvider extends ContentProvider {
                     selection = sQuestionSelection;
                     selectionArgs = new String[]{lessonId};
                 }
-                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.QuestionEntry.TABLE_NAME,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null, //group_by
-                        null, //having
-                        sortOrder);
+
+                builder.setTables(CoursesContract.QuestionEntry.TABLE_NAME);
                 break;
             case ANSWER:
                 String questionId = CoursesContract.AnswerEntry.getQuestionIdFromParam(uri);
@@ -265,17 +214,20 @@ public class CourseProvider extends ContentProvider {
                     selection = sAnswerSelection;
                     selectionArgs = new String[]{questionId};
                 }
-                queryCursor = mCourseDBHelper.getReadableDatabase().query(CoursesContract.AnswerEntry.TABLE_NAME,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null, //group_by
-                        null, //having
-                        sortOrder);
+
+                builder.setTables(CoursesContract.AnswerEntry.TABLE_NAME);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri : " + uri);
         }
+
+        Cursor queryCursor = builder.query(db,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null, // group_by
+                        null, // having
+                        sortOrder);
 
         Context context = getContext();
         if (context != null) {
@@ -285,13 +237,22 @@ public class CourseProvider extends ContentProvider {
         return queryCursor;
     }
 
+    private void prepareReadableTable()
+    {
+        SQLiteDatabase db = mCourseDBHelper.getReadableDatabase();
+        SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+
+    }
+
     @Nullable
     @Override
     public String getType(Uri uri) {
         final int matchUri = sUriMatcher.match(uri);
         switch (matchUri) {
-            case COURSE:
+            case COURSE_LIST:
                 return CoursesContract.CourseEntry.DIR_TYPE;
+            case COURSE_ITEM:
+                return CoursesContract.CourseEntry.ITEM_TYPE;
             default:
                 throw new UnsupportedOperationException("Unknown uri : " + uri);
         }
@@ -305,7 +266,7 @@ public class CourseProvider extends ContentProvider {
         Uri insertedUri = null;
 
         switch (matchUri) {
-            case COURSE: {
+            case COURSE_LIST: {
                 long _id = db.insert(CoursesContract.CourseEntry.TABLE_NAME, null, contentValues);
                 if (_id > 0) {
                     insertedUri = CoursesContract.CourseEntry.buildCourseUri(_id);
@@ -422,7 +383,9 @@ public class CourseProvider extends ContentProvider {
         final int matchUri = sUriMatcher.match(uri);
 
         switch (matchUri) {
-            case COURSE:
+            case COURSE_LIST:
+                return CoursesContract.CourseEntry.TABLE_NAME;
+            case COURSE_ITEM:
                 return CoursesContract.CourseEntry.TABLE_NAME;
             case AUTHOR:
                 return CoursesContract.AuthorEntry.TABLE_NAME;
